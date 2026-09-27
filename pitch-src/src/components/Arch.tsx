@@ -12,7 +12,7 @@ const nodes = [
 const edges = [['api', 'rtc'], ['and', 'sdk'], ['ios', 'sdk'], ['sdk', 'api'], ['sdk', 'pulse'], ['pulse', 'rtc'], ['pulse', 'push']]
 const at = (id: string) => nodes.find((n) => n.id === id)!
 
-export function Arch() {
+export function Arch({ labels }: { labels?: { t: string; s: string }[] }) {
   return (
     <svg viewBox="0 0 980 440" className="w-full" role="img" aria-label="Doctaz architecture: apps, shared SDK, API, realtime network, WebRTC media and push">
       <defs>
@@ -35,8 +35,8 @@ export function Arch() {
         <motion.g key={n.id} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
           transition={{ delay: i * 0.1 }} style={{ transformOrigin: `${n.x}px ${n.y}px` }}>
           <rect x={n.x - 70} y={n.y - 30} width={140} height={60} rx={14} fill="var(--card)" stroke="var(--primary)" strokeOpacity={0.5} />
-          <text x={n.x} y={n.y - 4} textAnchor="middle" fontFamily="Rubik" fontWeight={600} fontSize={13} fill="var(--text)">{n.t}</text>
-          <text x={n.x} y={n.y + 14} textAnchor="middle" fontSize={10} fill="var(--muted)">{n.s}</text>
+          <text x={n.x} y={n.y - 4} textAnchor="middle" fontFamily="Rubik" fontWeight={600} fontSize={13} fill="var(--text)">{labels?.[i]?.t ?? n.t}</text>
+          <text x={n.x} y={n.y + 14} textAnchor="middle" fontSize={10} fill="var(--muted)">{labels?.[i]?.s ?? n.s}</text>
         </motion.g>
       ))}
     </svg>

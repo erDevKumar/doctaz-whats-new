@@ -51,3 +51,10 @@ h1,h2,h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
   [data-slide] { height: 900px; min-height: 0 !important; break-after: page; break-inside: avoid; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+.edit-t { outline: 1px dashed color-mix(in srgb, var(--primary) 60%, transparent); outline-offset: 3px; border-radius: 4px; cursor: text; min-width: 1ch; }
+.edit-t:hover { outline-style: solid; }
+.edit-t:focus { outline: 2px solid var(--primary); background: color-mix(in srgb, var(--primary) 8%, transparent); }
+.edit-t:empty::before { content: attr(data-ph); opacity: .5; }
+.edit-btn { display: inline-grid; place-items: center; min-width: 1.6rem; padding: .15rem .45rem; border-radius: 999px; background: rgba(0,0,0,.72); color: #fff; font-weight: 600; box-shadow: 0 0 0 1px rgba(255,255,255,.2); }
+.edit-btn:hover { background: var(--primary); }

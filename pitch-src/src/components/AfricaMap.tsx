@@ -29,7 +29,7 @@ function inside(x: number, y: number) {
 const dots: [number, number][] = []
 for (let y = 6; y < H; y += 11) for (let x = 6; x < W; x += 11) if (inside(x, y)) dots.push([x, y])
 
-export function AfricaMap() {
+export function AfricaMap({ names }: { names?: string[] }) {
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Doctaz network across African cities">
       <defs>
@@ -56,7 +56,7 @@ export function AfricaMap() {
             <animate attributeName="opacity" values="1;0;1" dur="3s" begin={`${i * 0.25}s`} repeatCount="indefinite" />
           </circle>
           <circle r={3.5} fill="var(--accent)" />
-          <text x={7} y={-6} fontSize={10} fill="var(--text)" fontFamily="Rubik" opacity={0.8}>{n}</text>
+          <text x={7} y={-6} fontSize={10} fill="var(--text)" fontFamily="Rubik" opacity={0.8}>{names?.[i] ?? n}</text>
         </g>
       ))}
     </svg>

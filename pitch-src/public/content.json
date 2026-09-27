@@ -1,0 +1,778 @@
+{
+ "deckName": "Investor deck",
+ "slides": [
+  {
+   "id": "hero",
+   "type": "hero",
+   "label": "Doctaz",
+   "data": {
+    "logo": "./logo.png",
+    "kicker": "Doctaz · Investor preview",
+    "title": "Africa's realtime care network",
+    "sub": "Patients, doctors, APRNs, nurses and hospitals on one network. Chat, video and group calls, with the price shown before anyone taps Call.",
+    "chips": [
+     "Android + iOS live",
+     "HD video and group calls",
+     "Hospital-ready"
+    ],
+    "phoneA": "medtalk/android-chat-1.jpg",
+    "phoneB": "loops/android-call-connect-doctor.mp4"
+   }
+  },
+  {
+   "id": "problem",
+   "type": "problem",
+   "label": "Problem",
+   "data": {
+    "eyebrow": "The problem",
+    "title": "Millions have a smartphone but no doctor within reach.",
+    "items": [
+     {
+      "stat": "[__]",
+      "label": "doctors per 10,000 people across Sub-Saharan Africa"
+     },
+     {
+      "stat": "[__]",
+      "label": "average travel time to reach a specialist"
+     },
+     {
+      "stat": "[__]",
+      "label": "mobile subscribers in target markets"
+     }
+    ],
+    "note": "Care is far away, prices are unclear, and hospitals coordinate staff on WhatsApp. Doctaz fixes all three on the phone people already own."
+   }
+  },
+  {
+   "id": "whynow",
+   "type": "whyNow",
+   "label": "Why now",
+   "data": {
+    "eyebrow": "Why now",
+    "title": "Three shifts make this the moment.",
+    "items": [
+     {
+      "t": "Smartphones everywhere",
+      "d": "Affordable Android phones put HD video in every pocket.",
+      "stat": "[__]",
+      "label": "smartphone adoption in launch markets"
+     },
+     {
+      "t": "Mobile money is mainstream",
+      "d": "Wallet top-ups make paying per consult routine.",
+      "stat": "[__]",
+      "label": "mobile-money accounts"
+     },
+     {
+      "t": "Care has gone remote",
+      "d": "Patients and clinicians now expect virtual consults.",
+      "stat": "[__]",
+      "label": "telehealth growth rate"
+     }
+    ]
+   }
+  },
+  {
+   "id": "solution",
+   "type": "solution",
+   "label": "Solution",
+   "data": {
+    "eyebrow": "The solution",
+    "title": "One network. Five roles.",
+    "sub": "Every new member makes the network more useful for everyone else.",
+    "items": [
+     {
+      "name": "Patients",
+      "icon": "./roles/patient.png",
+      "line": "Find care, chat, call and pay from one wallet"
+     },
+     {
+      "name": "Doctors",
+      "icon": "./roles/doctor.png",
+      "line": "Verified profiles, paid consultations, reviews"
+     },
+     {
+      "name": "APRNs",
+      "icon": "./roles/aprn.png",
+      "line": "Advanced practice nurses bookable like doctors"
+     },
+     {
+      "name": "Nurses",
+      "icon": "./roles/nurse.png",
+      "line": "Nursing care within reach of every patient"
+     },
+     {
+      "name": "Hospitals",
+      "icon": "./roles/hospital.png",
+      "line": "A private environment where staff calls are free"
+     }
+    ]
+   }
+  },
+  {
+   "id": "patient",
+   "type": "journey",
+   "label": "Patient journey",
+   "data": {
+    "eyebrow": "Patient journey",
+    "title": "From sign-up to a 5-star consult.",
+    "steps": [
+     {
+      "t": "Choose a role",
+      "d": "One app, five kinds of member. Patients start in seconds.",
+      "a": "signup/android-1-register-as.jpg"
+     },
+     {
+      "t": "Pick an environment",
+      "d": "Solo care or inside a hospital. The network changes around you.",
+      "a": "onboarding/android-env-picker.jpg"
+     },
+     {
+      "t": "Discover",
+      "d": "A live community home with providers, posts and reviews.",
+      "a": "community/android-home-1.jpg"
+     },
+     {
+      "t": "Chat",
+      "d": "Messages, photos, voice notes and PDFs. Links open as rich cards.",
+      "a": "medtalk/android-chat-1.jpg"
+     },
+     {
+      "t": "Know the price",
+      "d": "The call sheet shows the cost before you call. No surprise bills.",
+      "a": "call/android-0-callsheet.jpg"
+     },
+     {
+      "t": "Video call",
+      "d": "HD video on the phone’s native call screen, even when the app is closed.",
+      "a": "loops/android-call-connect-patient.mp4"
+     },
+     {
+      "t": "Bring in a specialist",
+      "d": "Add people mid-call. Everyone appears in one grid.",
+      "a": "conference/android-1-addperson.jpg"
+     },
+     {
+      "t": "Rate the care",
+      "d": "Reviews after each call build trust for the next patient.",
+      "a": "reviews/android-2-stars.jpg"
+     }
+    ]
+   }
+  },
+  {
+   "id": "live",
+   "type": "live",
+   "label": "Live call",
+   "data": {
+    "eyebrow": "Not a mock-up",
+    "title": "Two real phones. One live call.",
+    "sub": "A doctor video-calls a patient inside a hospital environment. The call is free for members, rings like a normal phone call, and connects in HD. These are unedited screen recordings from two Android phones.",
+    "points": [
+     "Native ringing screen",
+     "HD WebRTC video on our own stack",
+     "Free inside the facility, billed per minute outside it",
+     "Add a specialist mid-call"
+    ],
+    "phones": [
+     {
+      "src": "loops/android-call-connect-doctor.mp4",
+      "who": "Doctor"
+     },
+     {
+      "src": "loops/android-call-connect-patient.mp4",
+      "who": "Patient"
+     }
+    ],
+    "badge": "● LIVE"
+   }
+  },
+  {
+   "id": "provider",
+   "type": "journey",
+   "label": "Providers",
+   "data": {
+    "eyebrow": "Providers and hospitals",
+    "title": "Built for the people who deliver care.",
+    "steps": [
+     {
+      "t": "Register as a provider",
+      "d": "Doctors, APRNs and nurses onboard with their credentials.",
+      "a": "signup/android-2-form.jpg"
+     },
+     {
+      "t": "Verify documents",
+      "d": "Licences are uploaded in-app and checked before going live.",
+      "a": "signup/android-doctor-docs.jpg"
+     },
+     {
+      "t": "A public profile",
+      "d": "A profile that patients find, follow and review.",
+      "a": "profile/android-patient-own-1.jpg"
+     },
+     {
+      "t": "Answer anywhere",
+      "d": "A native ringing screen, like a normal phone call.",
+      "a": "call/android-1-incoming-live.jpg"
+     },
+     {
+      "t": "Free inside the hospital",
+      "d": "Colleagues in the same facility call each other for free.",
+      "a": "loops/android-price-sheet.mp4"
+     }
+    ]
+   }
+  },
+  {
+   "id": "features",
+   "type": "features",
+   "label": "Features",
+   "data": {
+    "eyebrow": "What makes it different",
+    "title": "Built for trust. Built to grow.",
+    "items": [
+     {
+      "t": "Know the price before you call",
+      "d": "The price is on the call sheet, and the wallet is charged only for the connected call.",
+      "img": "call/android-0-callsheet.jpg"
+     },
+     {
+      "t": "Free calls inside a hospital",
+      "d": "The facility environment makes internal calls free. That is a B2B hook.",
+      "img": "call/android-0-callsheet-free.jpg"
+     },
+     {
+      "t": "Everyone in one grid",
+      "d": "Conference calls with specialists, family or a guest.",
+      "img": "conference/android-1-addperson.jpg"
+     },
+     {
+      "t": "Rich clinical chat",
+      "d": "Media, audio, PDFs and link cards, in sync on Android and iPhone.",
+      "img": "chat/android-2-link-bubble.jpg"
+     },
+     {
+      "t": "Share to Doctaz",
+      "d": "Send lab results from any app with the system share sheet.",
+      "img": "share/android-1-sharesheet.jpg"
+     },
+     {
+      "t": "Reviews and reputation",
+      "d": "Ratings after each call, shown on the home screen.",
+      "img": "reviews/android-home-card.jpg"
+     }
+    ],
+    "strip": [
+     "chat/android-8-grid.jpg",
+     "share/android-5-editor.jpg",
+     "conference/android-1-addperson.jpg",
+     "call/android-1-incoming.jpg",
+     "community/android-home-1.jpg",
+     "reviews/android-3-filled.jpg",
+     "chat/android-9-grid-gallery.jpg",
+     "share/android-8-delivered.jpg",
+     "medtalk/android-search.jpg",
+     "reviews/android-home-card.jpg"
+    ]
+   }
+  },
+  {
+   "id": "tech",
+   "type": "tech",
+   "label": "Technology",
+   "data": {
+    "eyebrow": "Technology moat",
+    "title": "We own the stack that others rent.",
+    "nodes": [
+     {
+      "t": "Android app",
+      "s": "Kotlin · Compose"
+     },
+     {
+      "t": "iPhone app",
+      "s": "Swift · CallKit"
+     },
+     {
+      "t": "Doctaz SDK",
+      "s": "Swift + Kotlin"
+     },
+     {
+      "t": "api.doctaz.com",
+      "s": "Auth · pricing · wallet"
+     },
+     {
+      "t": "pulse realtime",
+      "s": "Socket.IO · chat · signalling"
+     },
+     {
+      "t": "WebRTC media",
+      "s": "HD video · group calls"
+     },
+     {
+      "t": "Push (FCM/APNs)",
+      "s": "Rings when the app is closed"
+     }
+    ],
+    "items": [
+     {
+      "t": "Own realtime layer",
+      "d": "In-house Socket.IO network (pulse) for chat, presence and call signalling."
+     },
+     {
+      "t": "Own WebRTC calling",
+      "d": "No per-minute vendor fees. HD video and multi-party calls."
+     },
+     {
+      "t": "Native call screens",
+      "d": "CallKit on iOS and Telecom on Android. Calls ring like normal phone calls."
+     },
+     {
+      "t": "Shared SDK",
+      "d": "One Swift + Kotlin SDK keeps both apps on the same contract."
+     },
+     {
+      "t": "Pricing rules on the server",
+      "d": "Call pricing and facility access are enforced server-side and covered by tests."
+     },
+     {
+      "t": "Push everywhere",
+      "d": "Calls and messages still arrive when the app is closed."
+     }
+    ]
+   }
+  },
+  {
+   "id": "model",
+   "type": "model",
+   "label": "Business model",
+   "data": {
+    "eyebrow": "Business model",
+    "title": "Revenue on every interaction.",
+    "items": [
+     {
+      "t": "Consultation fees",
+      "d": "A take rate on every paid chat and call, charged from the wallet.",
+      "v": "[__]%"
+     },
+     {
+      "t": "Facility plans",
+      "d": "Hospitals pay per seat for their private environment.",
+      "v": "[__]/seat"
+     },
+     {
+      "t": "Wallet float and top-ups",
+      "d": "Mobile-money and card top-ups across currencies.",
+      "v": "[__]"
+     }
+    ],
+    "flow": [
+     "Patient tops up wallet",
+     "Sees the price",
+     "Call connects and is billed",
+     "Doctaz take rate"
+    ]
+   }
+  },
+  {
+   "id": "market",
+   "type": "market",
+   "label": "Market",
+   "data": {
+    "eyebrow": "Market",
+    "title": "Africa first. Built for the world.",
+    "mapCaption": "Illustrative target cities",
+    "cities": [
+     "Lagos",
+     "Accra",
+     "Dakar",
+     "Nairobi",
+     "Kampala",
+     "Kigali",
+     "Addis Ababa",
+     "Cairo",
+     "Kinshasa",
+     "Dar es Salaam",
+     "Johannesburg",
+     "Abidjan",
+     "Douala"
+    ],
+    "expansionTitle": "Expansion path",
+    "expansion": [
+     "[Launch market]",
+     "[Market 2]",
+     "[Market 3]",
+     "Pan-Africa",
+     "Global"
+    ],
+    "sizes": [
+     {
+      "k": "TAM",
+      "v": "[__]",
+      "d": "Digital health, Africa"
+     },
+     {
+      "k": "SAM",
+      "v": "[__]",
+      "d": "Teleconsultation in launch markets"
+     },
+     {
+      "k": "SOM",
+      "v": "[__]",
+      "d": "5-year target"
+     }
+    ],
+    "note": "The same product works in any market: mobile money or cards, multiple currencies, and new facilities added from the admin panel with no app release."
+   }
+  },
+  {
+   "id": "traction",
+   "type": "traction",
+   "label": "Traction",
+   "data": {
+    "eyebrow": "Traction",
+    "title": "Live on Android and iPhone today.",
+    "items": [
+     {
+      "v": "",
+      "label": "Registered users",
+      "suffix": ""
+     },
+     {
+      "v": "",
+      "label": "Verified providers",
+      "suffix": ""
+     },
+     {
+      "v": "",
+      "label": "Calls completed",
+      "suffix": ""
+     },
+     {
+      "v": "",
+      "label": "Month-on-month growth",
+      "suffix": "%"
+     }
+    ],
+    "note": "Shipped: chat, 1:1 and group video, wallet billing, hospital environments, share-to-Doctaz and reviews. All of it is on both platforms."
+   }
+  },
+  {
+   "id": "competition",
+   "type": "competition",
+   "label": "Competition",
+   "data": {
+    "eyebrow": "Competition",
+    "title": "Where Doctaz wins.",
+    "competitors": [
+     "Doctaz",
+     "[Competitor A]",
+     "[Competitor B]",
+     "[Competitor C]"
+    ],
+    "rows": [
+     {
+      "r": "Price before the call",
+      "v": [
+       "yes",
+       "?",
+       "?",
+       "?"
+      ]
+     },
+     {
+      "r": "Free in-facility calls",
+      "v": [
+       "yes",
+       "?",
+       "?",
+       "?"
+      ]
+     },
+     {
+      "r": "Group video consults",
+      "v": [
+       "yes",
+       "?",
+       "?",
+       "?"
+      ]
+     },
+     {
+      "r": "Nurses and APRNs as providers",
+      "v": [
+       "yes",
+       "?",
+       "?",
+       "?"
+      ]
+     },
+     {
+      "r": "Native call screen when the app is closed",
+      "v": [
+       "yes",
+       "?",
+       "?",
+       "?"
+      ]
+     },
+     {
+      "r": "Android + iOS parity",
+      "v": [
+       "yes",
+       "?",
+       "?",
+       "?"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "roadmap",
+   "type": "roadmap",
+   "label": "Roadmap",
+   "data": {
+    "eyebrow": "Roadmap",
+    "title": "What we've built, and what comes next.",
+    "cols": [
+     {
+      "q": "Live now",
+      "items": [
+       "Chat, video and group calls",
+       "Wallet billing",
+       "Hospital environments",
+       "Share to Doctaz"
+      ]
+     },
+     {
+      "q": "Next",
+      "items": [
+       "[Appointments and scheduling]",
+       "[E-prescriptions]",
+       "[Insurer integration]"
+      ]
+     },
+     {
+      "q": "Later",
+      "items": [
+       "[AI triage]",
+       "[Pharmacy network]",
+       "[New regions]"
+      ]
+     }
+    ],
+    "note": "Items marked \"Next\" and \"Later\" are future work, not shipped features."
+   }
+  },
+  {
+   "id": "team",
+   "type": "team",
+   "label": "Team",
+   "data": {
+    "eyebrow": "Team",
+    "title": "The people building it.",
+    "items": [
+     {
+      "n": "[Name]",
+      "r": "CEO",
+      "b": "[One-line background]",
+      "photo": ""
+     },
+     {
+      "n": "[Name]",
+      "r": "CTO",
+      "b": "[One-line background]",
+      "photo": ""
+     },
+     {
+      "n": "[Name]",
+      "r": "Medical lead",
+      "b": "[One-line background]",
+      "photo": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "ask",
+   "type": "ask",
+   "label": "Ask",
+   "data": {
+    "eyebrow": "The ask",
+    "lead": "Raising",
+    "amount": "[$__]",
+    "sub": "To win the launch market and open the next ones.",
+    "uses": [
+     {
+      "u": "Growth",
+      "p": "40"
+     },
+     {
+      "u": "Engineering",
+      "p": "30"
+     },
+     {
+      "u": "Provider network",
+      "p": "20"
+     },
+     {
+      "u": "Operations",
+      "p": "10"
+     }
+    ],
+    "useNote": "(placeholder)"
+   }
+  },
+  {
+   "id": "contact",
+   "type": "contact",
+   "label": "Contact",
+   "data": {
+    "title": "Care, one tap away.",
+    "email": "[email]",
+    "site": "doctaz.com"
+   }
+  }
+ ],
+ "journeys": [
+  {
+   "name": "Patient journey",
+   "steps": [
+    {
+     "t": "Choose a role",
+     "a": "signup/android-1-register-as.jpg"
+    },
+    {
+     "t": "Create account",
+     "a": "signup/android-2-form.jpg"
+    },
+    {
+     "t": "Pick environment",
+     "a": "onboarding/android-env-picker.jpg"
+    },
+    {
+     "t": "Community home",
+     "a": "community/android-home-1.jpg"
+    },
+    {
+     "t": "Find a provider",
+     "a": "medtalk/android-search.jpg"
+    },
+    {
+     "t": "Chat",
+     "a": "medtalk/android-chat-1.jpg"
+    },
+    {
+     "t": "Share media",
+     "a": "chat/android-3-media.jpg"
+    },
+    {
+     "t": "Price and top-up",
+     "a": "call/android-0-callsheet.jpg"
+    },
+    {
+     "t": "Ringing",
+     "a": "call/android-1-ringing-caller.jpg"
+    },
+    {
+     "t": "Video call",
+     "a": "call/android-live-patient.jpg"
+    },
+    {
+     "t": "Rate the visit",
+     "a": "reviews/android-1-prompt.jpg"
+    },
+    {
+     "t": "Stars",
+     "a": "reviews/android-2-stars.jpg"
+    },
+    {
+     "t": "Written review",
+     "a": "reviews/android-3-filled.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Provider journey",
+   "steps": [
+    {
+     "t": "Register as provider",
+     "a": "signup/android-1-register-as.jpg"
+    },
+    {
+     "t": "Nurse details",
+     "a": "signup/android-nurse-1-form.jpg"
+    },
+    {
+     "t": "Upload licence",
+     "a": "signup/android-nurse-2-docs.jpg"
+    },
+    {
+     "t": "Confirm age",
+     "a": "signup/android-nurse-3-age.jpg"
+    },
+    {
+     "t": "Verifying",
+     "a": "signup/android-loader.jpg"
+    },
+    {
+     "t": "Call permissions",
+     "a": "onboarding/android-call-permissions.jpg"
+    },
+    {
+     "t": "Incoming call",
+     "a": "call/android-1-incoming-live.jpg"
+    },
+    {
+     "t": "Consult live",
+     "a": "call/android-live-doctor.jpg"
+    },
+    {
+     "t": "Free call to a clinic patient",
+     "a": "call/android-0-callsheet-provider.jpg"
+    },
+    {
+     "t": "Reputation",
+     "a": "reviews/android-home-card.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Facility journey",
+   "steps": [
+    {
+     "t": "Hospital environment",
+     "a": "onboarding/android-env-picker.jpg"
+    },
+    {
+     "t": "Free internal call",
+     "a": "call/android-0-callsheet-free.jpg"
+    },
+    {
+     "t": "Colleague rings in",
+     "a": "conference/android2-1-added-ring.jpg"
+    },
+    {
+     "t": "Internal video call",
+     "a": "call/android-live-doctor.jpg"
+    },
+    {
+     "t": "Share a lab report",
+     "a": "share/android-1-sharesheet.jpg"
+    },
+    {
+     "t": "Annotate",
+     "a": "share/android-5-editor.jpg"
+    },
+    {
+     "t": "Add a caption",
+     "a": "share/android-6-caption.jpg"
+    },
+    {
+     "t": "Delivered",
+     "a": "share/android-8-delivered.jpg"
+    }
+   ]
+  }
+ ]
+}

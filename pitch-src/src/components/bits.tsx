@@ -2,7 +2,6 @@ import { motion } from 'motion/react'
 import type { ReactNode } from 'react'
 import { Tilt } from '@/components/ui/tilt'
 import { InView } from '@/components/ui/in-view'
-import { img } from '@/data/content'
 
 // Haikei-style shapes: seeded blob and layered waves, generated like haikei.app's exports.
 function rng(seed: number) { return () => ((seed = (seed * 16807) % 2147483647) / 2147483647) }
@@ -25,7 +24,7 @@ export function Blob({ className, seeds = [3, 11, 29], color = 'var(--primary)' 
   return (
     <motion.svg viewBox="0 0 400 400" className={`pointer-events-none absolute blur-3xl ${className}`} aria-hidden
       animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}>
-      <motion.path fill={color} animate={{ d: seeds.map((s) => blobPath(s)) .concat(blobPath(seeds[0])) }}
+      <motion.path fill={color} d={blobPath(seeds[0])} initial={{ d: blobPath(seeds[0]) }} animate={{ d: seeds.map((s) => blobPath(s)) .concat(blobPath(seeds[0])) }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
     </motion.svg>
   )
@@ -44,12 +43,13 @@ export function Waves({ flip }: { flip?: boolean }) {
   )
 }
 
-export function Phone({ src, className = '', tilt = true, alt = '' }: { src: string; className?: string; tilt?: boolean; alt?: string }) {
+export function Phone({ src, url, className = '', tilt = true, alt = '' }: { src: string; url?: string; className?: string; tilt?: boolean; alt?: string }) {
+  const u = url ?? `../img/${src}`
   const body = (
     <div className={`rounded-[2.2rem] border-[6px] border-neutral-900 bg-neutral-900 shadow-2xl shadow-[color-mix(in_srgb,var(--primary)_35%,transparent)] overflow-hidden ${className}`}>
       {src.endsWith('.mp4')
-        ? <video src={img(src)} aria-label={alt} autoPlay muted loop playsInline preload="metadata" className="block h-full w-full object-cover object-top" />
-        : <img src={img(src)} alt={alt} loading="lazy" className="block h-full w-full object-cover object-top" />}
+        ? <video src={u} aria-label={alt} autoPlay muted loop playsInline preload="metadata" className="block h-full w-full object-cover object-top" />
+        : <img src={u} alt={alt} loading="lazy" className="block h-full w-full object-cover object-top" />}
     </div>
   )
   return tilt ? <Tilt rotationFactor={8} isRevese>{body}</Tilt> : body

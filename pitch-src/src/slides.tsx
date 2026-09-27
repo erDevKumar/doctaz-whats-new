@@ -1,4 +1,5 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, type ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { TextEffect } from '@/components/ui/text-effect'
 import { TextShimmer } from '@/components/ui/text-shimmer'
@@ -11,35 +12,51 @@ import { Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/
 import { Blob, Waves, Phone, Reveal, Ph, Section, Eyebrow } from '@/components/bits'
 import { Arch } from '@/components/Arch'
 import { AfricaMap } from '@/components/AfricaMap'
-import * as C from '@/data/content'
+import { T, M, ItemTools, AddItem, useE, defaultContent } from '@/edit'
 
-function Hero() {
+type P = { id: string; b: string; d: any }
+
+const Eb = ({ b }: { b: string }) => <Eyebrow><T p={`${b}.eyebrow`} /></Eyebrow>
+const H2 = ({ b, className = 'max-w-3xl text-4xl font-bold sm:text-5xl', preset = 'blur' }: { b: string; className?: string; preset?: any }) => (
+  <T p={`${b}.title`} as="h2" className={className} view={(s) => <TextEffect key={s} as="h2" per="word" preset={preset} className={className}>{s}</TextEffect>} />
+)
+const Li = ({ p, i, className = '', children }: { p: string; i: number; className?: string; children: ReactNode }) => (
+  <div className={`relative ${className}`}><ItemTools p={p} i={i} />{children}</div>
+)
+const PhoneM = ({ p, className = 'aspect-[9/19.5]', alt = '' }: { p: string; className?: string; alt?: string }) => (
+  <M p={p} render={(url, raw) => <Phone src={raw} url={url} className={className} alt={alt} />} />
+)
+
+function Hero({ id, b }: P) {
   const { scrollY } = useScroll()
   const yA = useTransform(scrollY, [0, 800], [0, -120])
   const yB = useTransform(scrollY, [0, 800], [0, 80])
   const rot = useTransform(scrollY, [0, 800], [0, -6])
+  const { get, edit } = useE()
+  const chips: string[] = get(`${b}.chips`) ?? []
   return (
-    <Section id="hero" bg={<><Blob className="-left-40 -top-40 h-[42rem] w-[42rem] opacity-40" /><Blob className="-right-40 bottom-0 h-[36rem] w-[36rem] opacity-30" seeds={[7, 19, 41]} color="var(--accent)" /><Waves /></>}>
+    <Section id={id} bg={<><Blob className="-left-40 -top-40 h-[42rem] w-[42rem] opacity-40" /><Blob className="-right-40 bottom-0 h-[36rem] w-[36rem] opacity-30" seeds={[7, 19, 41]} color="var(--accent)" /><Waves /></>}>
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <img src="./logo.png" alt="Doctaz" className="mb-8 h-10 w-auto" />
-          <TextShimmer className="mb-4 text-sm font-bold uppercase tracking-[0.3em] [--base-color:var(--primary)] [--base-gradient-color:var(--text)]" duration={3}>{C.hero.kicker}</TextShimmer>
-          <TextEffect as="h1" per="word" preset="fade-in-blur" className="text-5xl font-extrabold leading-[1.02] sm:text-7xl">{C.hero.title}</TextEffect>
-          <Reveal delay={0.6}><p className="mt-6 max-w-xl text-lg text-muted sm:text-xl">{C.hero.sub}</p></Reveal>
+          <M p={`${b}.logo`} accept="image/*" render={(url) => <img src={url} alt="Logo" className="mb-8 h-10 w-auto" />} />
+          <T p={`${b}.kicker`} as="p" className="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-primary"
+            view={(s) => <TextShimmer className="mb-4 text-sm font-bold uppercase tracking-[0.3em] [--base-color:var(--primary)] [--base-gradient-color:var(--text)]" duration={3}>{s}</TextShimmer>} />
+          <T p={`${b}.title`} as="h1" className="text-5xl font-extrabold leading-[1.02] sm:text-7xl"
+            view={(s) => <TextEffect key={s} as="h1" per="word" preset="fade-in-blur" className="text-5xl font-extrabold leading-[1.02] sm:text-7xl">{s}</TextEffect>} />
+          <Reveal delay={0.6}><T p={`${b}.sub`} as="p" className="mt-6 block max-w-xl text-lg text-muted sm:text-xl" /></Reveal>
           <Reveal delay={0.9}>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
-              {['Android + iOS live', 'HD video and group calls', 'Hospital-ready'].map((t) => (
-                <span key={t} className="glass rounded-full px-4 py-2">{t}</span>
-              ))}
+              {chips.map((_, k) => <Li key={k} p={`${b}.chips`} i={k}><T p={`${b}.chips.${k}`} className="glass inline-block rounded-full px-4 py-2" /></Li>)}
             </div>
+            {edit && <AddItem p={`${b}.chips`} label="Add chip" />}
           </Reveal>
         </div>
-        <div className="relative mx-auto flex h-[30rem] w-full max-w-md sm:h-[34rem] items-center justify-center">
+        <div className="relative mx-auto flex h-[30rem] w-full max-w-md items-center justify-center sm:h-[34rem]">
           <motion.div style={{ y: yA, rotate: rot }} className="absolute left-2 top-0 w-40 sm:top-10 sm:w-52" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity }}>
-            <Phone src="medtalk/android-chat-1.jpg" className="aspect-[9/19.5]" alt="Chat" />
+            <PhoneM p={`${b}.phoneA`} alt="App screen" />
           </motion.div>
           <motion.div style={{ y: yB }} className="absolute right-2 top-12 z-10 w-40 sm:top-24 sm:w-60" animate={{ y: [0, 16, 0] }} transition={{ duration: 7, repeat: Infinity }}>
-            <Phone src="loops/android-call-connect-doctor.mp4" className="aspect-[9/19.5]" alt="Live video call" />
+            <PhoneM p={`${b}.phoneB`} alt="App screen" />
           </motion.div>
         </div>
       </div>
@@ -47,394 +64,486 @@ function Hero() {
   )
 }
 
-function Problem() {
+function StatCards({ id, b, d, cols = 3 }: P & { cols?: number }) {
   return (
-    <Section id="problem" bg={<><Blob className="right-[-20rem] top-0 h-[40rem] w-[40rem] opacity-20" seeds={[5, 13, 23]} /></>}>
-      <Eyebrow>The problem</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="max-w-4xl text-4xl font-bold sm:text-6xl">
-        Millions have a smartphone but no doctor within reach.
-      </TextEffect>
-      <AnimatedGroup preset="blur-slide" className="mt-14 grid gap-5 sm:grid-cols-3">
-        {C.problem.map((p) => (
-          <div key={p.label} className="glass rounded-3xl p-7">
-            <div className="text-4xl font-bold"><Ph>{p.stat}</Ph></div>
-            <p className="mt-3 text-muted">{p.label}</p>
-          </div>
+    <Section id={id} bg={<Blob className="right-[-20rem] top-0 h-[40rem] w-[40rem] opacity-20" seeds={[5, 13, 23]} />}>
+      <Eb b={b} />
+      <H2 b={b} className="max-w-4xl text-4xl font-bold sm:text-6xl" />
+      <AnimatedGroup preset="blur-slide" className={`mt-14 grid gap-5 ${cols === 3 ? 'md:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
+        {d.items.map((w: any, k: number) => (
+          <Li key={k} p={`${b}.items`} i={k} className="glass overflow-hidden rounded-3xl p-7">
+            <div className="absolute -right-4 -top-8 font-display text-[9rem] font-extrabold leading-none opacity-[0.06]">{k + 1}</div>
+            {'t' in w && <T p={`${b}.items.${k}.t`} as="h3" className="block text-xl font-semibold" />}
+            {'d' in w && <T p={`${b}.items.${k}.d`} as="p" className="mt-3 block text-muted" />}
+            <div className={`${'t' in w ? 'mt-6' : ''} text-3xl font-bold`}><T p={`${b}.items.${k}.stat`} /></div>
+            <T p={`${b}.items.${k}.label`} as="p" className="mt-2 block text-sm text-muted" />
+          </Li>
         ))}
       </AnimatedGroup>
-      <Reveal delay={0.3}><p className="mt-10 max-w-2xl text-lg text-muted">Care is far away, prices are unclear, and hospitals coordinate staff on WhatsApp. Doctaz fixes all three on the phone people already own.</p></Reveal>
+      <AddItem p={`${b}.items`} label="Add card" />
+      {'note' in d && <Reveal delay={0.3}><T p={`${b}.note`} as="p" className="mt-10 block max-w-2xl text-lg text-muted" /></Reveal>}
     </Section>
   )
 }
 
-function Solution() {
+function Solution({ id, b, d }: P) {
   return (
-    <Section id="solution">
-      <Eyebrow>The solution</Eyebrow>
-      <TextEffect as="h2" per="word" preset="fade-in-blur" className="max-w-4xl text-4xl font-bold sm:text-6xl">One network. Five roles.</TextEffect>
-      <Reveal><p className="mt-4 max-w-2xl text-lg text-muted">Every new member makes the network more useful for everyone else.</p></Reveal>
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} className="max-w-4xl text-4xl font-bold sm:text-6xl" preset="fade-in-blur" />
+      <Reveal><T p={`${b}.sub`} as="p" className="mt-4 block max-w-2xl text-lg text-muted" /></Reveal>
       <AnimatedGroup preset="scale" className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-5">
-        {C.roles.map((r) => (
-          <div key={r.name} className="glass group relative overflow-hidden rounded-3xl p-6 text-center">
+        {d.items.map((_: any, k: number) => (
+          <Li key={k} p={`${b}.items`} i={k} className="glass group overflow-hidden rounded-3xl p-6 text-center">
             <Spotlight size={180} className="from-primary/40 via-primary/10 to-transparent" />
-            <img src={`./roles/${r.icon}.png`} alt="" className="mx-auto h-16 w-16 object-contain transition group-hover:scale-110" />
-            <h3 className="mt-4 text-lg font-semibold">{r.name}</h3>
-            <p className="mt-1 text-sm text-muted">{r.line}</p>
-          </div>
+            <M p={`${b}.items.${k}.icon`} accept="image/*" render={(url) => <img src={url} alt="" className="mx-auto h-16 w-16 object-contain transition group-hover:scale-110" />} />
+            <T p={`${b}.items.${k}.name`} as="h3" className="mt-4 block text-lg font-semibold" />
+            <T p={`${b}.items.${k}.line`} as="p" className="mt-1 block text-sm text-muted" />
+          </Li>
         ))}
       </AnimatedGroup>
+      <AddItem p={`${b}.items`} label="Add role" />
     </Section>
   )
 }
 
-function Journey({ id, eyebrow, title, steps }: { id: string; eyebrow: string; title: string; steps: C.Step[] }) {
+function Journey({ id, b, d }: P) {
   const [i, setI] = useState(0)
-  const s = steps[i]
+  const { edit } = useE()
+  const steps: any[] = d.steps
+  const at = Math.min(i, steps.length - 1)
   return (
     <Section id={id} bg={<Blob className="-left-60 bottom-0 h-[36rem] w-[36rem] opacity-20" seeds={[17, 31, 2]} color="var(--accent)" />}>
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">{title}</TextEffect>
+      <Eb b={b} />
+      <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_1.1fr]">
         <ol className="space-y-2">
-          {steps.map((st, k) => (
-            <li key={st.t}>
-              <button onClick={() => setI(k)} onMouseEnter={() => setI(k)}
-                className={`flex w-full items-start gap-4 rounded-2xl p-3 text-left transition ${k === i ? 'glass' : 'opacity-60 hover:opacity-100'}`}>
-                <span className={`mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-bold ${k === i ? 'bg-primary text-white' : 'border border-line'}`}>{k + 1}</span>
+          {steps.map((_, k) => (
+            <li key={k} className="relative">
+              <ItemTools p={`${b}.steps`} i={k} />
+              <div role="button" tabIndex={0} onClick={() => setI(k)} onMouseEnter={() => !edit && setI(k)} onKeyDown={(e) => e.key === 'Enter' && setI(k)}
+                className={`flex w-full cursor-pointer items-start gap-4 rounded-2xl p-3 text-left transition ${k === at ? 'glass' : 'opacity-60 hover:opacity-100'}`}>
+                <span className={`mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-bold ${k === at ? 'bg-primary text-white' : 'border border-line'}`}>{k + 1}</span>
                 <span>
-                  <span className="block font-display font-semibold">{st.t}</span>
-                  {k === i && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="block text-sm text-muted">{st.d}</motion.span>}
+                  <T p={`${b}.steps.${k}.t`} className="block font-display font-semibold" />
+                  {(k === at || edit) && <T p={`${b}.steps.${k}.d`} as="span" className="block text-sm text-muted" />}
                 </span>
-              </button>
+              </div>
             </li>
           ))}
+          <AddItem p={`${b}.steps`} label="Add step" />
         </ol>
-        <TransitionPanel activeIndex={i} className="h-[30rem] sm:h-[34rem]"
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+        <TransitionPanel activeIndex={at} className="h-[30rem] sm:h-[34rem]" transition={{ duration: 0.4, ease: 'easeOut' }}
           variants={{ enter: { opacity: 0, y: 30, filter: 'blur(6px)' }, center: { opacity: 1, y: 0, filter: 'blur(0)' }, exit: { opacity: 0, y: -30, filter: 'blur(6px)' } }}>
-          {steps.map((st) => (
-            <div key={st.t} className="flex h-full items-center justify-center gap-4 sm:gap-8">
-              <Shot src={st.a} label={st.t} />
+          {steps.map((st, k) => (
+            <div key={k} className="flex h-full items-center justify-center">
+              <Shot p={`${b}.steps.${k}.a`} label={st.t} />
             </div>
           ))}
         </TransitionPanel>
       </div>
-      <p className="sr-only" aria-live="polite">{s.t}</p>
     </Section>
   )
 }
 
-function Shot({ src, label }: { src: string; label: string }) {
+function Shot({ p, label }: { p: string; label: string }) {
+  const { edit } = useE()
+  if (edit) return <div className="w-36 sm:w-56"><PhoneM p={p} alt={label} /></div>
   return (
-    <Dialog>
-      <DialogTrigger className="flex w-36 cursor-zoom-in flex-col sm:w-56">
-        <Phone src={src} className="aspect-[9/19.5]" alt={label} />
-        <span className="mt-3 block text-center text-xs uppercase tracking-widest text-muted">{label}</span>
-      </DialogTrigger>
-      <DialogContent className="w-[min(90vw,420px)] rounded-3xl bg-bg p-3">
-        {src.endsWith('.mp4')
-          ? <video src={C.img(src)} autoPlay muted loop playsInline className="max-h-[85vh] w-full rounded-2xl object-contain" />
-          : <img src={C.img(src)} alt={label} className="max-h-[85vh] w-full rounded-2xl object-contain" />}
-        <DialogClose />
-      </DialogContent>
-    </Dialog>
+    <M p={p} render={(url, raw) => (
+      <Dialog>
+        <DialogTrigger className="flex w-36 cursor-zoom-in flex-col sm:w-56">
+          <Phone src={raw} url={url} className="aspect-[9/19.5]" alt={label} />
+          <span className="mt-3 block text-center text-xs uppercase tracking-widest text-muted">{label}</span>
+        </DialogTrigger>
+        <DialogContent className="w-[min(90vw,420px)] rounded-3xl bg-bg p-3">
+          {raw.endsWith('.mp4') ? <video src={url} autoPlay muted loop playsInline className="max-h-[85vh] w-full rounded-2xl object-contain" />
+            : <img src={url} alt={label} className="max-h-[85vh] w-full rounded-2xl object-contain" />}
+          <DialogClose />
+        </DialogContent>
+      </Dialog>
+    )} />
   )
 }
 
-function Features() {
+function LiveCall({ id, b, d }: P) {
   return (
-    <Section id="features">
-      <Eyebrow>What makes it different</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="max-w-3xl text-4xl font-bold sm:text-5xl">Built for trust. Built to grow.</TextEffect>
-      <AnimatedGroup preset="blur-slide" className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {C.features.map((f) => (
-          <div key={f.t} className="glass group relative flex gap-4 overflow-hidden rounded-3xl p-5">
-            <Spotlight size={220} className="from-primary/30 via-primary/5 to-transparent" />
-            <div className="h-40 w-20 shrink-0 overflow-hidden rounded-xl border border-line">
-              <img src={C.img(f.img)} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-110" />
-            </div>
-            <div>
-              <h3 className="font-semibold">{f.t}</h3>
-              <p className="mt-2 text-sm text-muted">{f.d}</p>
-            </div>
-          </div>
-        ))}
-      </AnimatedGroup>
-      <div className="mt-14 opacity-70">
-        <InfiniteSlider gap={20} speed={40} speedOnHover={10}>
-          {['chat/android-8-grid.jpg', 'share/android-5-editor.jpg', 'conference/android-1-addperson.jpg', 'call/android-1-incoming.jpg', 'community/android-home-1.jpg', 'reviews/android-3-filled.jpg', 'chat/android-9-grid-gallery.jpg', 'share/android-8-delivered.jpg', 'medtalk/android-search.jpg', 'reviews/android-home-card.jpg']
-            .map((p) => <img key={p} src={C.img(p)} alt="" className="h-48 w-24 rounded-xl object-cover object-top" />)}
-        </InfiniteSlider>
+    <Section id={id} bg={<Blob className="left-1/2 top-1/2 h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 opacity-25" seeds={[21, 4, 33]} />}>
+      <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <Eb b={b} />
+          <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
+          <Reveal delay={0.2}><T p={`${b}.sub`} as="p" className="mt-5 block text-lg text-muted" /></Reveal>
+          <Reveal delay={0.35}>
+            <ul className="mt-6 space-y-2 text-sm">
+              {d.points.map((_: string, k: number) => (
+                <li key={k} className="relative flex items-center gap-3 pr-20"><ItemTools p={`${b}.points`} i={k} /><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] text-white">✓</span><T p={`${b}.points.${k}`} /></li>
+              ))}
+            </ul>
+            <AddItem p={`${b}.points`} label="Add point" />
+          </Reveal>
+        </div>
+        <div className="relative flex items-center justify-center gap-4 sm:gap-8">
+          {d.phones.map((_: any, k: number) => (
+            <motion.div key={k} initial={{ opacity: 0, y: 60, rotate: k ? 4 : -4 }} whileInView={{ opacity: 1, y: k ? 30 : 0, rotate: k ? 3 : -3 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: k * 0.2 }} className="w-40 sm:w-60">
+              <PhoneM p={`${b}.phones.${k}.src`} alt="Live call" />
+              <T p={`${b}.phones.${k}.who`} as="p" className="mt-3 block text-center text-xs uppercase tracking-widest text-muted" />
+            </motion.div>
+          ))}
+          <motion.div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-4 py-2 font-display text-sm font-semibold text-white shadow-[0_0_40px_var(--primary)]"
+            animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2, repeat: Infinity }}><T p={`${b}.badge`} /></motion.div>
+        </div>
       </div>
     </Section>
   )
 }
 
-function Tech() {
+function Features({ id, b, d }: P) {
+  const { src, edit } = useE()
   return (
-    <Section id="tech" bg={<><Blob className="left-1/3 top-1/4 h-[30rem] w-[30rem] opacity-15" seeds={[43, 8, 27]} /></>}>
-      <Eyebrow>Technology moat</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="max-w-3xl text-4xl font-bold sm:text-5xl">We own the stack that others rent.</TextEffect>
-      <Reveal><div className="glass mt-10 rounded-3xl p-4 sm:p-8"><Arch /></div></Reveal>
-      <AnimatedGroup preset="fade" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {C.tech.map((t) => (
-          <div key={t.t} className="border-l-2 border-primary pl-4">
-            <h3 className="font-semibold">{t.t}</h3>
-            <p className="text-sm text-muted">{t.d}</p>
-          </div>
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} />
+      <AnimatedGroup preset="blur-slide" className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {d.items.map((_: any, k: number) => (
+          <Li key={k} p={`${b}.items`} i={k} className="glass group flex gap-4 overflow-hidden rounded-3xl p-5">
+            <Spotlight size={220} className="from-primary/30 via-primary/5 to-transparent" />
+            <div className="h-40 w-20 shrink-0 overflow-hidden rounded-xl border border-line">
+              <M p={`${b}.items.${k}.img`} render={(url, raw) => raw.endsWith('.mp4')
+                ? <video src={url} autoPlay muted loop playsInline className="h-full w-full object-cover object-top" />
+                : <img src={url} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-110" />} />
+            </div>
+            <div>
+              <T p={`${b}.items.${k}.t`} as="h3" className="block font-semibold" />
+              <T p={`${b}.items.${k}.d`} as="p" className="mt-2 block text-sm text-muted" />
+            </div>
+          </Li>
         ))}
       </AnimatedGroup>
+      <AddItem p={`${b}.items`} label="Add feature" />
+      {edit ? (
+        <div className="mt-10 flex flex-wrap gap-3">
+          {d.strip.map((_: string, k: number) => <Li key={k} p={`${b}.strip`} i={k} className="w-24"><M p={`${b}.strip.${k}`} render={(url) => <img src={url} alt="" className="h-48 w-24 rounded-xl object-cover object-top" />} /></Li>)}
+          <AddItem p={`${b}.strip`} label="Add screen" />
+        </div>
+      ) : (
+        <div className="mt-14 opacity-70">
+          <InfiniteSlider gap={20} speed={40} speedOnHover={10}>
+            {d.strip.map((s: string, k: number) => <img key={k} src={src(s)} alt="" className="h-48 w-24 rounded-xl object-cover object-top" />)}
+          </InfiniteSlider>
+        </div>
+      )}
     </Section>
   )
 }
 
-function Model() {
+function Tech({ id, b, d }: P) {
   return (
-    <Section id="model">
-      <Eyebrow>Business model</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="max-w-3xl text-4xl font-bold sm:text-5xl">Revenue on every interaction.</TextEffect>
-      <AnimatedGroup preset="slide" className="mt-12 grid gap-5 md:grid-cols-3">
-        {C.model.map((m, k) => (
-          <div key={m.t} className="glass relative overflow-hidden rounded-3xl p-7">
-            <div className="absolute -right-6 -top-6 font-display text-[8rem] font-extrabold leading-none opacity-5">{k + 1}</div>
-            <div className="text-3xl font-bold"><Ph>{m.v}</Ph></div>
-            <h3 className="mt-4 text-xl font-semibold">{m.t}</h3>
-            <p className="mt-2 text-muted">{m.d}</p>
-          </div>
+    <Section id={id} bg={<Blob className="left-1/3 top-1/4 h-[30rem] w-[30rem] opacity-15" seeds={[43, 8, 27]} />}>
+      <Eb b={b} />
+      <H2 b={b} />
+      <Reveal><div className="glass mt-10 rounded-3xl p-4 sm:p-8"><Arch labels={d.nodes} /></div></Reveal>
+      <EditNodes b={b} n={d.nodes.length} />
+      <AnimatedGroup preset="fade" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {d.items.map((_: any, k: number) => (
+          <Li key={k} p={`${b}.items`} i={k} className="border-l-2 border-primary pl-4 pr-16">
+            <T p={`${b}.items.${k}.t`} as="h3" className="block font-semibold" />
+            <T p={`${b}.items.${k}.d`} as="p" className="block text-sm text-muted" />
+          </Li>
         ))}
       </AnimatedGroup>
+      <AddItem p={`${b}.items`} label="Add point" />
+    </Section>
+  )
+}
+
+function EditNodes({ b, n }: { b: string; n: number }) {
+  const { edit } = useE()
+  if (!edit) return null
+  return (
+    <div className="mt-4 grid gap-2 text-xs sm:grid-cols-4">
+      <p className="text-muted sm:col-span-4">Diagram boxes:</p>
+      {Array.from({ length: n }, (_, k) => <div key={k} className="glass rounded-lg p-2"><T p={`${b}.nodes.${k}.t`} className="block font-semibold" /><T p={`${b}.nodes.${k}.s`} className="block text-muted" /></div>)}
+    </div>
+  )
+}
+
+function Model({ id, b, d }: P) {
+  return (
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} />
+      <AnimatedGroup preset="slide" className="mt-12 grid gap-5 md:grid-cols-3">
+        {d.items.map((_: any, k: number) => (
+          <Li key={k} p={`${b}.items`} i={k} className="glass overflow-hidden rounded-3xl p-7">
+            <div className="absolute -right-6 -top-6 font-display text-[8rem] font-extrabold leading-none opacity-5">{k + 1}</div>
+            <div className="text-3xl font-bold"><T p={`${b}.items.${k}.v`} /></div>
+            <T p={`${b}.items.${k}.t`} as="h3" className="mt-4 block text-xl font-semibold" />
+            <T p={`${b}.items.${k}.d`} as="p" className="mt-2 block text-muted" />
+          </Li>
+        ))}
+      </AnimatedGroup>
+      <AddItem p={`${b}.items`} label="Add revenue line" />
       <Reveal delay={0.2}>
         <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-muted">
-          <span className="glass rounded-full px-4 py-2">Patient tops up wallet</span>→
-          <span className="glass rounded-full px-4 py-2">Sees the price</span>→
-          <span className="glass rounded-full px-4 py-2">Call connects and is billed</span>→
-          <span className="rounded-full bg-primary px-4 py-2 text-white">Doctaz take rate</span>
+          {d.flow.map((_: string, k: number) => (
+            <span key={k} className="flex items-center gap-3">
+              {k > 0 && '→'}
+              <Li p={`${b}.flow`} i={k}><T p={`${b}.flow.${k}`} className={`inline-block rounded-full px-4 py-2 ${k === d.flow.length - 1 ? 'bg-primary text-white' : 'glass'}`} /></Li>
+            </span>
+          ))}
         </div>
+        <AddItem p={`${b}.flow`} label="Add flow step" />
       </Reveal>
     </Section>
   )
 }
 
-function Market() {
+function Market({ id, b, d }: P) {
+  const { edit } = useE()
   return (
-    <Section id="market" bg={<><Blob className="-right-40 top-10 h-[40rem] w-[40rem] opacity-25" seeds={[12, 36, 9]} color="var(--accent)" /></>}>
-      <Eyebrow>Market</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="max-w-3xl text-4xl font-bold sm:text-5xl">Africa first. Built for the world.</TextEffect>
+    <Section id={id} bg={<Blob className="-right-40 top-10 h-[40rem] w-[40rem] opacity-25" seeds={[12, 36, 9]} color="var(--accent)" />}>
+      <Eb b={b} />
+      <H2 b={b} />
       <div className="mt-12 grid items-center gap-12 lg:grid-cols-2">
         <div className="relative mx-auto w-full max-w-lg">
-          <AfricaMap />
-          <p className="mt-2 text-center text-xs text-muted">Illustrative target cities</p>
+          <AfricaMap names={d.cities} />
+          <T p={`${b}.mapCaption`} as="p" className="mt-2 block text-center text-xs text-muted" />
+          {edit && <div className="mt-3 flex flex-wrap gap-1 text-xs"><span className="text-muted">City labels:</span>{d.cities.map((_: string, k: number) => <T key={k} p={`${b}.cities.${k}`} className="glass rounded px-2" />)}</div>}
         </div>
         <div>
-          <h3 className="mb-6 text-xl font-semibold">Expansion path</h3>
+          <T p={`${b}.expansionTitle`} as="h3" className="mb-6 block text-xl font-semibold" />
           <ol className="relative border-l border-line pl-6">
-            {C.expansion.map((e, k) => (
-              <motion.li key={e} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: k * 0.15 }} className="mb-6">
-                <span className="absolute -left-[7px] mt-1.5 h-3 w-3 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />
-                <span className="font-display font-semibold">{e.startsWith('[') ? <Ph>{e}</Ph> : e}</span>
+            {d.expansion.map((_: string, k: number) => (
+              <motion.li key={k} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: k * 0.15 }} className="relative mb-6 pr-20">
+                <ItemTools p={`${b}.expansion`} i={k} />
+                <span className="absolute -left-[31px] mt-1.5 h-3 w-3 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />
+                <T p={`${b}.expansion.${k}`} className="font-display font-semibold" />
               </motion.li>
             ))}
           </ol>
-          <div className="mb-8 grid grid-cols-3 gap-3">
-            {C.market.map((m, k) => (
-              <motion.div key={m.k} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: k * 0.15 }}
+          <AddItem p={`${b}.expansion`} label="Add market" />
+          <div className="mb-8 mt-4 grid grid-cols-3 gap-3">
+            {d.sizes.map((_: any, k: number) => (
+              <motion.div key={k} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: k * 0.15 }}
                 className="glass rounded-2xl p-4" style={{ background: `color-mix(in srgb, var(--primary) ${8 + k * 10}%, var(--card))` }}>
-                <div className="font-display text-sm font-bold text-primary">{m.k}</div>
-                <div className="mt-1 text-xl font-bold"><Ph>{m.v}</Ph></div>
-                <div className="mt-1 text-xs text-muted">{m.d}</div>
+                <T p={`${b}.sizes.${k}.k`} className="block font-display text-sm font-bold text-primary" />
+                <div className="mt-1 text-xl font-bold"><T p={`${b}.sizes.${k}.v`} /></div>
+                <T p={`${b}.sizes.${k}.d`} className="mt-1 block text-xs text-muted" />
               </motion.div>
             ))}
           </div>
-          <p className="text-muted">The same product works in any market: mobile money or cards, multiple currencies, and new facilities added from the admin panel with no app release.</p>
+          <T p={`${b}.note`} as="p" className="block text-muted" />
         </div>
       </div>
     </Section>
   )
 }
 
-function Traction() {
+function Traction({ id, b, d }: P) {
   const [go, setGo] = useState(false)
+  const { edit } = useE()
   return (
-    <Section id="traction">
-      <Eyebrow>Traction</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">Live on Android and iPhone today.</TextEffect>
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <motion.div onViewportEnter={() => setGo(true)} className="mt-12 grid grid-cols-2 gap-5 lg:grid-cols-4">
-        {C.traction.map((t) => (
-          <div key={t.label} className="glass rounded-3xl p-7">
-            <div className="font-display text-4xl font-bold sm:text-5xl">
-              {t.v == null ? <Ph>[__]</Ph> : <><AnimatedNumber value={go ? t.v : 0} springOptions={{ bounce: 0, duration: 2000 }} />{t.suffix}</>}
-            </div>
-            <p className="mt-2 text-muted">{t.label}</p>
-          </div>
-        ))}
+        {d.items.map((t: any, k: number) => {
+          const n = Number(String(t.v).replace(/[^0-9.]/g, ''))
+          return (
+            <Li key={k} p={`${b}.items`} i={k} className="glass rounded-3xl p-7">
+              <div className="font-display text-4xl font-bold sm:text-5xl">
+                {edit ? <><T p={`${b}.items.${k}.v`} /><T p={`${b}.items.${k}.suffix`} className="text-2xl text-muted" /></>
+                  : t.v === '' || Number.isNaN(n) ? <Ph>{t.v || '[__]'}</Ph>
+                    : <><AnimatedNumber value={go ? n : 0} springOptions={{ bounce: 0, duration: 2000 }} />{t.suffix}</>}
+              </div>
+              <T p={`${b}.items.${k}.label`} as="p" className="mt-2 block text-muted" />
+            </Li>
+          )
+        })}
       </motion.div>
-      <Reveal><p className="mt-8 text-muted">Shipped: chat, 1:1 and group video, wallet billing, hospital environments, share-to-Doctaz and reviews. All of it is on both platforms.</p></Reveal>
+      {edit && <p className="mt-2 text-xs text-muted">Type a number for an animated counter; the small field after it is the suffix (for example %).</p>}
+      <AddItem p={`${b}.items`} label="Add metric" />
+      <Reveal><T p={`${b}.note`} as="p" className="mt-8 block text-muted" /></Reveal>
     </Section>
   )
 }
 
-function Competition() {
+function Competition({ id, b, d }: P) {
+  const { edit, get, set } = useE()
+  const cycle = (p: string) => { const v = get(p); set(p, v === 'yes' ? 'no' : v === 'no' ? '?' : 'yes') }
+  const mark = (v: string) => (v === 'yes' ? '✓' : v === 'no' ? '–' : <Ph>?</Ph>)
   return (
-    <Section id="competition">
-      <Eyebrow>Competition</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">Where Doctaz wins.</TextEffect>
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <Reveal>
         <div className="glass mt-10 overflow-x-auto rounded-3xl">
           <table className="w-full min-w-[560px] text-left text-sm">
-            <thead><tr>{['', ...C.competitors].map((c, k) => <th key={k} className={`p-4 font-display ${k === 1 ? 'text-primary' : ''}`}>{c.startsWith('[') ? <Ph>{c}</Ph> : c}</th>)}</tr></thead>
+            <thead><tr><th className="p-4" />{d.competitors.map((_: string, k: number) => <th key={k} className={`p-4 font-display ${k === 0 ? 'text-primary' : ''}`}><T p={`${b}.competitors.${k}`} /></th>)}</tr></thead>
             <tbody>
-              {C.compRows.map(([r, v]) => (
+              {d.rows.map((row: any, r: number) => (
                 <tr key={r} className="border-t border-line">
-                  <td className="p-4">{r}</td>
-                  {v.map((b, k) => <td key={k} className={`p-4 text-lg ${k === 0 ? 'bg-primary/10' : ''}`}>{k === 0 ? (b ? '✓' : '–') : <Ph>?</Ph>}</td>)}
+                  <td className="relative p-4 pr-20"><ItemTools p={`${b}.rows`} i={r} /><T p={`${b}.rows.${r}.r`} /></td>
+                  {d.competitors.map((_: string, k: number) => (
+                    <td key={k} className={`p-4 text-lg ${k === 0 ? 'bg-primary/10' : ''}`}>
+                      {edit ? <button type="button" className="edit-btn" title="Click to cycle ✓ / – / ?" onClick={() => cycle(`${b}.rows.${r}.v.${k}`)}>{mark(row.v[k] ?? '?')}</button> : mark(row.v[k] ?? '?')}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </Reveal>
+      {edit && <div className="flex gap-3"><AddItem p={`${b}.rows`} label="Add row" /><AddItem p={`${b}.competitors`} blank="[Competitor]" label="Add competitor" /></div>}
     </Section>
   )
 }
 
-function Roadmap() {
+function Roadmap({ id, b, d }: P) {
   return (
-    <Section id="roadmap">
-      <Eyebrow>Roadmap</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">What we've built, and what comes next.</TextEffect>
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <AnimatedGroup preset="blur-slide" className="mt-12 grid gap-5 md:grid-cols-3">
-        {C.roadmap.map((r, k) => (
-          <div key={r.q} className={`rounded-3xl p-7 ${k === 0 ? 'bg-primary text-white' : 'glass'}`}>
-            <h3 className="text-xl font-bold">{r.q}</h3>
-            <ul className="mt-4 space-y-2">{r.items.map((i) => <li key={i}>{i.startsWith('[') ? <Ph>{i}</Ph> : `• ${i}`}</li>)}</ul>
-          </div>
-        ))}
-      </AnimatedGroup>
-      <p className="mt-6 text-xs text-muted">Items marked "Next" and "Later" are future work, not shipped features.</p>
-    </Section>
-  )
-}
-
-function Team() {
-  return (
-    <Section id="team">
-      <Eyebrow>Team</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">The people building it.</TextEffect>
-      <AnimatedGroup preset="zoom" className="mt-12 grid gap-5 sm:grid-cols-3">
-        {C.team.map((t, k) => (
-          <div key={k} className="glass rounded-3xl p-7 text-center">
-            <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-primary to-accent" />
-            <h3 className="text-lg font-semibold"><Ph>{t.n}</Ph></h3>
-            <p className="text-primary">{t.r}</p>
-            <p className="mt-2 text-sm text-muted"><Ph>{t.b}</Ph></p>
-          </div>
-        ))}
-      </AnimatedGroup>
-    </Section>
-  )
-}
-
-function Ask() {
-  return (
-    <Section id="ask" bg={<><Blob className="left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 opacity-30" /></>}>
-      <div className="text-center">
-        <Eyebrow>The ask</Eyebrow>
-        <h2 className="text-5xl font-extrabold sm:text-7xl">Raising <span className="grad"><Ph>{C.ask.amount}</Ph></span></h2>
-        <Reveal><p className="mx-auto mt-4 max-w-xl text-lg text-muted">To win the launch market and open the next ones.</p></Reveal>
-        <div className="mx-auto mt-12 max-w-2xl space-y-4 text-left">
-          {C.ask.uses.map(([u, p], k) => (
-            <div key={u}>
-              <div className="mb-1 flex justify-between text-sm"><span>{u}</span><span className="text-muted">{p}% <span className="text-xs">(placeholder)</span></span></div>
-              <div className="h-3 overflow-hidden rounded-full bg-line">
-                <motion.div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" initial={{ width: 0 }} whileInView={{ width: `${p}%` }} viewport={{ once: true }} transition={{ duration: 1.2, delay: k * 0.15 }} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  )
-}
-
-function Contact() {
-  return (
-    <Section id="contact" bg={<><Waves flip /><Waves /></>}>
-      <div className="text-center">
-        <img src="./logo.png" alt="Doctaz" className="mx-auto mb-8 h-14 w-auto" />
-        <TextEffect as="h2" per="char" preset="fade-in-blur" className="text-5xl font-extrabold sm:text-7xl">Care, one tap away.</TextEffect>
-        <p className="mt-6 text-lg text-muted"><Ph>{C.contact.email}</Ph> · {C.contact.site}</p>
-      </div>
-    </Section>
-  )
-}
-
-function WhyNow() {
-  return (
-    <Section id="whynow">
-      <Eyebrow>Why now</Eyebrow>
-      <TextEffect as="h2" per="word" preset="blur" className="max-w-4xl text-4xl font-bold sm:text-6xl">Three shifts make this the moment.</TextEffect>
-      <AnimatedGroup preset="blur-slide" className="mt-14 grid gap-5 md:grid-cols-3">
-        {C.whyNow.map((w, k) => (
-          <div key={w.t} className="glass relative overflow-hidden rounded-3xl p-7">
-            <div className="absolute -right-4 -top-8 font-display text-[9rem] font-extrabold leading-none opacity-[0.06]">{k + 1}</div>
-            <h3 className="text-xl font-semibold">{w.t}</h3>
-            <p className="mt-3 text-muted">{w.d}</p>
-            <div className="mt-6 text-3xl font-bold"><Ph>{w.stat}</Ph></div>
-            <p className="text-xs text-muted">{w.label}</p>
-          </div>
-        ))}
-      </AnimatedGroup>
-    </Section>
-  )
-}
-
-function LiveCall() {
-  return (
-    <Section id="live" bg={<Blob className="left-1/2 top-1/2 h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 opacity-25" seeds={[21, 4, 33]} />}>
-      <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr]">
-        <div>
-          <Eyebrow>Not a mock-up</Eyebrow>
-          <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">Two real phones. One live call.</TextEffect>
-          <Reveal delay={0.2}><p className="mt-5 text-lg text-muted">A doctor video-calls a patient inside a hospital environment. The call is free for members, rings like a normal phone call, and connects in HD. These are unedited screen recordings from two Android phones.</p></Reveal>
-          <Reveal delay={0.35}>
-            <ul className="mt-6 space-y-2 text-sm">
-              {['Native ringing screen', 'HD WebRTC video on our own stack', 'Free inside the facility, billed per minute outside it', 'Add a specialist mid-call'].map((t) => (
-                <li key={t} className="flex items-center gap-3"><span className="grid h-5 w-5 place-items-center rounded-full bg-primary text-[10px] text-white">✓</span>{t}</li>
-              ))}
+        {d.cols.map((col: any, k: number) => (
+          <Li key={k} p={`${b}.cols`} i={k} className={`rounded-3xl p-7 ${k === 0 ? 'bg-primary text-white' : 'glass'}`}>
+            <T p={`${b}.cols.${k}.q`} as="h3" className="block text-xl font-bold" />
+            <ul className="mt-4 space-y-2">
+              {col.items.map((_: string, j: number) => <li key={j} className="relative pr-20"><ItemTools p={`${b}.cols.${k}.items`} i={j} />• <T p={`${b}.cols.${k}.items.${j}`} /></li>)}
             </ul>
-          </Reveal>
-        </div>
-        <div className="relative flex items-center justify-center gap-4 sm:gap-8">
-          {[['loops/android-call-connect-doctor.mp4', 'Doctor'], ['loops/android-call-connect-patient.mp4', 'Patient']].map(([src, who], k) => (
-            <motion.div key={who} initial={{ opacity: 0, y: 60, rotate: k ? 4 : -4 }} whileInView={{ opacity: 1, y: k ? 30 : 0, rotate: k ? 3 : -3 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: k * 0.2 }} className="w-40 sm:w-60">
-              <Phone src={src} className="aspect-[9/19.5]" alt={`${who} view of a live call`} />
-              <p className="mt-3 text-center text-xs uppercase tracking-widest text-muted">{who}</p>
-            </motion.div>
+            <AddItem p={`${b}.cols.${k}.items`} label="Add" />
+          </Li>
+        ))}
+      </AnimatedGroup>
+      <T p={`${b}.note`} as="p" className="mt-6 block text-xs text-muted" />
+    </Section>
+  )
+}
+
+function Team({ id, b, d }: P) {
+  return (
+    <Section id={id}>
+      <Eb b={b} />
+      <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
+      <AnimatedGroup preset="zoom" className="mt-12 grid gap-5 sm:grid-cols-3">
+        {d.items.map((_: any, k: number) => (
+          <Li key={k} p={`${b}.items`} i={k} className="glass rounded-3xl p-7 text-center">
+            <M p={`${b}.items.${k}.photo`} accept="image/*" render={(url, raw) => raw
+              ? <img src={url} alt="" className="mx-auto mb-4 h-24 w-24 rounded-full object-cover" />
+              : <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-primary to-accent" />} />
+            <T p={`${b}.items.${k}.n`} as="h3" className="block text-lg font-semibold" />
+            <T p={`${b}.items.${k}.r`} as="p" className="block text-primary" />
+            <T p={`${b}.items.${k}.b`} as="p" className="mt-2 block text-sm text-muted" />
+          </Li>
+        ))}
+      </AnimatedGroup>
+      <AddItem p={`${b}.items`} label="Add person" />
+    </Section>
+  )
+}
+
+function Ask({ id, b, d }: P) {
+  return (
+    <Section id={id} bg={<Blob className="left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 opacity-30" />}>
+      <div className="text-center">
+        <Eb b={b} />
+        <h2 className="text-5xl font-extrabold sm:text-7xl"><T p={`${b}.lead`} /> <span className="grad"><T p={`${b}.amount`} /></span></h2>
+        <Reveal><T p={`${b}.sub`} as="p" className="mx-auto mt-4 block max-w-xl text-lg text-muted" /></Reveal>
+        <div className="mx-auto mt-12 max-w-2xl space-y-4 text-left">
+          {d.uses.map((u: any, k: number) => (
+            <Li key={k} p={`${b}.uses`} i={k}>
+              <div className="mb-1 flex justify-between pr-20 text-sm"><T p={`${b}.uses.${k}.u`} /><span className="text-muted"><T p={`${b}.uses.${k}.p`} />% <T p={`${b}.useNote`} className="text-xs" /></span></div>
+              <div className="h-3 overflow-hidden rounded-full bg-line">
+                <motion.div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" initial={{ width: 0 }} whileInView={{ width: `${Number(u.p) || 0}%` }} viewport={{ once: true }} transition={{ duration: 1.2, delay: k * 0.15 }} />
+              </div>
+            </Li>
           ))}
-          <motion.div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-4 py-2 font-display text-sm font-semibold text-white shadow-[0_0_40px_var(--primary)]"
-            animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2, repeat: Infinity }}>● LIVE</motion.div>
         </div>
+        <AddItem p={`${b}.uses`} label="Add use of funds" />
       </div>
     </Section>
   )
 }
 
-export const slides = [
-  { id: 'hero', label: 'Doctaz', C: Hero },
-  { id: 'problem', label: 'Problem', C: Problem },
-  { id: 'whynow', label: 'Why now', C: WhyNow },
-  { id: 'solution', label: 'Solution', C: Solution },
-  { id: 'patient', label: 'Patient journey', C: () => <Journey id="patient" eyebrow="Patient journey" title="From sign-up to a 5-star consult." steps={C.patientJourney} /> },
-  { id: 'live', label: 'Live call', C: LiveCall },
-  { id: 'provider', label: 'Providers', C: () => <Journey id="provider" eyebrow="Providers and hospitals" title="Built for the people who deliver care." steps={C.providerJourney} /> },
-  { id: 'features', label: 'Features', C: Features },
-  { id: 'tech', label: 'Technology', C: Tech },
-  { id: 'model', label: 'Business model', C: Model },
-  { id: 'market', label: 'Market', C: Market },
-  { id: 'traction', label: 'Traction', C: Traction },
-  { id: 'competition', label: 'Competition', C: Competition },
-  { id: 'roadmap', label: 'Roadmap', C: Roadmap },
-  { id: 'team', label: 'Team', C: Team },
-  { id: 'ask', label: 'Ask', C: Ask },
-  { id: 'contact', label: 'Contact', C: Contact },
-]
+function Contact({ id, b }: P) {
+  return (
+    <Section id={id} bg={<><Waves flip /><Waves /></>}>
+      <div className="text-center">
+        <M p="slides.0.data.logo" accept="image/*" render={(url) => <img src={url} alt="Logo" className="mx-auto mb-8 h-14 w-auto" />} />
+        <T p={`${b}.title`} as="h2" className="text-5xl font-extrabold sm:text-7xl" view={(s) => <TextEffect key={s} as="h2" per="char" preset="fade-in-blur" className="text-5xl font-extrabold sm:text-7xl">{s}</TextEffect>} />
+        <p className="mt-6 text-lg text-muted"><T p={`${b}.email`} /> · <T p={`${b}.site`} /></p>
+      </div>
+    </Section>
+  )
+}
+
+// Basic layouts for pages the client adds.
+function Statement({ id, b }: P) {
+  return (
+    <Section id={id} bg={<Blob className="left-1/2 top-1/2 h-[40rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 opacity-25" seeds={[9, 27, 14]} />}>
+      <div className="mx-auto max-w-4xl text-center">
+        <Eb b={b} />
+        <H2 b={b} className="text-5xl font-extrabold sm:text-7xl" preset="fade-in-blur" />
+        <Reveal delay={0.3}><T p={`${b}.sub`} as="p" className="mx-auto mt-6 block max-w-2xl text-xl text-muted" /></Reveal>
+      </div>
+    </Section>
+  )
+}
+
+function TextMedia({ id, b, d }: P) {
+  return (
+    <Section id={id} bg={<Blob className="-right-40 top-10 h-[36rem] w-[36rem] opacity-20" seeds={[3, 22, 40]} color="var(--accent)" />}>
+      <div className={`grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] ${d.flip === 'yes' ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+        <div>
+          <Eb b={b} />
+          <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
+          <Reveal delay={0.2}><T p={`${b}.sub`} as="p" className="mt-5 block text-lg text-muted" /></Reveal>
+          <ul className="mt-6 space-y-2">
+            {d.points.map((_: string, k: number) => (
+              <li key={k} className="relative flex items-center gap-3 pr-20"><ItemTools p={`${b}.points`} i={k} /><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-[10px] text-white">✓</span><T p={`${b}.points.${k}`} /></li>
+            ))}
+          </ul>
+          <AddItem p={`${b}.points`} label="Add point" />
+          <FlipToggle b={b} />
+        </div>
+        <div className="mx-auto w-44 sm:w-64"><PhoneM p={`${b}.media`} alt="" /></div>
+      </div>
+    </Section>
+  )
+}
+
+function FlipToggle({ b }: { b: string }) {
+  const { edit, get, set } = useE()
+  if (!edit) return null
+  return <button type="button" className="edit-btn mt-4 ml-3 !px-4 !py-2 text-sm" onClick={() => set(`${b}.flip`, get(`${b}.flip`) === 'yes' ? 'no' : 'yes')}>⇄ Swap sides</button>
+}
+
+const Cards3 = (p: P) => <StatCards {...p} cols={3} />
+const Cards4 = (p: P) => <StatCards {...p} cols={4} />
+
+const base = defaultContent.slides
+const fromDefault = (type: string) => structuredClone(base.find((s) => s.type === type)?.data)
+
+export const layouts: Record<string, { name: string; C: (p: P) => ReactNode; template: () => any }> = {
+  statement: { name: 'Big statement', C: Statement, template: () => ({ eyebrow: 'Section', title: 'A bold headline.', sub: 'One or two supporting sentences.' }) },
+  textMedia: { name: 'Text + phone', C: TextMedia, template: () => ({ eyebrow: 'Section', title: 'Headline', sub: 'Supporting text.', points: ['First point', 'Second point'], media: 'call/android-live-doctor.jpg', flip: 'no' }) },
+  hero: { name: 'Hero (headline + two phones)', C: Hero, template: () => fromDefault('hero') },
+  problem: { name: 'Stat cards', C: Cards3, template: () => fromDefault('problem') },
+  whyNow: { name: 'Numbered cards with stats', C: Cards3, template: () => fromDefault('whyNow') },
+  solution: { name: 'Icon tiles', C: Solution, template: () => fromDefault('solution') },
+  journey: { name: 'Step-by-step journey', C: Journey, template: () => fromDefault('journey') },
+  live: { name: 'Two phones side by side', C: LiveCall, template: () => fromDefault('live') },
+  features: { name: 'Feature cards + screen strip', C: Features, template: () => fromDefault('features') },
+  tech: { name: 'Architecture diagram', C: Tech, template: () => fromDefault('tech') },
+  model: { name: 'Revenue cards + flow', C: Model, template: () => fromDefault('model') },
+  market: { name: 'Map + market sizes', C: Market, template: () => fromDefault('market') },
+  traction: { name: 'Animated metrics', C: (p) => <Traction {...p} />, template: () => fromDefault('traction') },
+  metrics4: { name: 'Four stat cards', C: Cards4, template: () => ({ eyebrow: 'Numbers', title: 'Headline', items: [1, 2, 3, 4].map(() => ({ stat: '[__]', label: 'What it measures' })) }) },
+  competition: { name: 'Comparison table', C: Competition, template: () => fromDefault('competition') },
+  roadmap: { name: 'Three columns', C: Roadmap, template: () => fromDefault('roadmap') },
+  team: { name: 'People', C: Team, template: () => fromDefault('team') },
+  ask: { name: 'Amount + bars', C: Ask, template: () => fromDefault('ask') },
+  contact: { name: 'Closing', C: Contact, template: () => fromDefault('contact') },
+}
