@@ -31,10 +31,10 @@ function Hero() {
         </div>
         <div className="relative mx-auto flex h-[30rem] w-full max-w-md sm:h-[34rem] items-center justify-center">
           <motion.div className="absolute left-2 top-0 w-40 sm:top-10 sm:w-52" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity }}>
-            <Phone src="medtalk/ios-chat-1.jpg" className="aspect-[9/19.5]" alt="Chat" />
+            <Phone src="medtalk/android-chat-1.jpg" className="aspect-[9/19.5]" alt="Chat" />
           </motion.div>
           <motion.div className="absolute right-2 top-12 z-10 w-40 sm:top-24 sm:w-60" animate={{ y: [0, 16, 0] }} transition={{ duration: 7, repeat: Infinity }}>
-            <Phone src="call/ios-2-connected.jpg" className="aspect-[9/19.5]" alt="Video call" />
+            <Phone src="call/android-0-callsheet.jpg" className="aspect-[9/19.5]" alt="Price shown before the call" />
           </motion.div>
         </div>
       </div>
@@ -109,8 +109,7 @@ function Journey({ id, eyebrow, title, steps }: { id: string; eyebrow: string; t
           variants={{ enter: { opacity: 0, y: 30, filter: 'blur(6px)' }, center: { opacity: 1, y: 0, filter: 'blur(0)' }, exit: { opacity: 0, y: -30, filter: 'blur(6px)' } }}>
           {steps.map((st) => (
             <div key={st.t} className="flex h-full items-center justify-center gap-4 sm:gap-8">
-              <Shot src={st.a} label="Android" />
-              <Shot src={st.i} label="iPhone" />
+              <Shot src={st.a} label={st.t} />
             </div>
           ))}
         </TransitionPanel>
@@ -156,7 +155,7 @@ function Features() {
       </AnimatedGroup>
       <div className="mt-14 opacity-70">
         <InfiniteSlider gap={20} speed={40} speedOnHover={10}>
-          {['chat/ios-5-grid.jpg', 'share/ios-4-editor.jpg', 'conference/android-2-grid.jpg', 'call/ios-1-incoming.jpg', 'community/ios-home-1.jpg', 'reviews/ios-3-filled.jpg', 'chat/android-9-grid-gallery.jpg', 'share/android-8-delivered.jpg']
+          {['chat/android-8-grid.jpg', 'share/android-5-editor.jpg', 'conference/android-1-addperson.jpg', 'call/android-1-incoming.jpg', 'community/android-home-1.jpg', 'reviews/android-3-filled.jpg', 'chat/android-9-grid-gallery.jpg', 'share/android-8-delivered.jpg', 'medtalk/android-search.jpg', 'reviews/android-home-card.jpg']
             .map((p) => <img key={p} src={C.img(p)} alt="" className="h-48 w-24 rounded-xl object-cover object-top" />)}
         </InfiniteSlider>
       </div>

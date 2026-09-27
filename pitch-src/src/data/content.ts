@@ -21,31 +21,31 @@ export const roles = [
   { name: 'Hospitals', icon: 'hospital', line: 'A private environment where staff calls are free' },
 ]
 
-export type Step = { t: string; d: string; a: string; i: string }
+export type Step = { t: string; d: string; a: string }
 export const patientJourney: Step[] = [
-  { t: 'Choose a role', d: 'One app, five kinds of member. Patients start in seconds.', a: 'signup/android-1-register-as.jpg', i: 'signup/ios-1-register-as.jpg' },
-  { t: 'Pick an environment', d: 'Solo care or inside a hospital. The network changes around you.', a: 'onboarding/android-env-picker.jpg', i: 'onboarding/ios-env-picker.jpg' },
-  { t: 'Discover', d: 'A live community home with providers, posts and reviews.', a: 'community/android-home-1.jpg', i: 'community/ios-home-1.jpg' },
-  { t: 'Chat', d: 'Messages, photos, voice notes and PDFs. Links open as rich cards.', a: 'medtalk/android-chat-1.jpg', i: 'medtalk/ios-chat-1.jpg' },
-  { t: 'Know the price', d: 'The call sheet shows the cost before you call. No surprise bills.', a: 'call/android-0-callsheet.jpg', i: 'call/ios-0-callsheet-facility.jpg' },
-  { t: 'Video call', d: 'HD video on the phone’s native call screen, even when the app is closed.', a: 'call/android-2-connected.jpg', i: 'call/ios-2-connected.jpg' },
-  { t: 'Bring in a specialist', d: 'Add people mid-call. Everyone appears in one grid.', a: 'conference/android-2-grid.jpg', i: 'conference/ios-2-grid.jpg' },
-  { t: 'Rate the care', d: 'Reviews after each call build trust for the next patient.', a: 'reviews/android-2-stars.jpg', i: 'reviews/ios-2-stars.jpg' },
+  { t: 'Choose a role', d: 'One app, five kinds of member. Patients start in seconds.', a: 'signup/android-1-register-as.jpg' },
+  { t: 'Pick an environment', d: 'Solo care or inside a hospital. The network changes around you.', a: 'onboarding/android-env-picker.jpg' },
+  { t: 'Discover', d: 'A live community home with providers, posts and reviews.', a: 'community/android-home-1.jpg' },
+  { t: 'Chat', d: 'Messages, photos, voice notes and PDFs. Links open as rich cards.', a: 'medtalk/android-chat-1.jpg' },
+  { t: 'Know the price', d: 'The call sheet shows the cost before you call. No surprise bills.', a: 'call/android-0-callsheet.jpg' },
+  { t: 'Video call', d: 'HD video on the phone’s native call screen, even when the app is closed.', a: 'call/android-2-connected.jpg' },
+  { t: 'Bring in a specialist', d: 'Add people mid-call. Everyone appears in one grid.', a: 'conference/android-2-grid.jpg' },
+  { t: 'Rate the care', d: 'Reviews after each call build trust for the next patient.', a: 'reviews/android-2-stars.jpg' },
 ]
 export const providerJourney: Step[] = [
-  { t: 'Register as a provider', d: 'Doctors, APRNs and nurses onboard with their credentials.', a: 'signup/android-2-form.jpg', i: 'signup/ios-nurse-1-form.jpg' },
-  { t: 'Verify documents', d: 'Licences are uploaded in-app and checked before going live.', a: 'signup/android-doctor-docs.jpg', i: 'signup/ios-doctor-docs.jpg' },
-  { t: 'A public profile', d: 'A profile that patients find, follow and review.', a: 'profile/android-patient-own-1.jpg', i: 'profile/ios-doctor-own-1.jpg' },
-  { t: 'Answer anywhere', d: 'A native ringing screen, like a normal phone call.', a: 'call/android-1-incoming.jpg', i: 'call/ios-1-incoming.jpg' },
-  { t: 'Free inside the hospital', d: 'Colleagues in the same facility call each other for free.', a: 'call/android-0-callsheet-facility.jpg', i: 'call/ios-0-callsheet-facility.jpg' },
+  { t: 'Register as a provider', d: 'Doctors, APRNs and nurses onboard with their credentials.', a: 'signup/android-2-form.jpg' },
+  { t: 'Verify documents', d: 'Licences are uploaded in-app and checked before going live.', a: 'signup/android-doctor-docs.jpg' },
+  { t: 'A public profile', d: 'A profile that patients find, follow and review.', a: 'profile/android-patient-own-1.jpg' },
+  { t: 'Answer anywhere', d: 'A native ringing screen, like a normal phone call.', a: 'call/android-1-incoming.jpg' },
+  { t: 'Free inside the hospital', d: 'Colleagues in the same facility call each other for free.', a: 'call/android-0-callsheet-facility.jpg' },
 ]
 
 export const features = [
   { t: 'Know the price before you call', d: 'The price is on the call sheet, and the wallet is charged only for the connected call.', img: 'call/android-0-callsheet.jpg' },
-  { t: 'Free calls inside a hospital', d: 'The facility environment makes internal calls free. That is a B2B hook.', img: 'call/ios-0-callsheet-facility.jpg' },
-  { t: 'Everyone in one grid', d: 'Conference calls with specialists, family or a guest.', img: 'conference/ios-2-grid.jpg' },
-  { t: 'Rich clinical chat', d: 'Media, audio, PDFs and link cards, in sync on Android and iPhone.', img: 'chat/ios-4-link-bubble.jpg' },
-  { t: 'Share to Doctaz', d: 'Send lab results from any app with the system share sheet.', img: 'share/ios-1-sharesheet.jpg' },
+  { t: 'Free calls inside a hospital', d: 'The facility environment makes internal calls free. That is a B2B hook.', img: 'call/android-0-callsheet-facility.jpg' },
+  { t: 'Everyone in one grid', d: 'Conference calls with specialists, family or a guest.', img: 'conference/android-1-addperson.jpg' },
+  { t: 'Rich clinical chat', d: 'Media, audio, PDFs and link cards, in sync on Android and iPhone.', img: 'chat/android-2-link-bubble.jpg' },
+  { t: 'Share to Doctaz', d: 'Send lab results from any app with the system share sheet.', img: 'share/android-1-sharesheet.jpg' },
   { t: 'Reviews and reputation', d: 'Ratings after each call, shown on the home screen.', img: 'reviews/android-home-card.jpg' },
 ]
 
