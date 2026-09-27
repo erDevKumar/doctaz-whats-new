@@ -816,7 +816,7 @@
      "a": "share/android-8-delivered.jpg"
     }
    ],
-   "sub": ""
+   "sub": "Validation run: free calls inside the clinic."
   }
  ],
  "settings": {
@@ -840,5 +840,6 @@
    "journeyKicker": "Clickable prototype",
    "journeyHint": "Tap the phone or use ← → to move through the flow. Real Android screens."
   }
- }
+ },
+ "savedAt": 1790528600182
 }
