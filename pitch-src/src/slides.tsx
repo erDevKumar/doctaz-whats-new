@@ -34,7 +34,7 @@ function Hero() {
             <Phone src="medtalk/android-chat-1.jpg" className="aspect-[9/19.5]" alt="Chat" />
           </motion.div>
           <motion.div className="absolute right-2 top-12 z-10 w-40 sm:top-24 sm:w-60" animate={{ y: [0, 16, 0] }} transition={{ duration: 7, repeat: Infinity }}>
-            <Phone src="call/android-0-callsheet.jpg" className="aspect-[9/19.5]" alt="Price shown before the call" />
+            <Phone src="loops/android-call-connect-doctor.mp4" className="aspect-[9/19.5]" alt="Live video call" />
           </motion.div>
         </div>
       </div>
@@ -127,7 +127,9 @@ function Shot({ src, label }: { src: string; label: string }) {
         <span className="mt-3 block text-center text-xs uppercase tracking-widest text-muted">{label}</span>
       </DialogTrigger>
       <DialogContent className="w-[min(90vw,420px)] rounded-3xl bg-bg p-3">
-        <img src={C.img(src)} alt={label} className="max-h-[85vh] w-full rounded-2xl object-contain" />
+        {src.endsWith('.mp4')
+          ? <video src={C.img(src)} autoPlay muted loop playsInline className="max-h-[85vh] w-full rounded-2xl object-contain" />
+          : <img src={C.img(src)} alt={label} className="max-h-[85vh] w-full rounded-2xl object-contain" />}
         <DialogClose />
       </DialogContent>
     </Dialog>

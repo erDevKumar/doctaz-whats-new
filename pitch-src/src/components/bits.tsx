@@ -47,7 +47,9 @@ export function Waves({ flip }: { flip?: boolean }) {
 export function Phone({ src, className = '', tilt = true, alt = '' }: { src: string; className?: string; tilt?: boolean; alt?: string }) {
   const body = (
     <div className={`rounded-[2.2rem] border-[6px] border-neutral-900 bg-neutral-900 shadow-2xl shadow-[color-mix(in_srgb,var(--primary)_35%,transparent)] overflow-hidden ${className}`}>
-      <img src={img(src)} alt={alt} loading="lazy" className="block h-full w-full object-cover object-top" />
+      {src.endsWith('.mp4')
+        ? <video src={img(src)} aria-label={alt} autoPlay muted loop playsInline preload="metadata" className="block h-full w-full object-cover object-top" />
+        : <img src={img(src)} alt={alt} loading="lazy" className="block h-full w-full object-cover object-top" />}
     </div>
   )
   return tilt ? <Tilt rotationFactor={8} isRevese>{body}</Tilt> : body
