@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { TextEffect } from '@/components/ui/text-effect'
 import { TextShimmer } from '@/components/ui/text-shimmer'
 import { AnimatedGroup } from '@/components/ui/animated-group'
@@ -10,9 +10,14 @@ import { Spotlight } from '@/components/ui/spotlight'
 import { Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/ui/dialog'
 import { Blob, Waves, Phone, Reveal, Ph, Section, Eyebrow } from '@/components/bits'
 import { Arch } from '@/components/Arch'
+import { AfricaMap } from '@/components/AfricaMap'
 import * as C from '@/data/content'
 
 function Hero() {
+  const { scrollY } = useScroll()
+  const yA = useTransform(scrollY, [0, 800], [0, -120])
+  const yB = useTransform(scrollY, [0, 800], [0, 80])
+  const rot = useTransform(scrollY, [0, 800], [0, -6])
   return (
     <Section id="hero" bg={<><Blob className="-left-40 -top-40 h-[42rem] w-[42rem] opacity-40" /><Blob className="-right-40 bottom-0 h-[36rem] w-[36rem] opacity-30" seeds={[7, 19, 41]} color="var(--accent)" /><Waves /></>}>
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
@@ -30,10 +35,10 @@ function Hero() {
           </Reveal>
         </div>
         <div className="relative mx-auto flex h-[30rem] w-full max-w-md sm:h-[34rem] items-center justify-center">
-          <motion.div className="absolute left-2 top-0 w-40 sm:top-10 sm:w-52" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity }}>
+          <motion.div style={{ y: yA, rotate: rot }} className="absolute left-2 top-0 w-40 sm:top-10 sm:w-52" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity }}>
             <Phone src="medtalk/android-chat-1.jpg" className="aspect-[9/19.5]" alt="Chat" />
           </motion.div>
-          <motion.div className="absolute right-2 top-12 z-10 w-40 sm:top-24 sm:w-60" animate={{ y: [0, 16, 0] }} transition={{ duration: 7, repeat: Infinity }}>
+          <motion.div style={{ y: yB }} className="absolute right-2 top-12 z-10 w-40 sm:top-24 sm:w-60" animate={{ y: [0, 16, 0] }} transition={{ duration: 7, repeat: Infinity }}>
             <Phone src="loops/android-call-connect-doctor.mp4" className="aspect-[9/19.5]" alt="Live video call" />
           </motion.div>
         </div>
@@ -216,14 +221,9 @@ function Market() {
       <Eyebrow>Market</Eyebrow>
       <TextEffect as="h2" per="word" preset="blur" className="max-w-3xl text-4xl font-bold sm:text-5xl">Africa first. Built for the world.</TextEffect>
       <div className="mt-12 grid items-center gap-12 lg:grid-cols-2">
-        <div className="relative mx-auto aspect-square w-full max-w-md">
-          {C.market.map((m, k) => (
-            <motion.div key={m.k} initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ delay: k * 0.25, type: 'spring' }}
-              className="absolute inset-0 m-auto flex items-start justify-center rounded-full border border-primary/40 pt-6"
-              style={{ width: `${100 - k * 30}%`, height: `${100 - k * 30}%`, background: `color-mix(in srgb, var(--primary) ${10 + k * 15}%, transparent)` }}>
-              <div className="text-center"><div className="font-display text-sm font-bold">{m.k}</div><Ph>{m.v}</Ph><div className="text-xs text-muted">{m.d}</div></div>
-            </motion.div>
-          ))}
+        <div className="relative mx-auto w-full max-w-lg">
+          <AfricaMap />
+          <p className="mt-2 text-center text-xs text-muted">Illustrative target cities</p>
         </div>
         <div>
           <h3 className="mb-6 text-xl font-semibold">Expansion path</h3>
@@ -235,6 +235,16 @@ function Market() {
               </motion.li>
             ))}
           </ol>
+          <div className="mb-8 grid grid-cols-3 gap-3">
+            {C.market.map((m, k) => (
+              <motion.div key={m.k} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: k * 0.15 }}
+                className="glass rounded-2xl p-4" style={{ background: `color-mix(in srgb, var(--primary) ${8 + k * 10}%, var(--card))` }}>
+                <div className="font-display text-sm font-bold text-primary">{m.k}</div>
+                <div className="mt-1 text-xl font-bold"><Ph>{m.v}</Ph></div>
+                <div className="mt-1 text-xs text-muted">{m.d}</div>
+              </motion.div>
+            ))}
+          </div>
           <p className="text-muted">The same product works in any market: mobile money or cards, multiple currencies, and new facilities added from the admin panel with no app release.</p>
         </div>
       </div>
@@ -358,11 +368,64 @@ function Contact() {
   )
 }
 
+function WhyNow() {
+  return (
+    <Section id="whynow">
+      <Eyebrow>Why now</Eyebrow>
+      <TextEffect as="h2" per="word" preset="blur" className="max-w-4xl text-4xl font-bold sm:text-6xl">Three shifts make this the moment.</TextEffect>
+      <AnimatedGroup preset="blur-slide" className="mt-14 grid gap-5 md:grid-cols-3">
+        {C.whyNow.map((w, k) => (
+          <div key={w.t} className="glass relative overflow-hidden rounded-3xl p-7">
+            <div className="absolute -right-4 -top-8 font-display text-[9rem] font-extrabold leading-none opacity-[0.06]">{k + 1}</div>
+            <h3 className="text-xl font-semibold">{w.t}</h3>
+            <p className="mt-3 text-muted">{w.d}</p>
+            <div className="mt-6 text-3xl font-bold"><Ph>{w.stat}</Ph></div>
+            <p className="text-xs text-muted">{w.label}</p>
+          </div>
+        ))}
+      </AnimatedGroup>
+    </Section>
+  )
+}
+
+function LiveCall() {
+  return (
+    <Section id="live" bg={<Blob className="left-1/2 top-1/2 h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 opacity-25" seeds={[21, 4, 33]} />}>
+      <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <Eyebrow>Not a mock-up</Eyebrow>
+          <TextEffect as="h2" per="word" preset="blur" className="text-4xl font-bold sm:text-5xl">Two real phones. One live call.</TextEffect>
+          <Reveal delay={0.2}><p className="mt-5 text-lg text-muted">A doctor video-calls a patient inside a hospital environment. The call is free for members, rings like a normal phone call, and connects in HD. These are unedited screen recordings from two Android phones.</p></Reveal>
+          <Reveal delay={0.35}>
+            <ul className="mt-6 space-y-2 text-sm">
+              {['Native ringing screen', 'HD WebRTC video on our own stack', 'Free inside the facility, billed per minute outside it', 'Add a specialist mid-call'].map((t) => (
+                <li key={t} className="flex items-center gap-3"><span className="grid h-5 w-5 place-items-center rounded-full bg-primary text-[10px] text-white">✓</span>{t}</li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+        <div className="relative flex items-center justify-center gap-4 sm:gap-8">
+          {[['loops/android-call-connect-doctor.mp4', 'Doctor'], ['loops/android-call-connect-patient.mp4', 'Patient']].map(([src, who], k) => (
+            <motion.div key={who} initial={{ opacity: 0, y: 60, rotate: k ? 4 : -4 }} whileInView={{ opacity: 1, y: k ? 30 : 0, rotate: k ? 3 : -3 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: k * 0.2 }} className="w-40 sm:w-60">
+              <Phone src={src} className="aspect-[9/19.5]" alt={`${who} view of a live call`} />
+              <p className="mt-3 text-center text-xs uppercase tracking-widest text-muted">{who}</p>
+            </motion.div>
+          ))}
+          <motion.div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-4 py-2 font-display text-sm font-semibold text-white shadow-[0_0_40px_var(--primary)]"
+            animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2, repeat: Infinity }}>● LIVE</motion.div>
+        </div>
+      </div>
+    </Section>
+  )
+}
+
 export const slides = [
   { id: 'hero', label: 'Doctaz', C: Hero },
   { id: 'problem', label: 'Problem', C: Problem },
+  { id: 'whynow', label: 'Why now', C: WhyNow },
   { id: 'solution', label: 'Solution', C: Solution },
   { id: 'patient', label: 'Patient journey', C: () => <Journey id="patient" eyebrow="Patient journey" title="From sign-up to a 5-star consult." steps={C.patientJourney} /> },
+  { id: 'live', label: 'Live call', C: LiveCall },
   { id: 'provider', label: 'Providers', C: () => <Journey id="provider" eyebrow="Providers and hospitals" title="Built for the people who deliver care." steps={C.providerJourney} /> },
   { id: 'features', label: 'Features', C: Features },
   { id: 'tech', label: 'Technology', C: Tech },

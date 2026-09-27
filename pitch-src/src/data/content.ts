@@ -13,6 +13,12 @@ export const problem = [
   { stat: '[__]', label: 'mobile subscribers in target markets' },
 ]
 
+export const whyNow = [
+  { t: 'Smartphones everywhere', d: 'Affordable Android phones put HD video in every pocket.', stat: '[__]', label: 'smartphone adoption in launch markets' },
+  { t: 'Mobile money is mainstream', d: 'Wallet top-ups make paying per consult routine.', stat: '[__]', label: 'mobile-money accounts' },
+  { t: 'Care has gone remote', d: 'Patients and clinicians now expect virtual consults.', stat: '[__]', label: 'telehealth growth rate' },
+]
+
 export const roles = [
   { name: 'Patients', icon: 'patient', line: 'Find care, chat, call and pay from one wallet' },
   { name: 'Doctors', icon: 'doctor', line: 'Verified profiles, paid consultations, reviews' },

@@ -43,3 +43,11 @@ h1,h2,h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
 .grad { background: linear-gradient(120deg, var(--primary), var(--accent) 50%, #7ee0c3); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .ph { font-family: var(--font-display); padding: 0 .35em; border-radius: .35em; border: 1px dashed var(--primary); color: var(--primary); background: color-mix(in srgb, var(--primary) 10%, transparent); }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation: none !important; transition: none !important; } }
+
+@page { size: 1440px 900px; margin: 0; }
+@media print {
+  html { scroll-snap-type: none !important; }
+  [data-chrome] { display: none !important; }
+  [data-slide] { height: 900px; min-height: 0 !important; break-after: page; break-inside: avoid; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
