@@ -22,7 +22,7 @@ export function blobPath(seed: number, n = 7, r = 180) {
 
 export function Blob({ className, seeds = [3, 11, 29], color = 'var(--primary)' }: { className?: string; seeds?: number[]; color?: string }) {
   return (
-    <motion.svg viewBox="0 0 400 400" className={`pointer-events-none absolute blur-3xl ${className}`} aria-hidden
+    <motion.svg viewBox="0 0 400 400" className={`bgdeco pointer-events-none absolute blur-3xl ${className}`} aria-hidden
       animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}>
       <motion.path fill={color} d={blobPath(seeds[0])} initial={{ d: blobPath(seeds[0]) }} animate={{ d: seeds.map((s) => blobPath(s)) .concat(blobPath(seeds[0])) }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
@@ -34,7 +34,7 @@ export function Waves({ flip }: { flip?: boolean }) {
   const layers = ['var(--primary)', 'var(--accent)', 'var(--secondary)']
   return (
     <svg viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden
-      className={`pointer-events-none absolute inset-x-0 h-40 w-full opacity-30 ${flip ? 'top-0 rotate-180' : 'bottom-0'}`}>
+      className={`bgdeco pointer-events-none absolute inset-x-0 h-40 w-full opacity-30 ${flip ? 'top-0 rotate-180' : 'bottom-0'}`}>
       {layers.map((c, i) => (
         <path key={i} fill={c} opacity={0.5 + i * 0.2}
           d={`M0 ${120 + i * 30} C 240 ${60 + i * 40}, 480 ${190 - i * 20}, 720 ${130 + i * 20} S 1200 ${70 + i * 30}, 1440 ${140 + i * 20} V220 H0Z`} />

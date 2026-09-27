@@ -9,7 +9,7 @@ const CONTENT_PATHS = ['pitch/content.json', 'pitch-src/public/content.json']
 const DRAFT_KEY = 'doctaz-pitch-draft'
 
 export type Content = typeof defaults & { slides: Slide[] }
-export type Slide = { id: string; type: string; label: string; hidden?: boolean; data: any }
+export type Slide = { id: string; type: string; label: string; hidden?: boolean; bg?: string; data: any }
 
 const store = {
   get: (k: string, s: Storage = localStorage) => { try { return s.getItem(k) } catch { return null } },
@@ -125,13 +125,14 @@ export function T({ p, as: Tag = 'span', className = '', view }: { p: string; as
         onBlur={(e: any) => { const t = e.currentTarget.innerText.trim(); if (t !== v) set(p, t) }}>{v}</Tag>
     )
   }
+  if (!v.trim()) return null
   if (/^\[.*\]$/.test(v.trim())) return <Tag className={className}><Ph>{v}</Ph></Tag>
   return view ? <>{view(v)}</> : <Tag className={className}>{v}</Tag>
 }
 
 /** Media slot: renders `render(url)`; in edit mode adds a Replace control. */
-export function M({ p, render, accept = 'image/*,video/mp4' }: { p: string; render: (url: string, raw: string) => ReactNode; accept?: string }) {
-  const { get, src, edit, upload } = useE()
+export function M({ p, render, accept = 'image/*,video/mp4', optional = false }: { p: string; render: (url: string, raw: string) => ReactNode; accept?: string; optional?: boolean }) {
+  const { get, src, edit, upload, set } = useE()
   const raw = String(get(p) ?? '')
   const ref = useRef<HTMLInputElement>(null)
   if (!edit) return <>{render(src(raw), raw)}</>
@@ -140,8 +141,9 @@ export function M({ p, render, accept = 'image/*,video/mp4' }: { p: string; rend
       {render(src(raw), raw)}
       <button type="button" onClick={(e) => { e.stopPropagation(); e.preventDefault(); ref.current?.click() }}
         className="absolute inset-x-2 bottom-2 z-30 rounded-full bg-black/75 px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/30 backdrop-blur hover:bg-primary">
-        ⬆ Replace media
+        ⬆ {raw ? 'Replace' : 'Add'} media
       </button>
+      {optional && raw && <button type="button" onClick={(ev) => { ev.stopPropagation(); set(p, '') }} className="absolute right-1 top-1 z-30 edit-btn hover:!bg-red-600" title="Remove media">✕</button>}
       <input ref={ref} type="file" accept={accept} hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(p, f); e.target.value = '' }} />
     </div>
   )
@@ -172,3 +174,43 @@ export function AddItem({ p, blank, label = 'Add item' }: { p: string; blank?: a
 }
 
 export const defaultContent = defaults as Content
+
+/** Plain form field bound to a content path (for URLs, colours, settings). */
+export function Field({ p, label, type = 'text', options, placeholder }: { p: string; label: string; type?: string; options?: [string, string][]; placeholder?: string }) {
+  const { get, set } = useE()
+  const v = String(get(p) ?? '')
+  const cls = 'mt-1 w-full rounded-lg border border-line bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-primary'
+  return (
+    <label className="block text-xs text-muted">
+      {label}
+      {options ? <select className={cls} value={v} onChange={(e) => set(p, e.target.value)}>{options.map(([k, n]) => <option key={k} value={k}>{n}</option>)}</select>
+        : <input type={type} className={`${cls} ${type === 'color' ? 'h-9 p-1' : ''}`} value={v} placeholder={placeholder} onChange={(e) => set(p, e.target.value)} />}
+    </label>
+  )
+}
+
+/** Button/link row. Each link: label (inline editable), href and style (edited in a small popover row). */
+export function Links({ p, className = '' }: { p: string; className?: string }) {
+  const { get, edit } = useE()
+  const links: any[] = get(p) ?? []
+  if (!edit && !links.length) return null
+  return (
+    <div className={`mt-8 flex flex-wrap items-start gap-3 ${className}`}>
+      {links.map((l, k) => {
+        const cls = l.style === 'primary' ? 'bg-primary text-white shadow-[0_0_24px_color-mix(in_srgb,var(--primary)_45%,transparent)]' : 'glass'
+        return edit ? (
+          <div key={k} className="relative rounded-2xl border border-dashed border-line p-2 pr-24">
+            <ItemTools p={p} i={k} />
+            <T p={`${p}.${k}.label`} className={`inline-block rounded-full px-5 py-2.5 font-semibold ${cls}`} />
+            <div className="mt-2 grid w-56 gap-1"><Field p={`${p}.${k}.href`} label="Link (URL, #page-id, #journey-0 or mailto:)" /><Field p={`${p}.${k}.style`} label="Style" options={[['primary', 'Filled'], ['ghost', 'Outline']]} /></div>
+          </div>
+        ) : (
+          <a key={k} href={l.href} target={/^https?:/.test(l.href) ? '_blank' : undefined} rel="noreferrer"
+            onClick={(ev) => { if (String(l.href).startsWith('#journey-')) { ev.preventDefault(); location.hash = l.href; location.reload() } }}
+            className={`inline-block rounded-full px-5 py-2.5 font-semibold transition hover:scale-[1.03] ${cls}`}>{/^\[.*\]$/.test(l.label) ? <Ph>{l.label}</Ph> : l.label}</a>
+        )
+      })}
+      {edit && <AddItem p={p} blank={{ label: 'New button', href: 'https://', style: 'ghost' }} label="Add button" />}
+    </div>
+  )
+}

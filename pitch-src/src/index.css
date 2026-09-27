@@ -33,12 +33,12 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-line: var(--line);
-  --font-display: 'Rubik', sans-serif;
-  --font-sans: 'Lato', sans-serif;
+  --font-display: var(--fd), 'Rubik', sans-serif;
+  --font-sans: var(--fb), 'Lato', sans-serif;
 }
 html { scroll-behavior: smooth; }
-body { background: var(--background); color: var(--text); font-family: var(--font-sans); overflow-x: hidden; transition: background .4s, color .4s; }
-h1,h2,h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+body { background: var(--background); color: var(--text); font-family: var(--fb, 'Lato'), sans-serif; overflow-x: hidden; transition: background .4s, color .4s; }
+h1,h2,h3 { font-family: var(--fd, 'Rubik'), sans-serif; letter-spacing: -0.02em; }
 .glass { background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); }
 .grad { background: linear-gradient(120deg, var(--primary), var(--accent) 50%, #7ee0c3); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .ph { font-family: var(--font-display); padding: 0 .35em; border-radius: .35em; border: 1px dashed var(--primary); color: var(--primary); background: color-mix(in srgb, var(--primary) 10%, transparent); }

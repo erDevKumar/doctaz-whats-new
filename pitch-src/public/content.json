@@ -16,8 +16,21 @@
      "Hospital-ready"
     ],
     "phoneA": "medtalk/android-chat-1.jpg",
-    "phoneB": "loops/android-call-connect-doctor.mp4"
-   }
+    "phoneB": "loops/android-call-connect-doctor.mp4",
+    "links": [
+     {
+      "label": "See a live call",
+      "href": "#live",
+      "style": "primary"
+     },
+     {
+      "label": "Try the prototype",
+      "href": "#journey-0",
+      "style": "ghost"
+     }
+    ]
+   },
+   "bg": "auto"
   },
   {
    "id": "problem",
@@ -41,7 +54,8 @@
      }
     ],
     "note": "Care is far away, prices are unclear, and hospitals coordinate staff on WhatsApp. Doctaz fixes all three on the phone people already own."
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "whynow",
@@ -70,7 +84,8 @@
       "label": "telehealth growth rate"
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "solution",
@@ -107,7 +122,8 @@
       "line": "A private environment where staff calls are free"
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "patient",
@@ -158,7 +174,8 @@
       "a": "reviews/android-2-stars.jpg"
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "live",
@@ -185,7 +202,8 @@
      }
     ],
     "badge": "● LIVE"
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "provider",
@@ -221,7 +239,8 @@
       "a": "loops/android-price-sheet.mp4"
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "features",
@@ -274,7 +293,8 @@
      "medtalk/android-search.jpg",
      "reviews/android-home-card.jpg"
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "tech",
@@ -339,7 +359,8 @@
       "d": "Calls and messages still arrive when the app is closed."
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "model",
@@ -371,7 +392,8 @@
      "Call connects and is billed",
      "Doctaz take rate"
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "market",
@@ -422,7 +444,8 @@
      }
     ],
     "note": "The same product works in any market: mobile money or cards, multiple currencies, and new facilities added from the admin panel with no app release."
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "traction",
@@ -454,7 +477,8 @@
      }
     ],
     "note": "Shipped: chat, 1:1 and group video, wallet billing, hospital environments, share-to-Doctaz and reviews. All of it is on both platforms."
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "competition",
@@ -525,7 +549,8 @@
       ]
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "roadmap",
@@ -562,7 +587,8 @@
      }
     ],
     "note": "Items marked \"Next\" and \"Later\" are future work, not shipped features."
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "team",
@@ -591,7 +617,8 @@
       "photo": ""
      }
     ]
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "ask",
@@ -621,7 +648,8 @@
      }
     ],
     "useNote": "(placeholder)"
-   }
+   },
+   "bg": "auto"
   },
   {
    "id": "contact",
@@ -630,8 +658,21 @@
    "data": {
     "title": "Care, one tap away.",
     "email": "[email]",
-    "site": "doctaz.com"
-   }
+    "site": "doctaz.com",
+    "links": [
+     {
+      "label": "Email us",
+      "href": "mailto:[email]",
+      "style": "primary"
+     },
+     {
+      "label": "Visit doctaz.com",
+      "href": "https://doctaz.com",
+      "style": "ghost"
+     }
+    ]
+   },
+   "bg": "auto"
   }
  ],
  "journeys": [
@@ -690,7 +731,8 @@
      "t": "Written review",
      "a": "reviews/android-3-filled.jpg"
     }
-   ]
+   ],
+   "sub": ""
   },
   {
    "name": "Provider journey",
@@ -735,7 +777,8 @@
      "t": "Reputation",
      "a": "reviews/android-home-card.jpg"
     }
-   ]
+   ],
+   "sub": ""
   },
   {
    "name": "Facility journey",
@@ -772,7 +815,30 @@
      "t": "Delivered",
      "a": "share/android-8-delivered.jpg"
     }
-   ]
+   ],
+   "sub": ""
   }
- ]
+ ],
+ "settings": {
+  "title": "Doctaz Investor Deck",
+  "colors": {
+   "primary": "#39a2da",
+   "accent": "#1d93d3",
+   "accentDark": "#6cc4f0",
+   "bgLight": "#f5f9fc",
+   "bgDark": "#050b12"
+  },
+  "fonts": {
+   "heading": "Rubik",
+   "body": "Lato"
+  },
+  "ui": {
+   "present": "▶ Present as slides",
+   "exit": "✕ Exit",
+   "pdf": "PDF",
+   "journeysGroup": "User journeys",
+   "journeyKicker": "Clickable prototype",
+   "journeyHint": "Tap the phone or use ← → to move through the flow. Real Android screens."
+  }
+ }
 }

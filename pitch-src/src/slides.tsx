@@ -12,7 +12,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/
 import { Blob, Waves, Phone, Reveal, Ph, Section, Eyebrow } from '@/components/bits'
 import { Arch } from '@/components/Arch'
 import { AfricaMap } from '@/components/AfricaMap'
-import { T, M, ItemTools, AddItem, useE, defaultContent } from '@/edit'
+import { T, M, ItemTools, AddItem, Links, useE, defaultContent } from '@/edit'
 
 type P = { id: string; b: string; d: any }
 
@@ -49,6 +49,7 @@ function Hero({ id, b }: P) {
               {chips.map((_, k) => <Li key={k} p={`${b}.chips`} i={k}><T p={`${b}.chips.${k}`} className="glass inline-block rounded-full px-4 py-2" /></Li>)}
             </div>
             {edit && <AddItem p={`${b}.chips`} label="Add chip" />}
+            <Links p={`${b}.links`} />
           </Reveal>
         </div>
         <div className="relative mx-auto flex h-[30rem] w-full max-w-md items-center justify-center sm:h-[34rem]">
@@ -430,7 +431,7 @@ function Team({ id, b, d }: P) {
       <AnimatedGroup preset="zoom" className="mt-12 grid gap-5 sm:grid-cols-3">
         {d.items.map((_: any, k: number) => (
           <Li key={k} p={`${b}.items`} i={k} className="glass rounded-3xl p-7 text-center">
-            <M p={`${b}.items.${k}.photo`} accept="image/*" render={(url, raw) => raw
+            <M optional p={`${b}.items.${k}.photo`} accept="image/*" render={(url, raw) => raw
               ? <img src={url} alt="" className="mx-auto mb-4 h-24 w-24 rounded-full object-cover" />
               : <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-primary to-accent" />} />
             <T p={`${b}.items.${k}.n`} as="h3" className="block text-lg font-semibold" />
@@ -474,6 +475,7 @@ function Contact({ id, b }: P) {
         <M p="slides.0.data.logo" accept="image/*" render={(url) => <img src={url} alt="Logo" className="mx-auto mb-8 h-14 w-auto" />} />
         <T p={`${b}.title`} as="h2" className="text-5xl font-extrabold sm:text-7xl" view={(s) => <TextEffect key={s} as="h2" per="char" preset="fade-in-blur" className="text-5xl font-extrabold sm:text-7xl">{s}</TextEffect>} />
         <p className="mt-6 text-lg text-muted"><T p={`${b}.email`} /> · <T p={`${b}.site`} /></p>
+        <Links p={`${b}.links`} className="justify-center" />
       </div>
     </Section>
   )
@@ -487,6 +489,7 @@ function Statement({ id, b }: P) {
         <Eb b={b} />
         <H2 b={b} className="text-5xl font-extrabold sm:text-7xl" preset="fade-in-blur" />
         <Reveal delay={0.3}><T p={`${b}.sub`} as="p" className="mx-auto mt-6 block max-w-2xl text-xl text-muted" /></Reveal>
+        <Links p={`${b}.links`} className="justify-center" />
       </div>
     </Section>
   )
@@ -506,6 +509,7 @@ function TextMedia({ id, b, d }: P) {
             ))}
           </ul>
           <AddItem p={`${b}.points`} label="Add point" />
+          <Links p={`${b}.links`} />
           <FlipToggle b={b} />
         </div>
         <div className="mx-auto w-44 sm:w-64"><PhoneM p={`${b}.media`} alt="" /></div>
@@ -527,8 +531,8 @@ const base = defaultContent.slides
 const fromDefault = (type: string) => structuredClone(base.find((s) => s.type === type)?.data)
 
 export const layouts: Record<string, { name: string; C: (p: P) => ReactNode; template: () => any }> = {
-  statement: { name: 'Big statement', C: Statement, template: () => ({ eyebrow: 'Section', title: 'A bold headline.', sub: 'One or two supporting sentences.' }) },
-  textMedia: { name: 'Text + phone', C: TextMedia, template: () => ({ eyebrow: 'Section', title: 'Headline', sub: 'Supporting text.', points: ['First point', 'Second point'], media: 'call/android-live-doctor.jpg', flip: 'no' }) },
+  statement: { name: 'Big statement', C: Statement, template: () => ({ eyebrow: 'Section', title: 'A bold headline.', sub: 'One or two supporting sentences.', links: [] }) },
+  textMedia: { name: 'Text + phone', C: TextMedia, template: () => ({ eyebrow: 'Section', title: 'Headline', sub: 'Supporting text.', points: ['First point', 'Second point'], media: 'call/android-live-doctor.jpg', flip: 'no', links: [] }) },
   hero: { name: 'Hero (headline + two phones)', C: Hero, template: () => fromDefault('hero') },
   problem: { name: 'Stat cards', C: Cards3, template: () => fromDefault('problem') },
   whyNow: { name: 'Numbered cards with stats', C: Cards3, template: () => fromDefault('whyNow') },
