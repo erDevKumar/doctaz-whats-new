@@ -4,12 +4,15 @@ import { Ph } from '@/components/bits'
 import defaults from '../public/content.json'
 
 const REPO = 'erDevKumar/doctaz-whats-new'
-const API = `https://api.github.com/repos/${REPO}/contents/`
+const BRANCH = 'main'
+const API = `https://api.github.com/repos/${REPO}`
 const CONTENT_PATHS = ['pitch/content.json', 'pitch-src/public/content.json']
 const DRAFT_KEY = 'doctaz-pitch-draft'
+const PUBLISHED_KEY = 'doctaz-pitch-published'
 
-export type Content = typeof defaults & { slides: Slide[] }
+export type Content = typeof defaults & { slides: Slide[]; savedAt?: number }
 export type Slide = { id: string; type: string; label: string; hidden?: boolean; bg?: string; data: any }
+export type SaveState = { kind: 'idle' | 'busy' | 'ok' | 'error'; text: string }
 
 const store = {
   get: (k: string, s: Storage = localStorage) => { try { return s.getItem(k) } catch { return null } },
@@ -28,17 +31,36 @@ function setAt(o: any, path: string, v: any): any {
   copy[k] = rest.length ? setAt(o?.[k] ?? {}, rest.join('.'), v) : v
   return copy
 }
-const b64 = (s: string) => btoa(unescape(encodeURIComponent(s)))
+const fromB64 = (s: string) => decodeURIComponent(escape(atob(s.replace(/\n/g, ''))))
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 type Ctx = {
   c: Content; edit: boolean; dirty: boolean; token: string | null
   get: (p: string) => any; set: (p: string, v: any) => void
   src: (p: string) => string; upload: (p: string, f: File) => Promise<void>
-  save: () => Promise<string>; login: (t: string) => Promise<string | null>; logout: () => void
-  discard: () => void; busy: string
+  save: () => Promise<void>; login: (t: string) => Promise<string | null>; logout: () => void
+  discard: () => void; busy: string; status: SaveState
 }
 const E = createContext<Ctx>(null as any)
 export const useE = () => useContext(E)
+
+// GitHub REST with no HTTP caching: its responses are cacheable for 60s, which served stale
+// commit shas and made back-to-back saves fail.
+async function ghFetch(token: string, path: string, init?: RequestInit) {
+  const r = await fetch(API + path, { ...init, cache: 'no-store', headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(init?.body ? { 'Content-Type': 'application/json' } : {}) } })
+  const j = await r.json().catch(() => ({}))
+  if (!r.ok) { const err = new Error(j.message || `HTTP ${r.status}`) as Error & { status: number }; err.status = r.status; throw err }
+  return j
+}
+
+function explain(e: any) {
+  const m = String(e?.message ?? e)
+  if (e?.status === 401) return 'The access token was rejected (expired or revoked). Lock, then unlock with a new token.'
+  if (e?.status === 403 || e?.status === 404) return `This token is not allowed to write to the deck repository (${m}). It needs "Contents: Read and write" on ${REPO}.`
+  if (e?.status === 409 || e?.status === 422) return `Someone else saved at the same moment (${m}). Press Save again.`
+  if (/Failed to fetch|NetworkError/i.test(m)) return 'Could not reach GitHub. Check the internet connection and press Save again.'
+  return m
+}
 
 export function ContentProvider({ children }: { children: ReactNode }) {
   const wantEdit = new URLSearchParams(location.search).has('edit')
@@ -46,71 +68,131 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   const [dirty, setDirty] = useState(false)
   const [token, setToken] = useState<string | null>(() => (wantEdit ? store.get('gh-token', sessionStorage) : null))
   const [blobs, setBlobs] = useState<Record<string, string>>({})
+  const pending = useRef<Record<string, string>>({}) // repo path -> git blob sha, committed with the next save
   const [busy, setBusy] = useState('')
-  const loaded = useRef(false)
+  const [status, setStatus] = useState<SaveState>({ kind: 'idle', text: '' })
 
   useEffect(() => {
-    fetch(`./content.json?t=${Date.now()}`).then((r) => (r.ok ? r.json() : null)).catch(() => null).then((live) => {
+    let alive = true
+    const pick = (live: Content | null) => {
+      // The Pages CDN caches content.json for ~10 minutes and ignores query strings, so a
+      // browser that just published keeps the copy it saved until the CDN catches up.
+      const mine = store.get(PUBLISHED_KEY)
+      let own: Content | null = null
+      try { own = mine ? JSON.parse(mine) : null } catch { own = null }
+      if (own && (!live || (own.savedAt ?? 0) > (live.savedAt ?? 0))) return own
+      if (own) store.del(PUBLISHED_KEY)
+      return live
+    }
+    ;(async () => {
+      let live: Content | null = null
+      if (wantEdit && token) {
+        // Editors read the repo directly so they always start from the latest saved version.
+        try { const f = await ghFetch(token, `/contents/${CONTENT_PATHS[0]}?ref=${BRANCH}`); live = JSON.parse(fromB64(f.content)) } catch { live = null }
+      }
+      if (!live) live = await fetch(`./content.json?t=${Date.now()}`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+      if (!alive) return
+      const base = pick(live)
       const draft = wantEdit ? store.get(DRAFT_KEY) : null
-      if (draft) { try { setC(JSON.parse(draft)); setDirty(true) } catch { if (live) setC(live) } }
-      else if (live) setC(live)
-      loaded.current = true
-    })
-  }, [wantEdit])
+      if (draft) { try { setC(JSON.parse(draft)); setDirty(true); return } catch { /* fall through */ } }
+      if (base) setC(base)
+    })()
+    return () => { alive = false }
+  }, [wantEdit, token])
+
+  useEffect(() => {
+    if (!dirty) return
+    const warn = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = '' }
+    addEventListener('beforeunload', warn); return () => removeEventListener('beforeunload', warn)
+  }, [dirty])
 
   const edit = wantEdit && !!token
   const set = useCallback((p: string, v: any) => {
     setC((prev) => { const next = setAt(prev, p, v); store.set(DRAFT_KEY, JSON.stringify(next)); return next })
-    setDirty(true)
+    setDirty(true); setStatus((s) => (s.kind === 'ok' ? { kind: 'idle', text: '' } : s))
   }, [])
 
-  const gh = useCallback(async (path: string, init?: RequestInit) => {
-    const r = await fetch(API + path, { ...init, headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', ...(init?.headers ?? {}) } })
-    if (!r.ok && r.status !== 404) throw new Error(`${r.status} ${(await r.json().catch(() => ({}))).message ?? ''}`)
-    return r.status === 404 ? null : r.json()
-  }, [token])
-
-  const put = useCallback(async (path: string, base64: string, message: string) => {
-    const cur = await gh(path)
-    await gh(path, { method: 'PUT', body: JSON.stringify({ message, content: base64, sha: cur?.sha }) })
-  }, [gh])
-
   const upload = useCallback(async (p: string, f: File) => {
+    if (!token) return
+    if (f.size > 25 * 1024 * 1024) { setStatus({ kind: 'error', text: `${f.name} is larger than 25 MB. Please use a smaller file.` }); return }
     const name = `uploads/${Date.now()}-${f.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-')}`
     setBlobs((b) => ({ ...b, [name]: URL.createObjectURL(f) }))
     setBusy(`Uploading ${f.name}…`)
     try {
       const data = await new Promise<string>((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.onerror = rej; r.readAsDataURL(f) })
-      await put(`img/${name}`, data, `Pitch deck: upload ${f.name}`)
+      const blob = await ghFetch(token, '/git/blobs', { method: 'POST', body: JSON.stringify({ content: data, encoding: 'base64' }) })
+      pending.current[`img/${name}`] = blob.sha
       set(p, name)
-    } catch (e) { alert(`Upload failed: ${(e as Error).message}`) } finally { setBusy('') }
-  }, [put, set])
+    } catch (e) { setStatus({ kind: 'error', text: `Upload failed: ${explain(e)}` }) } finally { setBusy('') }
+  }, [token, set])
+
+  const waitLive = useCallback(async (savedAt: number) => {
+    for (let i = 0; i < 40; i++) {
+      await sleep(15000)
+      const live = await fetch(`./content.json?t=${Date.now()}`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+      if ((live?.savedAt ?? 0) >= savedAt) { store.del(PUBLISHED_KEY); setStatus({ kind: 'ok', text: '✓ Live for everyone.' }); return }
+      setStatus({ kind: 'ok', text: `✓ Saved. Publishing to the live page… (${Math.round(((i + 1) * 15) / 60 * 10) / 10} min; usually 1–10 min)` })
+    }
+    setStatus({ kind: 'ok', text: '✓ Saved. The live page is taking longer than usual to refresh; it will update on its own.' })
+  }, [])
 
   const save = useCallback(async () => {
-    setBusy('Saving…')
+    if (!token) return
+    setBusy('Saving…'); setStatus({ kind: 'busy', text: 'Saving…' })
+    const savedAt = Date.now()
+    const next = { ...c, savedAt }
+    const body = JSON.stringify(next, null, 1)
     try {
-      const body = b64(JSON.stringify(c, null, 1))
-      for (const path of CONTENT_PATHS) await put(path, body, 'Pitch deck: content edit')
-      store.del(DRAFT_KEY); setDirty(false)
-      return 'Saved. The live deck updates for everyone in about a minute.'
-    } catch (e) { return `Save failed: ${(e as Error).message}` } finally { setBusy('') }
-  }, [c, put])
+      // One atomic commit with both content copies and any uploaded media; retried once if
+      // the branch moved underneath us.
+      for (let attempt = 0; ; attempt++) {
+        try {
+          const ref = await ghFetch(token, `/git/ref/heads/${BRANCH}`)
+          const head = await ghFetch(token, `/git/commits/${ref.object.sha}`)
+          const tree = await ghFetch(token, '/git/trees', { method: 'POST', body: JSON.stringify({
+            base_tree: head.tree.sha,
+            tree: [
+              ...CONTENT_PATHS.map((path) => ({ path, mode: '100644', type: 'blob', content: body })),
+              ...Object.entries(pending.current).map(([path, sha]) => ({ path, mode: '100644', type: 'blob', sha })),
+            ],
+          }) })
+          const commit = await ghFetch(token, '/git/commits', { method: 'POST', body: JSON.stringify({ message: 'Pitch deck: content edit', tree: tree.sha, parents: [ref.object.sha] }) })
+          await ghFetch(token, `/git/refs/heads/${BRANCH}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) })
+          break
+        } catch (e: any) { if (attempt === 0 && (e.status === 409 || e.status === 422)) continue; throw e }
+      }
+      pending.current = {}
+      setC(next); store.del(DRAFT_KEY); store.set(PUBLISHED_KEY, body); setDirty(false)
+      setStatus({ kind: 'ok', text: '✓ Saved. Publishing to the live page… (usually 1–10 min)' })
+      void waitLive(savedAt)
+    } catch (e) {
+      setStatus({ kind: 'error', text: `Not saved: ${explain(e)} Your edits are kept in this browser.` })
+    } finally { setBusy('') }
+  }, [c, token, waitLive])
 
   const login = useCallback(async (t: string) => {
-    const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: `Bearer ${t.trim()}` } }).catch(() => null)
-    if (!r?.ok) return 'That token cannot open the deck repository.'
-    const j = await r.json()
-    if (!j.permissions?.push) return 'That token can read but not write. Give it "Contents: Read and write" on this repo.'
-    store.set('gh-token', t.trim(), sessionStorage); setToken(t.trim()); return null
+    const tok = t.trim()
+    try {
+      await ghFetch(tok, '')
+      // A harmless write: an unreferenced blob proves the token can write without committing
+      // anything. Reading the repo alone is not enough — a fine-grained token reports the
+      // owner's push permission even when the token itself cannot write.
+      await ghFetch(tok, '/git/blobs', { method: 'POST', body: JSON.stringify({ content: 'write-check', encoding: 'utf-8' }) })
+    } catch (e: any) {
+      if (e.status === 401) return 'That token was not accepted. Check it was copied completely.'
+      if (e.status === 403 || e.status === 404) return `That token cannot write to the deck. When creating it, choose "Only select repositories" → ${REPO}, and set Repository permissions → Contents → "Read and write".`
+      return `Could not check the token: ${explain(e)}`
+    }
+    store.set('gh-token', tok, sessionStorage); setToken(tok); return null
   }, [])
 
   const logout = useCallback(() => { store.del('gh-token', sessionStorage); setToken(null) }, [])
-  const discard = useCallback(() => { store.del(DRAFT_KEY); location.reload() }, [])
+  const discard = useCallback(() => { store.del(DRAFT_KEY); pending.current = {}; location.reload() }, [])
 
   const v = useMemo<Ctx>(() => ({
-    c, edit, dirty, token, busy, set, upload, save, login, logout, discard,
+    c, edit, dirty, token, busy, status, set, upload, save, login, logout, discard,
     get: (p) => getAt(c, p), src: (p) => media(p, blobs),
-  }), [c, edit, dirty, token, busy, set, upload, save, login, logout, discard, blobs])
+  }), [c, edit, dirty, token, busy, status, set, upload, save, login, logout, discard, blobs])
   return <E.Provider value={v}>{children}</E.Provider>
 }
 

@@ -204,7 +204,7 @@ function JourneyViewer({ k }: { k: number }) {
 }
 
 function EditBar({ onPages, onSettings }: { onPages: () => void; onSettings: () => void }) {
-  const { edit, dirty, busy, save, login, logout, discard, token } = useE()
+  const { edit, dirty, busy, save, login, logout, discard, token, status } = useE()
   const [tok, setTok] = useState('')
   const [msg, setMsg] = useState('')
   if (!new URLSearchParams(location.search).has('edit')) return null
@@ -230,9 +230,10 @@ function EditBar({ onPages, onSettings }: { onPages: () => void; onSettings: () 
       <button className="rounded-full px-3 py-1 hover:bg-white/10" onClick={onPages}>☰ Pages</button>
       <button className="rounded-full px-3 py-1 hover:bg-white/10" onClick={onSettings}>⚙ Settings</button>
       {edit && dirty && <button className="rounded-full px-3 py-1 hover:bg-white/10" onClick={() => confirm('Discard all unsaved changes?') && discard()}>Discard</button>}
-      <button disabled={!dirty || !!busy} className="rounded-full bg-primary px-4 py-1 font-semibold disabled:opacity-40" onClick={async () => setMsg(await save())}>{busy || (dirty ? 'Save & publish' : 'Saved')}</button>
+      <button disabled={!dirty || !!busy} className="rounded-full bg-primary px-4 py-1 font-semibold disabled:opacity-40" onClick={() => save()}>{busy || (dirty ? 'Save & publish' : 'No unsaved changes')}</button>
       <button className="rounded-full px-3 py-1 text-white/60 hover:bg-white/10" onClick={logout}>Lock</button>
-      {msg && <span className="basis-full px-2 text-center text-xs text-white/80" role="status">{msg}</span>}
+      {dirty && !busy && <span className="basis-full px-2 text-center text-xs text-amber-300">Unsaved changes: only you can see them until you press Save &amp; publish.</span>}
+      {status.text && <span role={status.kind === 'error' ? 'alert' : 'status'} className={`basis-full rounded-xl px-3 py-1.5 text-center text-xs ${status.kind === 'error' ? 'bg-red-600 font-semibold text-white' : 'text-emerald-300'}`}>{status.text}</span>}
     </div>
   )
 }
