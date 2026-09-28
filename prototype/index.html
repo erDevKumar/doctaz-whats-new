@@ -1,0 +1,170 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Doctaz Mobile — Interactive Prototype</title>
+<meta name="description" content="Tap through the Doctaz mobile journeys with the real transitions: eHospital Book, Scheduler and Find Care on Android and iOS.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1514;--panel:#17201e;--ink:#e6efed;--muted:#9fb1ad;--line:#26332f;--brand:#3cc2b3;--brand-2:#0b7a6f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{padding:40px 0 22px;text-align:center}
+header h1{margin:0 0 8px;font-size:clamp(22px,4vw,34px);font-weight:800;letter-spacing:-.02em}
+header p{margin:0 auto;max-width:640px;color:var(--muted);font-size:15px}
+.journeys{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:22px 0 10px}
+.journeys button{background:var(--panel);border:1px solid var(--line);color:var(--muted);font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;cursor:pointer;transition:background .16s,color .16s,border-color .16s}
+.journeys button[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#07201d}
+.stage{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;margin:22px 0 40px}
+@media(max-width:860px){.stage{grid-template-columns:1fr}}
+.deviceWrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+.device{position:relative;width:360px;max-width:100%;aspect-ratio:360/760;background:#000;border-radius:38px;padding:10px;box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 2px #2a3330}
+.screen{position:relative;width:100%;height:100%;border-radius:29px;overflow:hidden;background:#f1f3f7}
+.screen img{position:absolute;inset:0;width:100%;height:auto;min-height:100%;object-fit:cover;object-position:top;will-change:transform,opacity}
+.screen img.enter-push{animation:pushIn .28s cubic-bezier(.2,.8,.2,1) both}
+.screen img.exit-push{animation:pushOut .28s cubic-bezier(.2,.8,.2,1) both}
+.screen img.enter-back{animation:backIn .24s cubic-bezier(.2,.8,.2,1) both}
+.screen img.exit-back{animation:backOut .24s cubic-bezier(.2,.8,.2,1) both}
+.screen img.enter-fade{animation:fadeIn .16s ease both}
+.screen img.exit-fade{animation:fadeOut .16s ease both}
+.screen img.enter-sheet{animation:sheetIn .26s cubic-bezier(.2,.8,.2,1) both}
+.screen img.exit-sheet{animation:sheetOut .26s ease both}
+@keyframes pushIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes pushOut{from{transform:translateX(0)}to{transform:translateX(-28%);opacity:.6}}
+@keyframes backIn{from{transform:translateX(-28%);opacity:.6}to{transform:translateX(0);opacity:1}}
+@keyframes backOut{from{transform:translateX(0)}to{transform:translateX(100%)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+@keyframes sheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes sheetOut{from{transform:translateY(0)}to{transform:translateY(100%)}}
+@media (prefers-reduced-motion:reduce){.screen img{animation-duration:.01ms!important}}
+.tapHint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:rgba(7,32,29,.86);color:#d8f5f0;font-size:12px;font-weight:600;padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .2s}
+.device:hover .tapHint{opacity:1}
+.controls{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+.controls button{background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer}
+.controls button:hover{border-color:var(--brand);color:var(--brand)}
+.controls .step{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;min-width:90px;text-align:center}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.side h3{margin:0 0 4px;font-size:15px;font-weight:700}
+.side .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.side ol{margin:0;padding-left:18px}
+.side li{padding:5px 0;font-size:14px;color:var(--muted);cursor:pointer;transition:color .16s}
+.side li:hover{color:var(--ink)}
+.side li[aria-current="true"]{color:var(--brand);font-weight:600}
+.motion{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.motion b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#a78bfa;margin-bottom:6px}
+.motion p{margin:0;font-size:13px;color:var(--muted)}
+footer{padding:26px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+footer a{color:var(--brand)}
+</style></head><body>
+<div class="wrap">
+<header>
+<h1>Doctaz Mobile — interactive prototype</h1>
+<p>Tap the phone to move through each journey. The transitions are the ones specified in the designs, so this is how the build will feel on Android and iOS.</p>
+</header>
+
+<div class="journeys" role="tablist" id="journeys"></div>
+
+<div class="stage">
+  <div class="deviceWrap">
+    <div class="device" id="device" title="Tap to advance">
+      <div class="screen" id="screen"></div>
+      <div class="tapHint">Tap to continue →</div>
+    </div>
+    <div class="controls">
+      <button id="back">← Back</button>
+      <span class="step" id="step">1 / 1</span>
+      <button id="next">Next →</button>
+      <button id="restart">Restart</button>
+    </div>
+  </div>
+  <aside class="side">
+    <h3 id="jTitle">Journey</h3>
+    <p class="sub" id="jSub"></p>
+    <ol id="steps"></ol>
+    <div class="motion"><b>Transition</b><p id="mNote">—</p></div>
+  </aside>
+</div>
+
+<footer>
+  Android 360×760 · iOS reuses the same designs ·
+  <a href="../proposal-2026-09/">Back to the proposal</a>
+</footer>
+</div>
+
+<script>
+const J = [
+ { id:"care", name:"1 · Patient books care", sub:"From opening the app to a confirmed appointment.",
+   steps:[
+    ["environment-picker","Choose environment","push","Enter · slide-left 280ms — full context change"],
+    ["find-care-search","Find Care","fade","Tab change · crossfade 160ms"],
+    ["location-consent-blocking","Location consent","sheet","Blocking modal · fade + scale 220ms"],
+    ["find-care-results","Results","fade","Results populate · staggered fade-up, 40ms apart"],
+    ["provider-profile","Provider profile","push","Card tap · slide-left 280ms"],
+    ["booking-step-1-of-3-otp-first","Book · step 1 of 3","sheet","Sheet up 260ms — phone and code come first"],
+    ["book-slot-picker","Book · choose a time","fade","Step change · crossfade 180ms inside the same sheet"],
+    ["book-type-confirm","Book · confirm","fade","Step change · crossfade 180ms"],
+    ["find-care-fee-checkout","Fee & checkout","fade","Confirm · button becomes an inline spinner"],
+    ["scheduler-agenda","Booked","push","Success · sheet down, new row fades in highlighted"]]},
+ { id:"records", name:"2 · Patient views records", sub:"eHospital Book, from overview to a single record.",
+   steps:[
+    ["ehospital-book-overview","eHospital Book","fade","Tab change · crossfade 160ms"],
+    ["section-list-medication-orders","Medication orders","push","Section tap · slide-left 280ms"],
+    ["record-detail-lab-order","Record detail","push","Row tap · slide-left 280ms"],
+    ["find-care-states","States & empty views","push","Assessments · slide-left 280ms"],
+    ["states","States","fade","Skeleton → content · crossfade 200ms"]]},
+ { id:"provider", name:"3 · Provider day", sub:"Patients, the chart, and adding a record.",
+   steps:[
+    ["provider-patients","Patients","fade","List load · skeleton then staggered reveal"],
+    ["health-registry-provider-13-tabs","Health Registry","push","Row tap · slide-left 280ms"],
+    ["health-registry-provider-13-tabs","Add a record","sheet","Add · sheet up 260ms; groups expand 200ms"],
+    ["provider-requests","Requests","fade","Tab change · crossfade 160ms"],
+    ["find-care-filters","Filters","push","Menu · slide-left 280ms"],
+    ["scheduler-alerts","Alerts","fade","New alert · slides in from top 220ms"]]},
+ { id:"scheduler", name:"4 · Scheduler", sub:"Agenda, calendar and the booking wizard.",
+   steps:[
+    ["scheduler-agenda","Agenda","fade","Tab change · crossfade 160ms"],
+    ["scheduler-calendar","Calendar","fade","Month ↔ List · crossfade 200ms"],
+    ["book-slot-picker","Choose a time","push","Schedule · slide-left 280ms"],
+    ["book-type-confirm","Confirm","fade","Step change · crossfade 180ms"],
+    ["guest-booking-otp","Guest booking","sheet","No account · sheet up 260ms"]]}
+];
+const screen=document.getElementById('screen'), stepEl=document.getElementById('step'),
+      stepsEl=document.getElementById('steps'), mNote=document.getElementById('mNote'),
+      jTitle=document.getElementById('jTitle'), jSub=document.getElementById('jSub');
+let ji=0, si=0;
+function anim(kind,back){ return back ? (kind==='push'?'back':kind) : kind; }
+function render(dir){
+  const j=J[ji], st=j.steps[si];
+  const cls = dir===0 ? 'fade' : anim(st[2], dir<0);
+  const prev = screen.querySelector('img');
+  const img=document.createElement('img');
+  img.src='img/'+st[0]+'.png'; img.alt=st[1];
+  img.className='enter-'+(cls==='back'?'back':cls);
+  img.onerror=()=>{ img.style.background='#1c2622'; };
+  screen.appendChild(img);
+  if(prev){ prev.className='exit-'+(cls==='back'?'back':cls); setTimeout(()=>prev.remove(),300); }
+  stepEl.textContent=(si+1)+' / '+j.steps.length;
+  mNote.textContent=st[3];
+  [...stepsEl.children].forEach((li,i)=>li.setAttribute('aria-current', i===si?'true':'false'));
+}
+function loadJourney(n,keep){
+  ji=n; si=0;
+  const j=J[ji];
+  jTitle.textContent=j.name; jSub.textContent=j.sub;
+  stepsEl.innerHTML='';
+  j.steps.forEach((s,i)=>{ const li=document.createElement('li'); li.textContent=s[1];
+    li.onclick=()=>{ const d=i>si?1:-1; si=i; render(d); }; stepsEl.appendChild(li); });
+  [...document.querySelectorAll('#journeys button')].forEach((b,i)=>b.setAttribute('aria-selected', i===n?'true':'false'));
+  screen.innerHTML=''; render(0);
+}
+J.forEach((j,i)=>{ const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab');
+  b.textContent=j.name; b.onclick=()=>loadJourney(i); document.getElementById('journeys').appendChild(b); });
+function next(){ const j=J[ji]; if(si<j.steps.length-1){ si++; render(1); } else if(ji<J.length-1){ loadJourney(ji+1); } }
+function back(){ if(si>0){ si--; render(-1); } }
+document.getElementById('device').onclick=next;
+document.getElementById('next').onclick=e=>{e.stopPropagation();next();};
+document.getElementById('back').onclick=e=>{e.stopPropagation();back();};
+document.getElementById('restart').onclick=e=>{e.stopPropagation();si=0;render(0);};
+document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight')next(); if(e.key==='ArrowLeft')back(); });
+loadJourney(0);
+</script>
+</body></html>

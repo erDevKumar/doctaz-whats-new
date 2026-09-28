@@ -1,0 +1,258 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Doctaz on mobile — proposal</title>
+<meta name="description" content="eHospital Book, Scheduler and Find Care on Android and iOS. 10 weeks, both platforms, with the designs finished and checked against the live platform first.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f8f8;--card:#fff;--ink:#14231f;--muted:#5b6b67;--line:#dde5e3;--brand:#0b7a6f;--brand-2:#0a5f86;--soft:#e3f3f1;--warn:#9a5b00;--warn-bg:#fff6e6;--warn-line:#f0d9a8;--ok:#0f7a52;--ok-bg:#e7f6ee;--sh:0 1px 2px rgba(16,32,28,.06),0 10px 30px rgba(16,32,28,.07)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1514;--card:#17201e;--ink:#e6efed;--muted:#9fb1ad;--line:#26332f;--brand:#3cc2b3;--brand-2:#4aa3c8;--soft:#16302c;--warn:#ffcf7a;--warn-bg:#2a2013;--warn-line:#4a3a1c;--ok:#5ed6a4;--ok-bg:#12291f;--sh:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0f1514;--card:#17201e;--ink:#e6efed;--muted:#9fb1ad;--line:#26332f;--brand:#3cc2b3;--brand-2:#4aa3c8;--soft:#16302c;--warn:#ffcf7a;--warn-bg:#2a2013;--warn-line:#4a3a1c;--ok:#5ed6a4;--ok-bg:#12291f;--sh:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:62px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:62px 0 48px}
+header .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+header h1{margin:12px 0 0;font-size:clamp(28px,5.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.025em}
+header p{max-width:620px;margin:16px 0 0;opacity:.95;font-size:clamp(15px,2vw,18px)}
+header .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+header .meta span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+nav{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav ul{display:flex;gap:4px;overflow-x:auto;list-style:none;margin:0;padding:9px 0;scrollbar-width:none}
+nav ul::-webkit-scrollbar{display:none}
+nav a{display:block;white-space:nowrap;padding:7px 13px;border-radius:999px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:600}
+nav a:hover,nav a.on{background:var(--soft);color:var(--brand)}
+section{padding:52px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(22px,3.6vw,30px);margin:0 0 10px;font-weight:800;letter-spacing:-.015em}
+h3{font-size:17px;margin:30px 0 8px;font-weight:700}
+.lede{color:var(--muted);max-width:760px;margin:0 0 20px;font-size:17px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0;box-shadow:var(--sh)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:24px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--sh)}
+.kpi b{display:block;font-size:clamp(24px,4vw,32px);font-weight:800;color:var(--brand);line-height:1.05;letter-spacing:-.02em}
+.kpi span{display:block;font-size:12px;color:var(--muted);margin-top:5px;font-weight:600}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;margin:14px 0;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:440px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;background:var(--bg)}
+tr:last-child td{border-bottom:none}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{font-weight:800;background:var(--soft);color:var(--brand)}
+.bar{height:8px;border-radius:4px;background:var(--soft);overflow:hidden;min-width:70px}
+.bar i{display:block;height:100%;background:var(--brand);width:0;border-radius:4px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.bar i{transition:none}}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin:18px 0}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--sh)}
+figure button{display:block;width:100%;padding:0;border:0;background:#eef1f4;cursor:zoom-in}
+figure img{display:block;width:100%;height:auto;max-height:340px;object-fit:cover;object-position:top}
+figcaption{padding:10px 12px;font-size:13px;font-weight:600}
+.freeze{background:var(--warn-bg);border:1px solid var(--warn-line);border-left:5px solid var(--warn);border-radius:12px;padding:20px 22px;margin:18px 0}
+.freeze h3{margin:0 0 8px;color:var(--warn);font-size:17px}
+ul.tick{list-style:none;padding:0;margin:12px 0}
+ul.tick li{padding:7px 0 7px 26px;position:relative}
+ul.tick li:before{content:"";position:absolute;left:4px;top:16px;width:9px;height:9px;border-radius:50%;background:var(--brand)}
+.cta{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;padding:14px 24px;border-radius:11px;margin:8px 10px 8px 0}
+.cta.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.pf{display:block;width:100%;max-width:340px;margin:0 auto;border:0;border-radius:20px;background:#000;padding:8px;box-shadow:var(--sh)}
+.pf iframe{display:block;width:100%;height:640px;border:0;border-radius:14px;background:#0f1514}
+footer{padding:36px 0 64px;color:var(--muted);font-size:14px}
+dialog{border:0;padding:0;background:transparent;max-width:min(94vw,400px)}
+dialog::backdrop{background:rgba(8,14,13,.85)}
+dialog img{width:100%;border-radius:12px;display:block}
+dialog .x{display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:13px;font-weight:600;padding:8px 2px}
+dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;font:inherit;font-weight:700;border-radius:8px;padding:6px 12px;cursor:pointer}
+@media print{nav,dialog,.pf{display:none}section{break-inside:avoid}}
+</style></head><body>
+
+<header><div class="wrap">
+<div class="eyebrow">Proposal · 29 September 2026</div>
+<h1>Doctaz on mobile</h1>
+<p>eHospital Book, the Scheduler and Find Care on <strong>both Android and iOS</strong>, from one approved set of designs.</p>
+<div class="meta"><span>For Paulinus Fultang</span><span>10 weeks</span><span>Both platforms</span><span>Designs already done</span></div>
+</div></header>
+
+<nav><div class="wrap"><ul>
+<li><a href="#scope">What this covers</a></li>
+<li><a href="#cost">Timeline &amp; cost</a></li>
+<li><a href="#effort">Effort</a></li>
+<li><a href="#why">Why it fits</a></li>
+<li><a href="#designs">Designs</a></li>
+<li><a href="#freeze">Design freeze</a></li>
+<li><a href="#next">Next</a></li>
+</ul></div></nav>
+
+<div class="wrap">
+
+<section id="scope" class="reveal">
+<h2>What this covers</h2>
+<p class="lede">Everything we agreed on 27 September, on both platforms.</p>
+<ul class="tick">
+<li><strong>eHospital Book</strong> — bring the mobile records experience up to the current web forms</li>
+<li><strong>Scheduler</strong> — the appointment engine: availability, booking, approvals, alerts</li>
+<li><strong>Find Care</strong> — in-person discovery and booking, with Near Me folded in as a distance filter</li>
+<li><strong>Guest mode</strong> — use the apps without signing up</li>
+<li><strong>Find Care payments</strong> — the patient pays the provider's fee, the platform keeps its share</li>
+<li><strong>Rebrand</strong> to <strong>Doctors</strong>, tagline "Connecting care, transforming medical records"</li>
+<li><strong>Developer account migration</strong> to the new legal entity</li>
+</ul>
+</section>
+
+<section id="cost" class="reveal">
+<h2>Timeline and cost</h2>
+<div class="kpis">
+<div class="kpi"><b>10</b><span>weeks</span></div>
+<div class="kpi"><b>$2,500</b><span>total</span></div>
+<div class="kpi"><b>5 × $500</b><span>Thursdays, weeks 2–10</span></div>
+<div class="kpi"><b>2</b><span>platforms</span></div>
+</div>
+<p>You pay as work is delivered, never ahead of it.</p>
+<div class="cols">
+<div class="card" style="border-left:4px solid var(--ok)"><h3 style="margin-top:0">Not billed: the design work</h3>
+<p style="margin:0">Roughly 39 screens, a clickable prototype and the research behind them. I'm contributing that. The 10 weeks and $2,500 cover engineering only.</p></div>
+<div class="card" style="border-left:4px solid var(--ok)"><h3 style="margin-top:0">Not billed: keeping the current apps working</h3>
+<p style="margin:0">If something breaks in what's already live, I fix it. It does not push the date.</p></div>
+</div>
+</section>
+
+<section id="effort" class="reveal">
+<h2>Effort</h2>
+<div class="tw"><table><thead><tr><th>Track</th><th class="n">Weeks</th><th class="n">Days</th><th class="n">Hours</th><th style="width:110px">Share</th></tr></thead><tbody>
+<tr><td>Foundation: forms engine, components, navigation</td><td class="n">1.0</td><td class="n">5</td><td class="n">40</td><td><span class="bar"><i data-w="40"></i></span></td></tr>
+<tr><td>eHospital Book — Android</td><td class="n">1.5</td><td class="n">8</td><td class="n">60</td><td><span class="bar"><i data-w="60"></i></span></td></tr>
+<tr><td>Scheduler — Android</td><td class="n">2.0</td><td class="n">10</td><td class="n">80</td><td><span class="bar"><i data-w="80"></i></span></td></tr>
+<tr><td>Find Care + payments — Android</td><td class="n">1.5</td><td class="n">8</td><td class="n">60</td><td><span class="bar"><i data-w="60"></i></span></td></tr>
+<tr><td>Guest mode + rebrand — Android</td><td class="n">0.5</td><td class="n">2</td><td class="n">20</td><td><span class="bar"><i data-w="20"></i></span></td></tr>
+<tr><td><strong>iOS — all features</strong></td><td class="n">2.5</td><td class="n">12</td><td class="n">100</td><td><span class="bar"><i data-w="100"></i></span></td></tr>
+<tr><td>QA, store submission, account migration</td><td class="n">1.0</td><td class="n">5</td><td class="n">40</td><td><span class="bar"><i data-w="40"></i></span></td></tr>
+<tr class="tot"><td>Total</td><td class="n">10</td><td class="n">50</td><td class="n">400</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="why" class="reveal">
+<h2>Why this fits in 10 weeks</h2>
+<p class="lede">Three reasons, and they are all verifiable.</p>
+<div class="card"><h3 style="margin-top:0">Two of the three features already exist</h3>
+<p style="margin:0">I logged into your live platform and worked through it as a patient, a doctor, a nurse and an admin. eHospital Book and Find Care are already in both apps, as older screens with working data connections. They are being redesigned and reconnected to the current forms rather than built from scratch. Only the Scheduler is genuinely new.</p></div>
+<div class="card"><h3 style="margin-top:0">Nothing is being discovered during the build</h3>
+<p>The designs are finished and checked against your live site, screen by screen. I found and fixed 21 places where an assumption about your platform was wrong:</p>
+<ul class="tick" style="margin:6px 0 0">
+<li>The booking flow verifies the phone number <em>before</em> choosing a slot</li>
+<li>The provider chart has thirteen tabs where the patient view has eight</li>
+<li>A provider card carries one action, not four</li>
+<li>An environment picker gates the whole app after login</li>
+</ul>
+<p style="margin-bottom:0">Each of those would have cost days if it surfaced mid-build.</p></div>
+<div class="card"><h3 style="margin-top:0">iOS reuses the Android work</h3>
+<p style="margin:0">Same designs, same API integration, same business rules, same edge cases already solved. That is why two platforms do not cost twice one.</p></div>
+</section>
+
+<section id="decision" class="reveal">
+<h2>One decision worth understanding</h2>
+<p>Your forms live in the database, not in the website's code. Your admin panel has <strong>51 active assessment types</strong> and can add more. That is why the mobile app fell behind: its fields were fixed inside the app, so when the web forms changed there was no way to follow.</p>
+<div class="card" style="border-left:4px solid var(--brand)">
+<p style="margin:0">The apps will read your form definitions from the same place the website does. Change a form on the web, and <strong>the apps follow automatically, with no app update and no resubmission to the stores.</strong></p>
+</div>
+<p>It is the single most valuable decision in this plan, and the reason this will not happen again.</p>
+</section>
+
+<section id="designs" class="reveal">
+<h2>Designs — please review these first</h2>
+<p class="lede">39 screens across four journeys: booking care, viewing records, a provider's day, and the Scheduler. Every flow was checked against your live site.</p>
+
+<div class="cols" style="align-items:start">
+  <div>
+    <h3 style="margin-top:0">Tap through it</h3>
+    <p style="color:var(--muted);font-size:15px">The prototype, with the real transitions. This is how the build will feel.</p>
+    <div class="pf"><iframe src="../prototype/" title="Doctaz mobile interactive prototype" loading="lazy"></iframe></div>
+    <p style="text-align:center;margin-top:12px"><a class="cta ghost" href="../prototype/">Open it full screen</a></p>
+  </div>
+  <div>
+    <h3 style="margin-top:0">Comment on the screens</h3>
+    <p style="color:var(--muted);font-size:15px">Leave notes directly on any screen in Penpot. That keeps each request attached to what it refers to.</p>
+    <p><a class="cta" href="https://design.penpot.app/#/view?file-id=a5ac146a-5787-80fa-8008-b3ff65d27d66&amp;page-id=6f07b414-daf7-8097-8008-b56eb5f33ee3&amp;index=0">Open the designs</a></p>
+    <div class="shots">
+      <figure><button data-s="img/environment-picker.png" data-c="Choose environment"><img src="img/environment-picker.png" alt="Environment picker" loading="lazy"></button><figcaption>Choose environment</figcaption></figure>
+      <figure><button data-s="img/find-care-results.png" data-c="Find Care results"><img src="img/find-care-results.png" alt="Find Care results" loading="lazy"></button><figcaption>Find Care</figcaption></figure>
+      <figure><button data-s="img/booking-step-1-of-3-otp-first.png" data-c="Booking, step 1 of 3"><img src="img/booking-step-1-of-3-otp-first.png" alt="Booking step 1" loading="lazy"></button><figcaption>Booking</figcaption></figure>
+      <figure><button data-s="img/ehospital-book-overview.png" data-c="eHospital Book"><img src="img/ehospital-book-overview.png" alt="eHospital Book" loading="lazy"></button><figcaption>eHospital Book</figcaption></figure>
+      <figure><button data-s="img/add-record-lab-orders.png" data-c="Lab order form"><img src="img/add-record-lab-orders.png" alt="Lab order form" loading="lazy"></button><figcaption>Lab orders</figcaption></figure>
+      <figure><button data-s="img/health-registry-provider-13-tabs.png" data-c="Health Registry"><img src="img/health-registry-provider-13-tabs.png" alt="Health Registry" loading="lazy"></button><figcaption>Health Registry</figcaption></figure>
+      <figure><button data-s="img/scheduler-agenda.png" data-c="Scheduler"><img src="img/scheduler-agenda.png" alt="Scheduler agenda" loading="lazy"></button><figcaption>Scheduler</figcaption></figure>
+      <figure><button data-s="img/provider-availability.png" data-c="Availability"><img src="img/provider-availability.png" alt="Availability" loading="lazy"></button><figcaption>Availability</figcaption></figure>
+    </div>
+  </div>
+</div>
+<div class="card"><strong>What I need:</strong> walk through them and comment on anything you want changed. Then confirm, and I'll start.</div>
+</section>
+
+<section id="freeze" class="reveal">
+<h2>Design freeze</h2>
+<div class="freeze">
+<h3>⚠ Once you approve, the designs are frozen</h3>
+<p style="margin:0">Development runs against exactly those screens and this scope. Anything new after that, whether a different flow, an extra screen or another feature, becomes a change request with its own estimate, and it moves the delivery date.</p>
+</div>
+<p>This is in your interest, not mine. A change during design costs minutes. The same change in week seven means rebuilding on two platforms and resubmitting to both stores, which is where projects like this usually lose a month. So be as demanding as you like now.</p>
+
+<h3>Not included</h3>
+<p>Your platform has 51 assessment types. This proposal covers the eight patient-facing sections and the physician-order forms. The other 43, including PHQ-9, GAD-7, Braden, Glasgow, APGAR and the Wells scores, are <strong>not</strong> in scope. They are validated clinical instruments and each deserves proper attention rather than being swept in.</p>
+<p>Also out: pharmacy, laboratory and diagnostics, symptom checker changes, phone-calendar integration, website changes (including the Find Provider → Find Care rename on WordPress), and hosting or staging work.</p>
+</section>
+
+<section id="deps" class="reveal">
+<h2>What I need from your side</h2>
+<p class="lede">A small amount of platform work has to land before the mobile piece that depends on it. That sits with your backend team, and it is not in the 10 weeks.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>Needed</th><th>For</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Form definitions exposed to the apps</strong></td><td>The most important one. It is what stops the apps falling behind again</td></tr>
+<tr><td>2</td><td>Records list and save endpoints</td><td>eHospital Book</td></tr>
+<tr><td>3</td><td>Appointment booking, approve / decline / reschedule</td><td>Scheduler</td></tr>
+<tr><td>4</td><td>Availability and blackout management</td><td>Scheduler</td></tr>
+<tr><td>5</td><td>Guest passcode verification returning an app credential</td><td>Guest mode</td></tr>
+<tr><td>6</td><td>A notifications feed</td><td>Scheduler alerts</td></tr>
+<tr><td>7</td><td>Provider profile detail</td><td>Find Care</td></tr>
+<tr><td>8</td><td>Provider fee, platform share, checkout and payout</td><td>Find Care payments</td></tr>
+</tbody></table></div>
+<p>If one is late, that module pauses rather than gets rebuilt, and the date moves with it.</p>
+</section>
+
+<section id="next" class="reveal">
+<h2>Next</h2>
+<div class="card"><ol style="margin:0;padding-left:20px">
+<li>You review the prototype and the designs, and comment</li>
+<li>You approve, and the designs freeze</li>
+<li>Your backend team starts on item 1 above</li>
+<li>I start Android, then iOS, then release and the account migration</li>
+</ol></div>
+<p>Happy to walk you through the designs live and take your comments as we go.</p>
+<p><a class="cta" href="../prototype/">Tap through the prototype</a><a class="cta ghost" href="https://design.penpot.app/#/view?file-id=a5ac146a-5787-80fa-8008-b3ff65d27d66&amp;page-id=6f07b414-daf7-8097-8008-b56eb5f33ee3&amp;index=0">Comment on the designs</a></p>
+</section>
+
+<footer><div class="wrap">Doctaz on mobile · proposal for Paulinus Fultang · 29 September 2026</div></footer>
+</div>
+
+<dialog><div class="x"><span id="dc"></span><button data-close>Close</button></div><img alt=""></dialog>
+
+<script>
+// scroll reveals
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{rootMargin:'-40px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// animated effort bars, once in view
+const maxH=100;
+const bio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){
+  document.querySelectorAll('.bar i').forEach((b,i)=>setTimeout(()=>{ b.style.width=(b.dataset.w/maxH*100)+'%'; }, i*90));
+  bio.disconnect(); } }),{rootMargin:'-60px'});
+const eff=document.getElementById('effort'); if(eff) bio.observe(eff);
+// lightbox
+const dlg=document.querySelector('dialog'), di=dlg.querySelector('img'), dc=document.getElementById('dc');
+document.addEventListener('click',e=>{ const b=e.target.closest('figure button'); if(!b) return;
+  di.src=b.dataset.s; di.alt=b.dataset.c; dc.textContent=b.dataset.c; if(dlg.showModal) dlg.showModal(); });
+dlg.addEventListener('click',e=>{ if(e.target.hasAttribute('data-close')||e.target===dlg) dlg.close(); });
+// nav highlight
+const links=[...document.querySelectorAll('nav a')];
+const nio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){
+  links.forEach(a=>a.classList.toggle('on', a.getAttribute('href')==='#'+e.target.id)); } }),{rootMargin:'-62px 0px -72% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>nio.observe(s));
+</script>
+</body></html>
