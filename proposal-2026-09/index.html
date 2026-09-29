@@ -79,7 +79,10 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <li><a href="#cost">Timeline &amp; cost</a></li>
 <li><a href="#effort">Effort</a></li>
 <li><a href="#why">Why it fits</a></li>
+<li><a href="#today">Today</a></li>
+<li><a href="#system">Design system</a></li>
 <li><a href="#designs">Designs</a></li>
+<li><a href="#journeys">Journeys</a></li>
 <li><a href="#freeze">Design freeze</a></li>
 <li><a href="#next">Next</a></li>
 </ul></div></nav>
@@ -160,6 +163,41 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <p>It is the single most valuable decision in this plan, and the reason this will not happen again.</p>
 </section>
 
+
+
+<section id="today" class="reveal">
+<h2>What already ships</h2>
+<p class="lede">These are screenshots of your apps as they are now, captured from real accounts. They matter to the estimate: two of the three features already exist, so this work is a redesign on top of a product that runs.</p>
+<div class="shots"><figure><button data-s="img/real/android-chat-1.jpg" data-c="Patient and provider messaging, Android"><img src="img/real/android-chat-1.jpg" alt="Patient and provider messaging, Android" loading="lazy"></button><figcaption>Secure messaging, Android</figcaption></figure><figure><button data-s="img/real/ios-conversations.jpg" data-c="The same conversation on iOS, provider side"><img src="img/real/ios-conversations.jpg" alt="The same conversation on iOS, provider side" loading="lazy"></button><figcaption>The same product on iOS</figcaption></figure><figure><button data-s="img/real/android-0-callsheet-facility.jpg" data-c="A shared document arriving in a thread"><img src="img/real/android-0-callsheet-facility.jpg" alt="A shared document arriving in a thread" loading="lazy"></button><figcaption>Documents inside a conversation</figcaption></figure><figure><button data-s="img/real/android-10-grid-from-ios.jpg" data-c="Records and media sent from iOS, received on Android"><img src="img/real/android-10-grid-from-ios.jpg" alt="Records and media sent from iOS, received on Android" loading="lazy"></button><figcaption>Cross-platform attachments</figcaption></figure></div>
+</section>
+
+<section id="system" class="reveal">
+<h2>The design system underneath</h2>
+<p class="lede">The screens are not drawn one by one. Colour, type and components come from your app's own token file, so what you approve here is what the code already uses.</p>
+<div class="cols">
+  <div class="card"><h3 style="margin-top:0">Colour</h3>
+  <p style="margin:0 0 10px">Twenty-four named tokens, taken verbatim from <code>DoctazTokens.kt</code>. Brand teal, ink and surface, plus one colour per appointment status so a state is never guessed at.</p>
+  <div style="display:flex;gap:6px;flex-wrap:wrap">
+    <span style="width:34px;height:34px;border-radius:8px;background:#0D9488;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#0B7A70;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#CCFBF1;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#10B981;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#F59E0B;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#F97316;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#06B6D4;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#EF4444;border:1px solid var(--line)"></span>
+    <span style="width:34px;height:34px;border-radius:8px;background:#111827;border:1px solid var(--line)"></span>
+  </div></div>
+  <div class="card"><h3 style="margin-top:0">Components</h3>
+  <p style="margin:0">Buttons, inputs, checkboxes, list rows, status pills, notices and sheets are defined once and reused. That is why adding a screen is quick, and why the ninety-odd screens look like one product rather than ninety decisions.</p></div>
+</div>
+<div class="shots">
+  <figure><button data-s="img/ds-buttons.png" data-c="Buttons and status pills"><img src="img/ds-buttons.png" alt="Buttons" loading="lazy"></button><figcaption>Buttons &amp; status</figcaption></figure>
+  <figure><button data-s="img/ds-inputs.png" data-c="Inputs and checkboxes"><img src="img/ds-inputs.png" alt="Inputs" loading="lazy"></button><figcaption>Inputs</figcaption></figure>
+  <figure><button data-s="img/ds-cards.png" data-c="List rows and notices"><img src="img/ds-cards.png" alt="Cards" loading="lazy"></button><figcaption>Rows &amp; notices</figcaption></figure>
+</div>
+</section>
+
 <section id="designs" class="reveal">
 <h2>Designs — please review these first</h2>
 <p class="lede"><strong>116 screens</strong> are drawn: 75 wireframes for structure and 39 finished visual screens, across <strong>eight journeys</strong>. Every flow was checked against your live site, in every role.</p>
@@ -188,6 +226,16 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
   </div>
 </div>
 <div class="card"><strong>What I need:</strong> walk through them and comment on anything you want changed. Then confirm, and I'll start.</div>
+</section>
+
+
+<section id="journeys" class="reveal">
+<h2>How the pieces connect</h2>
+<p class="lede">One booking, followed all the way through: the patient finds care, a guest verifies a phone number, the provider approves and charts, and it lands in the clinic's view. Tap the diagram to explore it.</p>
+<div class="card" style="padding:0;overflow:hidden">
+  <iframe src="../journeys/" title="Doctaz mobile journeys" loading="lazy" style="display:block;width:100%;height:520px;border:0"></iframe>
+</div>
+<p><a class="cta ghost" href="../journeys/">Open the diagram full screen</a></p>
 </section>
 
 <section id="freeze" class="reveal">
