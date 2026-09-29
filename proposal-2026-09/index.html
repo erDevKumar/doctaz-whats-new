@@ -106,12 +106,12 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <div class="kpi"><b>10</b><span>weeks</span></div>
 <div class="kpi"><b>$2,500</b><span>total</span></div>
 <div class="kpi"><b>5 × $500</b><span>Thursdays, weeks 2–10</span></div>
-<div class="kpi"><b>2</b><span>platforms</span></div>
+<div class="kpi"><b>116</b><span>screens designed</span></div>
 </div>
 <p>You pay as work is delivered, never ahead of it.</p>
 <div class="cols">
 <div class="card" style="border-left:4px solid var(--ok)"><h3 style="margin-top:0">Not billed: the design work</h3>
-<p style="margin:0">Roughly 39 screens, a clickable prototype and the research behind them. I'm contributing that. The 10 weeks and $2,500 cover engineering only.</p></div>
+<p style="margin:0">116 screens, a clickable prototype and the research behind them. I'm contributing that. The 10 weeks and $2,500 cover engineering only.</p></div>
 <div class="card" style="border-left:4px solid var(--ok)"><h3 style="margin-top:0">Not billed: keeping the current apps working</h3>
 <p style="margin:0">If something breaks in what's already live, I fix it. It does not push the date.</p></div>
 </div>
@@ -135,14 +135,16 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <h2>Why this fits in 10 weeks</h2>
 <p class="lede">Three reasons, and they are all verifiable.</p>
 <div class="card"><h3 style="margin-top:0">Two of the three features already exist</h3>
-<p style="margin:0">I logged into your live platform and worked through it as a patient, a doctor, a nurse and an admin. eHospital Book and Find Care are already in both apps, as older screens with working data connections. They are being redesigned and reconnected to the current forms rather than built from scratch. Only the Scheduler is genuinely new.</p></div>
+<p style="margin:0">I logged into your live platform and worked through it as a patient, a doctor, a nurse, a facility and an admin. eHospital Book and Find Care are already in both apps, as older screens with working data connections. They are being redesigned and reconnected to the current forms rather than built from scratch. Only the Scheduler is genuinely new.</p></div>
 <div class="card"><h3 style="margin-top:0">Nothing is being discovered during the build</h3>
-<p>The designs are finished and checked against your live site, screen by screen. I found and fixed 21 places where an assumption about your platform was wrong:</p>
+<p>I went through your platform's source and listed every screen, then opened them in a browser in each role. That came to <strong>83 screens</strong>, which on a phone becomes about <strong>139</strong> — a thirteen-tab chart or a twenty-three-field form cannot be one mobile screen.</p>
 <ul class="tick" style="margin:6px 0 0">
-<li>The booking flow verifies the phone number <em>before</em> choosing a slot</li>
-<li>The provider chart has thirteen tabs where the patient view has eight</li>
-<li>A provider card carries one action, not four</li>
+<li>The booking flow verifies the phone number <em>before</em> a slot is chosen</li>
+<li>There is a <strong>second, provider-initiated booking flow</strong> with its own calendar</li>
+<li>"Approved Scheduled" is its own screen, not part of the main calendar</li>
+<li>The provider chart has <strong>fourteen</strong> tables where the patient view has eight</li>
 <li>An environment picker gates the whole app after login</li>
+<li>Your symptom checker writes results into medical records, so the records list must render them</li>
 </ul>
 <p style="margin-bottom:0">Each of those would have cost days if it surfaced mid-build.</p></div>
 <div class="card"><h3 style="margin-top:0">iOS reuses the Android work</h3>
@@ -160,7 +162,7 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 
 <section id="designs" class="reveal">
 <h2>Designs — please review these first</h2>
-<p class="lede">39 screens across four journeys: booking care, viewing records, a provider's day, and the Scheduler. Every flow was checked against your live site.</p>
+<p class="lede"><strong>116 screens</strong> are drawn: 75 wireframes for structure and 39 finished visual screens, across <strong>eight journeys</strong>. Every flow was checked against your live site, in every role.</p>
 
 <div class="cols" style="align-items:start">
   <div>
@@ -197,7 +199,7 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <p>This is in your interest, not mine. A change during design costs minutes. The same change in week seven means rebuilding on two platforms and resubmitting to both stores, which is where projects like this usually lose a month. So be as demanding as you like now.</p>
 
 <h3>Not included</h3>
-<p>Your platform has 51 assessment types. This proposal covers the eight patient-facing sections and the physician-order forms. The other 43, including PHQ-9, GAD-7, Braden, Glasgow, APGAR and the Wells scores, are <strong>not</strong> in scope. They are validated clinical instruments and each deserves proper attention rather than being swept in.</p>
+<p>Your admin panel holds <strong>51 active assessment types</strong> and can add more. This proposal covers the eight patient-facing sections and the eight physician-order forms. The rest, including PHQ-9, GAD-7, C-SSRS, Braden, MMSE, MoCA, Glasgow, APGAR and the Wells scores, are <strong>not</strong> in scope — they are validated clinical instruments and each deserves proper attention. The same goes for the twenty-four clinical assessment forms inside the provider chart.</p>
 <p>Also out: pharmacy, laboratory and diagnostics, symptom checker changes, phone-calendar integration, website changes (including the Find Provider → Find Care rename on WordPress), and hosting or staging work.</p>
 </section>
 
