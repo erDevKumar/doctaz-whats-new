@@ -83,7 +83,8 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <li><a href="#system">Design system</a></li>
 <li><a href="#designs">Designs</a></li>
 <li><a href="#journeys">Journeys</a></li>
-<li><a href="#freeze">Design freeze</a></li>
+<li><a href="#decide">Decisions</a>
+<a href="#freeze">Design freeze</a></li>
 <li><a href="#next">Next</a></li>
 </ul></div></nav>
 
@@ -143,6 +144,8 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
 <p>I went through your platform's source and listed every screen, then opened them in a browser in each role. That came to <strong>83 screens</strong>, which on a phone becomes about <strong>139</strong> — a thirteen-tab chart or a twenty-three-field form cannot be one mobile screen.</p>
 <ul class="tick" style="margin:6px 0 0">
 <li>The booking flow verifies the phone number <em>before</em> a slot is chosen</li>
+<li>Your specialty list has <strong>27</strong> entries, and two are duplicated in the live data — the app must render what your API returns, not a tidied-up version</li>
+<li>Distance only appears once a patient grants location; until then every card reads "Enable location for distance"</li>
 <li>There is a <strong>second, provider-initiated booking flow</strong> with its own calendar</li>
 <li>"Approved Scheduled" is its own screen, not part of the main calendar</li>
 <li>The provider chart has <strong>fourteen</strong> tables where the patient view has eight</li>
@@ -236,6 +239,23 @@ dialog button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255
   <iframe src="../journeys/" title="Doctaz mobile journeys" loading="lazy" style="display:block;width:100%;height:520px;border:0"></iframe>
 </div>
 <p><a class="cta ghost" href="../journeys/">Open the diagram full screen</a></p>
+</section>
+
+
+<section id="decide" class="reveal">
+<h2>Two things I need you to decide</h2>
+<p class="lede">Checking the designs against your live site turned up two screens I had drawn that your website does not actually have. I have left both out of the ten weeks rather than quietly charging you for them.</p>
+<div class="cols">
+  <div class="card">
+    <h3>A provider profile page</h3>
+    <p>On your site a provider card has exactly one button, Book&nbsp;Appointment. The card is not clickable and there is no profile page behind it. A profile screen with background, qualifications and reviews would genuinely help on mobile — patients expect it before booking — but it is <strong>new work, not a port</strong>, and it needs a new endpoint from your backend team.</p>
+  </div>
+  <div class="card">
+    <h3>A map view</h3>
+    <p>Same situation: there is no map on the web listing today. The mapping library loads only to autocomplete a city name.</p>
+  </div>
+</div>
+<p>Tell me if you want either and I will price them separately. If you would rather ship what the web does today and add these later, that is the faster and cheaper path, and it is what I would recommend for the first release.</p>
 </section>
 
 <section id="freeze" class="reveal">
