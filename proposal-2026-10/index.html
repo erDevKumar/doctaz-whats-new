@@ -9,7 +9,7 @@
 <title>Doctaz on mobile — what's built, and what's next</title>
 <meta name="description" content="Four features already delivered on Android and iPhone beyond the original scope, and the plan for Find Care, the Scheduler and Guest mode.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0E2A2E; --ink-2:#28474a; --mut:#5d7678; --bone:#F7F5F0; --paper:#fff;
@@ -25,16 +25,16 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bone);color:var(--ink);
-  font:400 17px/1.62 Inter,system-ui,sans-serif;font-feature-settings:"ss01","cv05";}
+  font:400 16.5px/1.72 Inter,system-ui,sans-serif;font-feature-settings:"ss01","cv05";}
 .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
 .col{max-width:68ch}
-h1,h2,h3,.fig{font-family:Fraunces,Georgia,serif;font-variation-settings:"opsz" 96;font-weight:600;letter-spacing:-.012em}
+h1,h2,h3,.fig{font-family:Fraunces,Georgia,serif;font-variation-settings:"opsz" 30;font-weight:500;letter-spacing:-.004em}
 a{color:var(--teal)}
 
 /* ── masthead ───────────────────────────────── */
 .mast{padding:68px 0 10px;position:relative;overflow:hidden}
 .mast .who{font-size:14px;color:var(--mut);letter-spacing:.01em}
-.mast h1{font-size:clamp(34px,6.2vw,60px);line-height:1.04;margin:16px 0 0;max-width:19ch;text-wrap:balance}
+.mast h1{font-size:clamp(31px,5.2vw,50px);line-height:1.16;margin:18px 0 0;max-width:21ch;text-wrap:balance;font-variation-settings:"opsz" 42}
 .mast .sub{margin:20px 0 0;max-width:56ch;color:var(--ink-2);font-size:clamp(16px,1.9vw,19px)}
 .vers{display:grid;grid-template-columns:repeat(6,1fr);margin:34px 0 0;border-top:1px solid var(--rule);
   border-bottom:1px solid var(--rule)}
@@ -47,12 +47,12 @@ a{color:var(--teal)}
  .vers div:nth-child(-n+4){border-bottom:1px solid var(--rule)}
  .vers div{border-right:1px solid var(--rule)}
  .vers div:nth-child(2n){border-right:0;padding-right:0}}
-.vers b{display:block;color:var(--ink);font-weight:600;font-size:17px;margin-top:3px;font-family:Fraunces,serif;font-variation-settings:"opsz" 24;letter-spacing:-.01em}
+.vers b{display:block;color:var(--ink);font-weight:500;font-size:17px;margin-top:3px;font-family:Fraunces,serif;font-variation-settings:"opsz" 22;letter-spacing:0}
 
 /* ── the total, as the hero ─────────────────── */
 .total{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:end;margin:46px 0 8px}
-.fig{font-size:clamp(66px,15.5vw,148px);line-height:.84;font-variation-settings:"opsz" 144;
-  color:var(--teal);font-weight:600;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.fig{font-size:clamp(54px,11vw,104px);line-height:.95;font-variation-settings:"opsz" 54;
+  color:var(--teal);font-weight:500;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
 .split{border-left:1px solid var(--rule);padding-left:30px;padding-bottom:8px;min-width:0}
 .split p{margin:0 0 9px;font-size:15.5px;color:var(--ink-2)}
 .split p b{color:var(--ink);font-weight:600}
@@ -77,31 +77,32 @@ main{position:relative}
 @media(max-width:860px){.spine{display:none}}
 section{padding:64px 0;border-bottom:1px solid var(--rule)}
 section:last-of-type{border-bottom:0}
-.lede{color:var(--ink-2);font-size:19px;max-width:62ch;margin:0 0 30px}
-h2{font-size:clamp(25px,4vw,37px);margin:0 0 14px;line-height:1.1}
-h3{font-size:20px;margin:0 0 8px;font-variation-settings:"opsz" 36}
+.lede{color:var(--ink-2);font-size:18px;line-height:1.68;max-width:60ch;margin:0 0 30px}
+h2{font-size:clamp(23px,3.2vw,31px);margin:0 0 16px;line-height:1.26;font-variation-settings:"opsz" 34}
+h3{font-size:19px;margin:0 0 8px;font-variation-settings:"opsz" 28;font-weight:500}
 
 /* ── entries: ruled rows, not cards ─────────── */
-.entry{display:grid;grid-template-columns:168px 1fr;gap:34px;padding:30px 0;border-top:1px solid var(--rule)}
+.entry{display:grid;grid-template-columns:252px 1fr;gap:38px;padding:32px 0;border-top:1px solid var(--rule)}
 .entry:first-of-type{border-top:0}
 .entry > .k{font-size:13.5px;color:var(--mut);padding-top:5px;line-height:1.5}
 .entry > .k b{display:block;color:var(--teal);font-weight:600;font-size:14px;margin-bottom:3px}
 .entry p{margin:0 0 10px;max-width:64ch}
 .entry p:last-child{margin-bottom:0}
-@media(max-width:760px){.entry{grid-template-columns:1fr;gap:10px}.entry>.k{padding-top:0}}
+@media(max-width:1000px){.entry{grid-template-columns:210px 1fr;gap:28px}}
+@media(max-width:760px){.entry{grid-template-columns:1fr;gap:14px}.entry>.k{padding-top:0}}
 .plat{display:inline-flex;gap:7px;align-items:center;font-size:13px;color:var(--mut);margin-top:4px}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--teal);display:inline-block}
 
 /* ── ledger ─────────────────────────────────── */
-.ledger{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:16px}
+.ledger{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:16px;table-layout:auto}
 .ledger th{text-align:left;font-weight:500;font-size:13px;color:var(--mut);padding:0 14px 11px 0;
   border-bottom:1px solid var(--rule)}
 .ledger td{padding:17px 14px 17px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 .ledger td:last-child,.ledger th:last-child{text-align:right;padding-right:0;
-  font-variant-numeric:tabular-nums;white-space:nowrap}
-.ledger .amt{font-family:Fraunces,serif;font-size:21px;font-weight:600;font-variation-settings:"opsz" 36}
+  font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.ledger .amt{font-family:Fraunces,serif;font-size:20px;font-weight:500;font-variation-settings:"opsz" 26}
 .ledger .sum td{border-bottom:0;border-top:2px solid var(--ink);padding-top:16px}
-.ledger .sum .amt{color:var(--teal);font-size:27px}
+.ledger .sum .amt{color:var(--teal);font-size:25px}
 .ledger .note{display:block;color:var(--mut);font-size:14px;margin-top:4px}
 .ledger .sub td{padding-top:0;border-bottom:0;color:var(--mut);font-size:14.5px}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -115,9 +116,9 @@ h3{font-size:20px;margin:0 0 8px;font-variation-settings:"opsz" 36}
 
 /* ── misc ───────────────────────────────────── */
 ul.pts{list-style:none;padding:0;margin:14px 0 0}
-ul.pts li{padding:9px 0 9px 20px;position:relative;border-top:1px solid var(--rule);max-width:64ch}
+ul.pts li{padding:9px 0 9px 22px;position:relative;border-top:1px solid var(--rule);max-width:64ch}
 ul.pts li:first-child{border-top:0}
-ul.pts li:before{content:"";position:absolute;left:0;top:19px;width:7px;height:1px;background:var(--teal)}
+ul.pts li:before{content:"";position:absolute;left:0;top:calc(0.86em + 9px);width:8px;height:1px;background:var(--teal)}
 .btn{display:inline-block;padding:14px 26px;border:1px solid var(--teal);color:var(--teal);
   text-decoration:none;font-size:15.5px;font-weight:600;margin:10px 12px 0 0;border-radius:3px;
   transition:background .2s,color .2s}
@@ -142,6 +143,67 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
   html{scroll-behavior:auto}
 }
 @media print{nav{display:none}section{break-inside:avoid;border-bottom:0}.spine{display:none}}
+
+/* ── iconography (Lucide, inlined) ──────────── */
+.ic{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;flex:none}
+.entry > .k{display:flex;gap:12px}
+.kt{min-width:0}
+.icw{width:38px;height:38px;border:1px solid var(--rule);border-radius:50%;display:grid;
+  place-items:center;color:var(--teal);flex:none;background:var(--paper);
+  transition:border-color .35s ease,transform .35s cubic-bezier(.2,.7,.3,1)}
+.in .icw{animation:pop .5s cubic-bezier(.2,.9,.3,1) both}
+@keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+.entry:hover .icw{border-color:var(--teal)}
+.ic .dash{stroke-dasharray:var(--l,40);stroke-dashoffset:var(--l,40)}
+.in .ic .dash{animation:draw .9s cubic-bezier(.3,.7,.3,1) .15s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media(max-width:760px){.entry > .k{align-items:center}}
+
+/* section headings get a quiet rule that draws in */
+h2{display:flex;align-items:baseline;gap:16px}
+h2:after{content:"";height:1px;background:var(--rule);flex:1;transform:scaleX(0);
+  transform-origin:left;transition:transform .9s cubic-bezier(.2,.7,.3,1) .1s}
+.in h2:after,h2.in:after{transform:scaleX(1)}
+
+/* the gate marks get an icon rail */
+.gate{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.gate .ic{width:22px;height:22px;margin-top:2px}
+.gate.go .ic{color:var(--teal)}
+.gate:not(.go) .ic{color:var(--amber)}
+
+/* ledger amounts settle in */
+.ledger .amt{display:inline-block}
+.in .ledger tr:nth-child(1) .amt{animation:slot .5s cubic-bezier(.2,.8,.3,1) .05s both}
+.in .ledger tr:nth-child(2) .amt{animation:slot .5s cubic-bezier(.2,.8,.3,1) .13s both}
+.in .ledger tr:nth-child(3) .amt{animation:slot .5s cubic-bezier(.2,.8,.3,1) .21s both}
+@keyframes slot{0%{opacity:0;transform:translateY(7px)}100%{opacity:1;transform:none}}
+
+/* buttons: arrow slides, no '→' in the text */
+.btn{display:inline-flex;align-items:center;gap:9px}
+.btn .ic{width:17px;height:17px;transition:transform .3s cubic-bezier(.2,.8,.3,1)}
+.btn:hover .ic{transform:translateX(3px)}
+
+/* steps become a numbered track, since they ARE a sequence */
+ol.track{list-style:none;counter-reset:s;padding:0;margin:18px 0 0}
+ol.track li{counter-increment:s;position:relative;padding:0 0 26px 46px;max-width:64ch}
+ol.track li:before{content:counter(s);position:absolute;left:0;top:-2px;width:28px;height:28px;
+  border:1px solid var(--teal);color:var(--teal);border-radius:50%;display:grid;place-items:center;
+  font-size:13px;font-weight:600;font-family:Inter,sans-serif;background:var(--bone)}
+ol.track li:after{content:"";position:absolute;left:13.5px;top:30px;bottom:2px;width:1px;background:var(--rule)}
+ol.track li:last-child{padding-bottom:0}
+ol.track li:last-child:after{display:none}
+
+/* masthead figure breathes once on load */
+.lit .fig{animation:figin .8s cubic-bezier(.2,.8,.3,1) both}
+@keyframes figin{0%{opacity:0;transform:translateY(12px) scale(.97)}100%{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .in .icw,.in .ic .dash,.lit .fig,.in .ledger .amt{animation:none!important}
+  .ic .dash{stroke-dashoffset:0!important}
+  h2:after{transform:scaleX(1)!important;transition:none!important}
+  .btn .ic,.icw{transition:none!important}
+}
 </style>
 </head><body>
 
@@ -149,7 +211,7 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
 <div class="col lit">
 <div class="who rise">For Paulinus Fultang &middot; 4 October 2026</div>
 <h1 class="rise">What&rsquo;s built, and what&rsquo;s next</h1>
-<p class="sub rise">Four features are already live on <strong>both Android and iPhone</strong> beyond what we originally agreed. Here they are, followed by the plan for Find&nbsp;Care, the Scheduler and Guest&nbsp;mode.</p>
+<p class="sub rise">Four features are already live on <strong>both Android and iPhone</strong>, beyond what we originally agreed. I&rsquo;ve set them out below, along with the plan for Find&nbsp;Care, the Scheduler and Guest&nbsp;mode, so you have the full picture in one place.</p>
 </div>
 <div class="vers">
 <div>Android<b>2.5.1</b></div>
@@ -185,40 +247,40 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
 
 <section id="delivered">
 <h2 class="rv">Already delivered, beyond the original scope</h2>
-<p class="lede rv">You paid for <strong>MedTalk, MedCue, the Community feed and the landing page</strong>. All of those shipped. Since then the apps have moved from version 2.3 to <strong>2.5.1</strong>, and along the way four more features were built and released that were never part of that agreement.</p>
+<p class="lede rv">You paid for <strong>MedTalk, MedCue, the Community feed and the landing page</strong>. All of those shipped. Since then the apps have moved from version 2.3 to <strong>2.5.1</strong>, and along the way four more features were built and released that weren&rsquo;t part of that agreement.</p>
 
-<div class="entry rv"><div class="k"><b>Group video calls</b>Add people mid-call, tile layout, guest invitations</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="dash" style="--l:34" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="kt"><b>Group video calls</b>Add people mid-call, tile layout, guest invitations</span></div>
 <div><p>A call is no longer limited to two people. Anyone on a call can bring in up to four participants in total, and everyone appears in a tile grid that rearranges itself as people join and leave. You can also invite someone who doesn&rsquo;t have the app at all, by email or by phone number, and they can join as a guest.</p>
 <span class="plat"><i class="dot"></i>Android and iPhone</span></div></div>
 
-<div class="entry rv"><div class="k"><b>Share to Doctaz</b>Photos, videos, audio, PDFs and documents</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path class="dash" style="--l:16" d="m8.6 13.5 6.8 4"/><path class="dash" style="--l:16" d="m15.4 6.5-6.8 4"/></svg></span><span class="kt"><b>Share to Doctaz</b>Photos, videos, audio, PDFs and documents</span></div>
 <div><p>Doctaz now appears in the normal share menu across the phone. From your photo gallery, a PDF, a document, a video or a web page, you can tap Share, choose Doctaz, pick who it goes to, and send it straight into a chat without opening the app first.</p>
 <span class="plat"><i class="dot"></i>Android and iPhone</span></div></div>
 
-<div class="entry rv"><div class="k"><b>Rate your visit, and reviews</b>Prompts after a call, on the home screen and in call history</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="dash" style="--l:58" d="M11.5 3.2 14 8.4l5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></span><span class="kt"><b>Rate your visit, and reviews</b>Prompts after a call, on the home screen and in call history</span></div>
 <div><p>After a consultation the patient is invited to rate it. Those ratings build a review section on each provider: an average score, a breakdown by star rating that you can tap to filter, sorting by most recent or highest rated, and the ability for a provider to reply publicly to a review. Patients can edit a review they&rsquo;ve left.</p>
 <span class="plat"><i class="dot"></i>Android and iPhone</span></div></div>
 
-<div class="entry rv"><div class="k"><b>Force update on iPhone</b>Controlled from your Firebase console, no app resubmission</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="dash" style="--l:14" d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg></span><span class="kt"><b>Force update on iPhone</b>Controlled from your Firebase console, no app resubmission</span></div>
 <div><p>Android already had this; the iPhone app now matches it. When a release contains something critical, you can require users to update before they carry on, controlled remotely without shipping another version. It can be applied to everyone or to particular roles.</p>
 <span class="plat"><i class="dot"></i>Brings iPhone to parity with Android</span></div></div>
 
-<p class="lede rv" style="margin-top:34px">Taken together this is several weeks of work across two platforms. I&rsquo;m asking <strong>$300</strong> for all of it.</p>
+<p class="lede rv" style="margin-top:34px">Taken together this is several weeks of work across two platforms. I&rsquo;d like to settle it at <strong>$300</strong> for all four, which I hope feels fair given what they add to the apps.</p>
 </section>
 
 <section id="evidence">
 <h2 class="rv">See it working</h2>
-<p class="lede rv">These pages are already published and show the features above, captured from the demo accounts on real devices. Nothing here needs an account to view.</p>
-<p class="rv"><a class="btn solid" href="https://erdevkumar.github.io/doctaz-whats-new/">What&rsquo;s new &mdash; first set</a>
-<a class="btn" href="https://erdevkumar.github.io/doctaz-whats-new/v2.4.9/">What&rsquo;s new &mdash; second set</a></p>
+<p class="lede rv">These pages are already published and show the features above, captured from the demo accounts on real devices. Please take a look whenever it suits &mdash; nothing here needs an account to view.</p>
+<p class="rv"><a class="btn solid" href="https://erdevkumar.github.io/doctaz-whats-new/">What&rsquo;s new &mdash; first set<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+<a class="btn" href="https://erdevkumar.github.io/doctaz-whats-new/v2.4.9/">What&rsquo;s new &mdash; second set<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></p>
 <p class="lede rv" style="margin-top:22px">Both apps have since moved on to 2.5.1, which adds a full screen-by-screen quality pass on both platforms, chat reliability improvements and sign-up fixes.</p>
 </section>
 
 <section id="free">
 <h2 class="rv">Included at no charge</h2>
-<p class="lede rv">Three things that take real time but that I&rsquo;m not billing for. They&rsquo;re part of doing the job properly, not extras.</p>
+<p class="lede rv">Three things that take real time and that I&rsquo;m happy to carry at no cost. I see them as part of doing the job properly rather than as extras.</p>
 
-<div class="entry rv"><div class="k"><b>Store accounts</b>Apple complete, Google Play in progress</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v16"/><path d="M15 9h3a2 2 0 0 1 2 2v10"/><path d="M4 21h17"/><path d="M9 7h2M9 11h2M9 15h2"/></svg></span><span class="kt"><b>Store accounts</b>Apple complete, Google Play in progress</span></div>
 <div><h3>Moving the apps to your own developer accounts <span class="done">Apple done</span></h3>
 <p>Both apps were published under the old company&rsquo;s developer accounts. They&rsquo;re being moved to accounts that belong to you, so you own the apps outright &mdash; the listings, the reviews, the download history and the ability to publish without going through anyone else.</p>
 <ul class="pts">
@@ -226,7 +288,7 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
 <li><strong>Google Play &mdash; in progress.</strong> Started, and will be finished shortly. It needs one form submitted and your approval on the receiving account; the app stays live throughout.</li>
 </ul></div></div>
 
-<div class="entry rv"><div class="k"><b>Design first</b>Not counted in the four weeks</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="dash" style="--l:40" d="M15.7 4.3 19.7 8.3 8.5 19.5 3 21l1.5-5.5z"/><path d="m13.5 6.5 4 4"/></svg></span><span class="kt"><b>Design first</b>Not counted in the four weeks</span></div>
 <div><h3>Designing everything before development starts</h3>
 <p>Every screen is drawn and agreed before any code is written, so you see exactly what you&rsquo;re getting and can change it while changing it is free. It means acceptance is simple: the app either matches the approved screens or it doesn&rsquo;t, with nothing left to interpretation at the end.</p>
 <p>This is a significant piece of work on its own &mdash; it isn&rsquo;t billed, and it isn&rsquo;t counted in the four weeks.</p></div></div>
@@ -234,20 +296,20 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
 
 <section id="next">
 <h2 class="rv">What&rsquo;s next</h2>
-<p class="lede rv">Three features, on both Android and iPhone, from one approved set of designs. Please review the designs first &mdash; development starts once you&rsquo;re happy with them.</p>
+<p class="lede rv">Three features, on both Android and iPhone, from one approved set of designs. Whenever you have time to review them, development starts as soon as you&rsquo;re happy with what you see.</p>
 
-<div class="entry rv"><div class="k"><b>Find Care</b>Search, filter and book a provider</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path class="dash" style="--l:10" d="m20 20-3.6-3.6"/></svg></span><span class="kt"><b>Find Care</b>Search, filter and book a provider</span></div>
 <div><p>One place to find a provider and book them. Search by name or browse by specialty, narrow the list by provider type, rating, availability and distance, and sort by whichever matters most. Each provider card shows their rating, how far away they are and whether they&rsquo;re online, with a single clear action: Book Appointment.</p></div></div>
 
-<div class="entry rv"><div class="k"><b>Scheduler</b>Availability, booking and approvals</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><path class="dash" style="--l:10" d="m9 15 2 2 4-4"/></svg></span><span class="kt"><b>Scheduler</b>Availability, booking and approvals</span></div>
 <div><p>The appointment engine. Patients pick a slot from the provider&rsquo;s real availability and request it; providers see incoming requests and approve or decline them. Every appointment carries a clear status, so both sides always know whether something is requested, confirmed, completed or cancelled, with notifications when that changes.</p></div></div>
 
-<div class="entry rv"><div class="k"><b>Guest mode</b>Book without an account</div>
+<div class="entry rv"><div class="k"><span class="icw"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10.5" cy="7" r="4"/><path class="dash" style="--l:10" d="m16 11 2 2 4-4"/></svg></span><span class="kt"><b>Guest mode</b>Book without an account</span></div>
 <div><p>Someone can open the app, browse providers and book an appointment without creating an account first. They confirm their phone number with a passcode as part of booking. It removes the sign-up wall that currently sits in front of every new patient.</p></div></div>
 
-<p class="rv" style="margin-top:30px"><a class="btn solid" href="REPLACE_PROTOTYPE_URL">Tap through the prototype</a>
-<a class="btn" href="REPLACE_PENPOT_URL">Comment on the designs</a></p>
-<p class="lede rv" style="margin-top:18px">Both open in a browser. No account needed. Leave comments directly on any screen.</p>
+<p class="rv" style="margin-top:30px"><a class="btn solid" href="REPLACE_PROTOTYPE_URL">Tap through the prototype<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+<a class="btn" href="REPLACE_PENPOT_URL">Comment on the designs<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></p>
+<p class="lede rv" style="margin-top:18px">Both open in a browser, with no account needed. You&rsquo;re welcome to leave comments directly on any screen.</p>
 </section>
 
 <section id="cost">
@@ -260,8 +322,8 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
 <tr class="sum"><td><strong>Total</strong></td><td></td><td class="amt">$1,050</td></tr>
 </tbody>
 </table></div>
-<p class="lede rv" style="margin-top:26px">The four weeks runs <strong>from the day you approve the designs</strong>, not from the date on this page. Both platforms are covered in that time, because they share the same designs, the same rules and the same integration work.</p>
-<div class="gate go rv"><h3>Need it sooner?</h3><p>I can compress this to <strong>2.5 weeks</strong> instead of four. That option is available once the <strong>$300</strong> for the delivered work above is settled.</p></div>
+<p class="lede rv" style="margin-top:26px">The four weeks runs <strong>from the day you approve the designs</strong> rather than from the date on this page. Both platforms are covered in that time, because they share the same designs, the same rules and the same integration work.</p>
+<div class="gate go rv"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="dash" style="--l:40" d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12z"/></svg><div><h3>Need it sooner?</h3><p>I&rsquo;m glad to compress this to <strong>2.5 weeks</strong> instead of four. That option opens up once the <strong>$300</strong> for the delivered work above is settled.</p></div></div>
 </section>
 
 <section id="payment">
@@ -274,37 +336,37 @@ footer{padding:40px 0 70px;color:var(--mut);font-size:14.5px}
 <tr class="sum"><td><strong>Next phase total</strong></td><td></td><td class="amt">$750</td></tr>
 </tbody>
 </table></div>
-<p class="lede rv" style="margin-top:26px">The $300 for the work already delivered sits separately from the above, and is what unlocks the 2.5-week option if you want it.</p>
+<p class="lede rv" style="margin-top:26px">The $300 for the work already delivered sits separately from the above, and it&rsquo;s what opens up the 2.5-week option should you want it.</p>
 <p class="rv"><strong>Not billed:</strong> the design work and this page, the move of both apps to your own developer accounts, and keeping your existing published features working while we build. None of it costs you anything, and none of it pushes the date.</p>
 </section>
 
 <section id="freeze">
 <h2 class="rv">Design freeze</h2>
-<div class="gate rv"><h3>Once you approve, the designs are frozen</h3><p>Development runs against exactly those screens and this scope. Anything new after that &mdash; a different flow, an extra screen, another feature &mdash; becomes a change request with its own estimate, and it moves the delivery date.</p></div>
-<p class="rv">This is in your interest, not mine. A change during design costs minutes. The same change in the final week means rebuilding on two platforms and resubmitting to both app stores, which is where projects like this usually lose weeks. So be as demanding as you like now.</p>
+<div class="gate rv"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><div><h3>Once you approve, the designs are frozen</h3><p>Development then runs against exactly those screens and this scope. Anything new after that &mdash; a different flow, an extra screen, another feature &mdash; would come back to you as a change request with its own estimate, and it would move the delivery date.</p></div></div>
+<p class="rv">This is really there to protect you. A change during design costs minutes, while the same change in the final week means rebuilding on two platforms and resubmitting to both app stores, which is where projects like this usually lose weeks. So please be as demanding as you like at this stage.</p>
 </section>
 
 <section id="backend">
 <h2 class="rv">What I need from your side</h2>
-<p class="lede rv">Some platform work has to land before the mobile piece that depends on it. This sits with your backend team and is not part of the four weeks.</p>
+<p class="lede rv">A little platform work needs to land before the mobile piece that depends on it. This sits with your backend team and isn&rsquo;t part of the four weeks.</p>
 <ul class="pts rv">
 <li>Appointment booking, and approve / decline</li>
 <li>Provider availability, so patients see real slots</li>
 <li>Guest passcode verification that returns an app credential</li>
 <li>A notifications feed, so status changes reach people</li>
 </ul>
-<p class="rv" style="margin-top:20px">If one of these is late, that part pauses rather than gets rebuilt, and the date moves with it. Flagging it now so it isn&rsquo;t a surprise later.</p>
+<p class="rv" style="margin-top:20px">If any of these arrives late, that part simply pauses rather than gets rebuilt, and the date moves with it. I wanted to mention it early so there are no surprises later on.</p>
 </section>
 
 <section id="steps">
 <h2 class="rv">Next steps</h2>
-<ul class="pts rv">
-<li>You review the prototype and the designs, and comment on anything you want changed</li>
+<ol class="track rv">
+<li>You review the prototype and the designs, and comment on anything you&rsquo;d like changed</li>
 <li>You approve &mdash; the designs freeze and development starts</li>
 <li>Your backend team starts on the items above</li>
 <li>Android, then iPhone, then release to both stores</li>
-</ul>
-<p class="rv" style="margin-top:20px">Happy to walk you through the designs live and take your comments as we go.</p>
+</ol>
+<p class="rv" style="margin-top:20px">I&rsquo;d be glad to walk you through the designs live and take your comments as we go, whenever suits you best.</p>
 </section>
 
 </div></main>
