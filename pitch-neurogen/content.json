@@ -1,0 +1,484 @@
+{
+ "deckName": "NeuroGen × Doctaz",
+ "settings": {
+  "title": "NeuroGen × Doctaz — Partnership Proposal",
+  "colors": {
+   "primary": "#0D9488",
+   "accent": "#0B7A70",
+   "accentDark": "#2DD4BF",
+   "bgLight": "#F1F3F7",
+   "bgDark": "#0B1220"
+  },
+  "ui": {
+   "journeysGroup": "Patient scenarios",
+   "journeyKicker": "Walk the scenario"
+  }
+ },
+ "slides": [
+  {
+   "id": "hero",
+   "type": "hero",
+   "label": "NeuroGen",
+   "data": {
+    "logo": "./logo.png",
+    "kicker": "PARTNERSHIP PROPOSAL · NEUROGEN × DOCTAZ",
+    "title": "One pathway for every international patient.",
+    "sub": "Before travel, before going home, and long after they are back in their own country — the same place to find NeuroGen, book a consult, and be seen.",
+    "chips": [
+     "Captured live on two phones",
+     "Free consults inside the facility",
+     "NeuroGen's clinical care unchanged"
+    ],
+    "phoneA": "neurogen/p-02-findcare.jpg",
+    "phoneB": "neurogen/p-09-booking-confirmed.jpg"
+   }
+  },
+  {
+   "id": "problem",
+   "type": "problem",
+   "label": "The problem",
+   "data": {
+    "eyebrow": "Today",
+    "title": "An international patient is handled across four disconnected channels.",
+    "items": [
+     {
+      "stat": "Phone",
+      "label": "Calls across time zones, with no record of what was agreed"
+     },
+     {
+      "stat": "Email",
+      "label": "Reports and scans arrive in a thread nobody owns"
+     },
+     {
+      "stat": "Reception",
+      "label": "Follow-up is confirmed verbally, then chased"
+     }
+    ],
+    "note": "Nothing connects them. The patient restarts the process every time, and NeuroGen carries the coordination."
+   }
+  },
+  {
+   "id": "principle",
+   "type": "statement",
+   "label": "The principle",
+   "data": {
+    "eyebrow": "The principle",
+    "title": "Doctaz does not replace NeuroGen's clinical care.",
+    "sub": "It gives the relationship around that care a single place to live, so the patient can always find their way back to NeuroGen. Specialist treatment, travel and admission stay exactly as NeuroGen runs them today.",
+    "links": []
+   }
+  },
+  {
+   "id": "pathway",
+   "type": "features",
+   "label": "One pathway",
+   "data": {
+    "eyebrow": "The solution",
+    "title": "One repeatable pathway, not four channels.",
+    "items": [
+     {
+      "t": "Discover",
+      "d": "The patient finds NeuroGen's clinicians and their availability from their own country.",
+      "img": "neurogen/p-02-findcare.jpg"
+     },
+     {
+      "t": "Schedule",
+      "d": "Slots are shown in the patient's own time zone, not the hospital's.",
+      "img": "neurogen/p-06-booking-sheet.jpg"
+     },
+     {
+      "t": "Consult",
+      "d": "A secure video consult inside the same app, free within the facility.",
+      "img": "neurogen/p-13-incall.jpg"
+     },
+     {
+      "t": "Follow up",
+      "d": "The next appointment is booked before the call ends. Then it repeats.",
+      "img": "neurogen/p-11-appt-detail.jpg"
+     }
+    ],
+    "strip": [
+     "neurogen/p-01-home.jpg",
+     "neurogen/p-02-findcare.jpg",
+     "neurogen/p-03-search-neuro.jpg",
+     "neurogen/p-04-provider-profile.jpg",
+     "neurogen/p-06-booking-sheet.jpg",
+     "neurogen/p-07-booking-day.jpg",
+     "neurogen/p-08-booking-slot-selected.jpg",
+     "neurogen/p-09-booking-confirmed.jpg",
+     "neurogen/p-10-appointments.jpg",
+     "neurogen/p-11-appt-detail.jpg",
+     "neurogen/p-12-ringing.jpg",
+     "neurogen/p-13-incall.jpg",
+     "neurogen/d-01-appointments.jpg",
+     "neurogen/d-04-medtalk-list.jpg",
+     "neurogen/d-06-callsheet.jpg",
+     "neurogen/d-08-incall.jpg"
+    ]
+   }
+  },
+  {
+   "id": "s1",
+   "type": "journey",
+   "label": "Scenario 1",
+   "data": {
+    "eyebrow": "Scenario 1 · already home",
+    "title": "The patient is home, and needs a follow-up.",
+    "steps": [
+     {
+      "t": "Opens Doctaz",
+      "d": "Previously treated at NeuroGen, now back in their own country. The pathway is already there.",
+      "a": "neurogen/p-01-home.jpg"
+     },
+     {
+      "t": "Finds the provider",
+      "d": "The same NeuroGen clinician, not a new phone number.",
+      "a": "neurogen/p-02-findcare.jpg"
+     },
+     {
+      "t": "Books a follow-up",
+      "d": "Slots shown in the patient's own time zone.",
+      "a": "neurogen/p-06-booking-sheet.jpg"
+     },
+     {
+      "t": "Confirmed",
+      "d": "Reference APT-89, Thu 8 Oct, 10:00 AM.",
+      "a": "neurogen/p-09-booking-confirmed.jpg"
+     },
+     {
+      "t": "Both sides see it",
+      "d": "Patient reads Pending; the clinician reads Requested. Same appointment, same time.",
+      "a": "neurogen/p-10-appointments.jpg"
+     },
+     {
+      "t": "They meet",
+      "d": "A secure video consult inside the same app.",
+      "a": "neurogen/p-13-incall.jpg"
+     }
+    ]
+   }
+  },
+  {
+   "id": "s2",
+   "type": "journey",
+   "label": "Scenario 2",
+   "data": {
+    "eyebrow": "Scenario 2 · before the flight home",
+    "title": "The follow-up is booked before the patient leaves India.",
+    "steps": [
+     {
+      "t": "Still at NeuroGen",
+      "d": "Connected while the patient is still in front of the team.",
+      "a": "neurogen/p-01-home.jpg"
+     },
+     {
+      "t": "Chooses the clinician",
+      "d": "The one who actually treated them.",
+      "a": "neurogen/p-04-provider-profile.jpg"
+     },
+     {
+      "t": "Books past the return flight",
+      "d": "The next touchpoint exists before departure.",
+      "a": "neurogen/p-07-booking-day.jpg"
+     },
+     {
+      "t": "Visible to both",
+      "d": "Nothing depends on the patient remembering.",
+      "a": "neurogen/d-01-appointments.jpg"
+     },
+     {
+      "t": "The call comes through",
+      "d": "Same app, different country.",
+      "a": "neurogen/p-12-ringing.jpg"
+     },
+     {
+      "t": "Seen from home",
+      "d": "The transition home changes nothing the patient has to learn.",
+      "a": "neurogen/p-13-incall.jpg"
+     }
+    ]
+   }
+  },
+  {
+   "id": "s3",
+   "type": "journey",
+   "label": "Scenario 3",
+   "data": {
+    "eyebrow": "Scenario 3 · prospective patient",
+    "title": "Discovery abroad, through to post-treatment follow-up.",
+    "steps": [
+     {
+      "t": "Searches from abroad",
+      "d": "Specialty search, before any phone call or contact form.",
+      "a": "neurogen/p-03-search-neuro.jpg"
+     },
+     {
+      "t": "Finds NeuroGen's clinicians",
+      "d": "Profile, rating and availability in one place.",
+      "a": "neurogen/p-04-provider-profile.jpg"
+     },
+     {
+      "t": "Books a pre-travel consult",
+      "d": "An assessment before committing to travel.",
+      "a": "neurogen/p-08-booking-slot-selected.jpg"
+     },
+     {
+      "t": "Meets the specialist",
+      "d": "A real consult before the flight is booked.",
+      "a": "neurogen/p-13-incall.jpg"
+     },
+     {
+      "t": "Travels and is treated",
+      "d": "NeuroGen's existing international-patient process, unchanged.",
+      "a": "neurogen/d-05-medtalk-thread.jpg"
+     },
+     {
+      "t": "Follows up from home",
+      "d": "The relationship created before travel is the one used after it.",
+      "a": "neurogen/p-11-appt-detail.jpg"
+     }
+    ]
+   }
+  },
+  {
+   "id": "live",
+   "type": "live",
+   "label": "Live call",
+   "data": {
+    "eyebrow": "Not a mock-up",
+    "title": "Two real phones. One live consult.",
+    "sub": "Captured between two Android phones on 6 Oct 2026. The clinician dials, it rings in about three seconds, and both sides reach Connected. Camera imagery is represented — the call, signalling, controls and pricing are real.",
+    "points": [
+     "The clinician dials, so the patient is never asked to pay to be seen",
+     "Priced at $0.000/min inside the facility",
+     "Rings like a normal phone call and answers in seconds",
+     "A second specialist can be added mid-consult"
+    ],
+    "phones": [
+     {
+      "src": "neurogen/d-08-incall.jpg",
+      "who": "NeuroGen clinician"
+     },
+     {
+      "src": "neurogen/p-13-incall.jpg",
+      "who": "Patient, at home"
+     }
+    ],
+    "badge": "● LIVE"
+   }
+  },
+  {
+   "id": "proof",
+   "type": "textMedia",
+   "label": "Proof",
+   "data": {
+    "eyebrow": "Proof",
+    "title": "The same appointment, on both phones.",
+    "sub": "The brief's acceptance criteria ask that patient and provider views show the same scheduled appointment. They do — and both read it in their own time zone.",
+    "points": [
+     "Patient books the slot and sees Pending",
+     "The clinician sees the same appointment as Requested",
+     "Thu 8 Oct, 10:00 AM on both, reference APT-89",
+     "Captured live, not composed"
+    ],
+    "media": "neurogen/p-10-appointments.jpg",
+    "flip": "no",
+    "links": []
+   }
+  },
+  {
+   "id": "aboard",
+   "type": "model",
+   "label": "Coming aboard",
+   "data": {
+    "eyebrow": "How NeuroGen comes aboard",
+    "title": "Configuration, not an integration project.",
+    "items": [
+     {
+      "t": "NeuroGen becomes a facility",
+      "d": "A hospital environment with its own name and member list.",
+      "v": "Doctaz"
+     },
+     {
+      "t": "Clinicians join and are approved",
+      "d": "Each doctor, APRN and nurse is added once.",
+      "v": "Doctaz"
+     },
+     {
+      "t": "Appointments are facility-covered",
+      "d": "Inside NeuroGen the per-appointment country fee is waived, so a clinician confirms in one tap.",
+      "v": "Config"
+     }
+    ],
+    "flow": [
+     "NeuroGen is created",
+     "Clinicians join",
+     "Fees waived inside the facility",
+     "Patients are connected"
+    ],
+    "note": "Outside a facility, India's country rate adds a ₹700 appointment fee the clinician settles on approval. Inside NeuroGen that is waived — which is the commercial difference being offered."
+   }
+  },
+  {
+   "id": "gains",
+   "type": "problem",
+   "label": "What NeuroGen gains",
+   "data": {
+    "eyebrow": "The case",
+    "title": "What NeuroGen gets out of it.",
+    "items": [
+     {
+      "stat": "Reach",
+      "label": "A front door that works from abroad, before the patient ever calls"
+     },
+     {
+      "stat": "Retention",
+      "label": "Follow-up that survives the flight home, with the right local time"
+     },
+     {
+      "stat": "Capacity",
+      "label": "Coordination lifted off reception and into one shared place"
+     }
+    ],
+    "note": "Each consult continues the last one rather than restarting it, because the history travels with the patient."
+   }
+  },
+  {
+   "id": "close",
+   "type": "statement",
+   "label": "Closing",
+   "data": {
+    "eyebrow": "In one line",
+    "title": "The international patient should not need a different pathway at every stage.",
+    "sub": "One environment supports connection, scheduling, consultation and repeated follow-up — before travel, before returning home, and after the patient is back in their own country.",
+    "links": []
+   }
+  },
+  {
+   "id": "ask",
+   "type": "ask",
+   "label": "The ask",
+   "data": {
+    "eyebrow": "The ask",
+    "lead": "A pilot with",
+    "amount": "real patients",
+    "sub": "We set up the NeuroGen environment, onboard the clinicians and cover the pilot. NeuroGen changes nothing about how it treats patients.",
+    "uses": [
+     {
+      "u": "A pilot cohort already in follow-up",
+      "p": "40"
+     },
+     {
+      "u": "Two or three clinicians",
+      "p": "35"
+     },
+     {
+      "u": "Eight weeks, one full follow-up cycle",
+      "p": "25"
+     }
+    ],
+    "useNote": "All demo identities in this deck are fictional."
+   }
+  },
+  {
+   "id": "contact",
+   "type": "contact",
+   "label": "Contact",
+   "data": {
+    "title": "One pathway, the whole way through.",
+    "email": "hello@doctaz.com",
+    "site": "doctaz.com"
+   }
+  }
+ ],
+ "journeys": [
+  {
+   "name": "Scenario 1 — already home",
+   "steps": [
+    {
+     "t": "Opens Doctaz",
+     "a": "neurogen/p-01-home.jpg"
+    },
+    {
+     "t": "Finds the provider",
+     "a": "neurogen/p-02-findcare.jpg"
+    },
+    {
+     "t": "Books a follow-up",
+     "a": "neurogen/p-06-booking-sheet.jpg"
+    },
+    {
+     "t": "Confirmed",
+     "a": "neurogen/p-09-booking-confirmed.jpg"
+    },
+    {
+     "t": "Both sides see it",
+     "a": "neurogen/p-10-appointments.jpg"
+    },
+    {
+     "t": "They meet",
+     "a": "neurogen/p-13-incall.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Scenario 2 — before the flight",
+   "steps": [
+    {
+     "t": "Still at NeuroGen",
+     "a": "neurogen/p-01-home.jpg"
+    },
+    {
+     "t": "Chooses the clinician",
+     "a": "neurogen/p-04-provider-profile.jpg"
+    },
+    {
+     "t": "Books past the return flight",
+     "a": "neurogen/p-07-booking-day.jpg"
+    },
+    {
+     "t": "Visible to both",
+     "a": "neurogen/d-01-appointments.jpg"
+    },
+    {
+     "t": "The call comes through",
+     "a": "neurogen/p-12-ringing.jpg"
+    },
+    {
+     "t": "Seen from home",
+     "a": "neurogen/p-13-incall.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Scenario 3 — prospective patient",
+   "steps": [
+    {
+     "t": "Searches from abroad",
+     "a": "neurogen/p-03-search-neuro.jpg"
+    },
+    {
+     "t": "Finds NeuroGen's clinicians",
+     "a": "neurogen/p-04-provider-profile.jpg"
+    },
+    {
+     "t": "Books a pre-travel consult",
+     "a": "neurogen/p-08-booking-slot-selected.jpg"
+    },
+    {
+     "t": "Meets the specialist",
+     "a": "neurogen/p-13-incall.jpg"
+    },
+    {
+     "t": "Travels and is treated",
+     "a": "neurogen/d-05-medtalk-thread.jpg"
+    },
+    {
+     "t": "Follows up from home",
+     "a": "neurogen/p-11-appt-detail.jpg"
+    }
+   ]
+  }
+ ],
+ "savedAt": "2026-10-06T20:53:26Z"
+}

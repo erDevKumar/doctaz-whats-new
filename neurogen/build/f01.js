@@ -1,0 +1,20 @@
+const b = flowBoard('fl 01 Scenario 1 flow', 0, 0,
+  'Scenario 1 - the patient is already home',
+  'Who does what, and where the system acts on its own. Green steps are automatic; amber is a decision.',
+  [{ who: 'PATIENT', nodes: [['start','Opens Doctaz','Already signed in'],
+                             ['step','Finds the provider','Find Care'],
+                             ['step','Picks a slot','Shown in local time'],
+                             ['step','Joins the consult','Answers the call'],
+                             ['end','Books the next one','Before hanging up']] },
+   { who: 'DOCTAZ', nodes: [['auto','Restores session','No re-registration'],
+                            ['auto','Converts the slot','UTC to local'],
+                            ['auto','Notifies the provider','Request appears'],
+                            ['auto','Connects the call','WebRTC + signalling'],
+                            ['auto','Writes the next one','Both calendars']] },
+   { who: 'NEUROGEN', nodes: [['note','-','Nothing to do'],
+                              ['note','-','Nothing to do'],
+                              ['dec','Confirm?','Clinician decides'],
+                              ['step','Takes the consult','From anywhere'],
+                              ['end','Relationship holds','No channel change']] }]);
+applyZ();
+return { ok: true, kids: b.children.length };

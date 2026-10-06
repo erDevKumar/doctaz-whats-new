@@ -1,0 +1,20 @@
+const b = flowBoard('fl 03 Scenario 3 flow', 3520, 0,
+  'Scenario 3 - discovery through to post-treatment follow-up',
+  'The full lifecycle. The relationship created before travel is the same one used after treatment.',
+  [{ who: 'PATIENT', nodes: [['start','Searches from abroad','Specialty search'],
+                             ['step','Books pre-travel call','Before committing'],
+                             ['step','Travels for treatment','NeuroGen process'],
+                             ['step','Books the follow-up','Before flying home'],
+                             ['end','Reconnects from home','Cycle continues']] },
+   { who: 'DOCTAZ', nodes: [['auto','Surfaces clinicians','Availability shown'],
+                            ['auto','Runs the consult','Secure video'],
+                            ['note','Steps aside','No role in travel'],
+                            ['auto','Carries it over','Same provider link'],
+                            ['auto','Repeats the loop','Follow-up cycle']] },
+   { who: 'NEUROGEN', nodes: [['note','Discoverable','Clinicians listed'],
+                              ['dec','Suitable to travel?','Clinical judgement'],
+                              ['step','Treats the patient','In person, India'],
+                              ['step','Sets the follow-up','At discharge'],
+                              ['end','Retains the patient','Beyond discharge']] }]);
+applyZ();
+return { ok: true, kids: b.children.length };

@@ -1,0 +1,20 @@
+const b = flowBoard('fl 02 Scenario 2 flow', 1760, 0,
+  'Scenario 2 - booked before the flight home',
+  'The follow-up is created while the patient is still in India, and survives the move to another country.',
+  [{ who: 'PATIENT', nodes: [['start','Still in India','At NeuroGen'],
+                             ['step','Connects to clinician','The one treating them'],
+                             ['step','Books a future date','After the return flight'],
+                             ['step','Flies home','Country changes'],
+                             ['end','Attends from home','Same app, same link']] },
+   { who: 'DOCTAZ', nodes: [['auto','Holds the appointment','Survives the move'],
+                            ['auto','Shows both sides','One shared record'],
+                            ['auto','Re-reads the time zone','Now their home zone'],
+                            ['auto','Reminds both parties','Nobody chases'],
+                            ['auto','Connects the consult','Free inside NeuroGen']] },
+   { who: 'NEUROGEN', nodes: [['step','Discharges the patient','Existing process'],
+                              ['dec','Confirm the date?','Clinician decides'],
+                              ['note','-','Nothing to chase'],
+                              ['note','-','Nothing to chase'],
+                              ['end','Sees them again','Without reception']] }]);
+applyZ();
+return { ok: true, kids: b.children.length };
