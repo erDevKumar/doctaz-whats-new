@@ -6,9 +6,24 @@ import defaults from '../public/content.json'
 const REPO = 'erDevKumar/doctaz-whats-new'
 const BRANCH = 'main'
 const API = `https://api.github.com/repos/${REPO}`
-const CONTENT_PATHS = ['pitch/content.json', 'pitch-src/public/content.json']
-const DRAFT_KEY = 'doctaz-pitch-draft'
-const PUBLISHED_KEY = 'doctaz-pitch-published'
+
+// One build serves several decks, each deployed in its own directory, so the repo path to
+// read and write has to come from where the page is actually served — a baked-in constant
+// would make every deck edit (and overwrite) the first one.
+const DECK_DIR = (() => {
+  const segs = location.pathname.split('/').filter((s) => s && !s.endsWith('.html'))
+  const i = segs.indexOf('doctaz-whats-new') // GitHub Pages serves under the repo name
+  return (i >= 0 ? segs[i + 1] : segs[0]) || 'pitch'
+})()
+// Decks that also keep a copy of their content beside their source.
+const SRC_MIRROR: Record<string, string> = {
+  pitch: 'pitch-src/public/content.json',
+  'pitch-neurogen': 'neurogen/content.json',
+}
+const CONTENT_PATHS = [`${DECK_DIR}/content.json`, ...(SRC_MIRROR[DECK_DIR] ? [SRC_MIRROR[DECK_DIR]] : [])]
+// Namespaced per deck: a shared key would restore one deck's draft into another.
+const DRAFT_KEY = `doctaz-pitch-draft:${DECK_DIR}`
+const PUBLISHED_KEY = `doctaz-pitch-published:${DECK_DIR}`
 
 export type Content = typeof defaults & { slides: Slide[]; savedAt?: number }
 export type Slide = { id: string; type: string; label: string; hidden?: boolean; bg?: string; data: any }
