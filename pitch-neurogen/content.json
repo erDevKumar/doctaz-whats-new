@@ -545,10 +545,10 @@
       ]
      },
      {
-      "r": "Coordination handled by reception",
+      "r": "Follow-up happens without reception in the middle",
       "v": [
-       "yes",
-       "no"
+       "no",
+       "yes"
       ]
      }
     ]
@@ -730,5 +730,5 @@
    ]
   }
  ],
- "savedAt": "2026-10-07T15:32:09Z"
+ "savedAt": "2026-10-07T15:45:59Z"
 }
