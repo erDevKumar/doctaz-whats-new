@@ -22,6 +22,7 @@ rather than shipped, the board says so in red.
 |---|---|
 | Penpot deck (17 boards) | Penpot file **"NeuroGen x Doctaz - Pitch Deck"**, page `01 Pitch deck` |
 | Journey flowcharts (3 swimlane boards) | same file, page `02 Journey flows` |
+| Call screens (4 phone boards) | same file, page `03 Call screens` → `img/neurogen/mock-*.jpg` |
 | Board exports (JPEG) | `neurogen/boards/01.jpg … 17.jpg`, `f01–f03.jpg` |
 | Phone captures used in the boards | `img/neurogen/*.jpg` (440px wide, from 1080×2400 originals) |
 | Generator scripts (rebuild the deck) | `neurogen/build/` |
@@ -82,10 +83,25 @@ provider: Nothing A063), both signed into the Doctaz Demo Clinic facility, produ
 
 **Represented, and labelled as such:**
 
-- *Camera imagery in the call boards.* The call, signalling, controls and pricing are real. Both
-  phones were lying flat on a desk, so both cameras genuinely saw darkness (the remote tile peaked
-  at brightness 20/255). The media pipeline was working — frames were flowing — there was simply
-  nothing lit to see. Board 09 says so in its footnote.
+- *The four call screens are drawn, not captured* — `img/neurogen/mock-*.jpg`, designed in Penpot
+  on page `03 Call screens`. The call itself is real (it connected, rang in ~3s, priced at
+  $0.000/min, all controls present), but both phones were lying flat on a desk so both cameras
+  genuinely saw darkness — the remote tile peaked at brightness 20/255. Frames *were* flowing;
+  there was simply nothing lit to see. Rather than ship two black rectangles, the screens are
+  redrawn to the same layout with illustrated people. Board 09 and the web deck's live slide both
+  say so in plain words.
+  - People are **DiceBear Avataaars** — the same avatar system Penpot's Avatar Generator plugin
+    offers, driven directly by URL so skin tone, hair and clothing are exact. They are obvious
+    illustrations, so nothing can be mistaken for a photograph of a real patient.
+  - The control-bar icons are **Lucide** paths drawn as vectors. The Lucide Penpot plugin itself
+    cannot be used here: opening any second plugin detaches the MCP relay.
+  - The original dark captures are kept at `img/neurogen/p-12-ringing.jpg`, `p-13-incall.jpg`,
+    `d-07-calling.jpg` and `d-08-incall.jpg` as the audit trail.
+- *The patient persona in the call screens is "Amara Okafor", an international patient in Lagos.*
+  The booking captures elsewhere in the deck come from the demo account and still read
+  **"Ram Pal"**, so the two names do not match. Worth reconciling before this goes in front of
+  NeuroGen — either by relabelling the call screens, or by overlaying the persona name on the
+  booking captures.
 - *NeuroGen branding.* The demo runs in **Doctaz Demo Clinic**, a demo facility. NeuroGen appears
   as the hospital being onboarded, which is what it would be. No screenshot claims to show a live
   NeuroGen environment.

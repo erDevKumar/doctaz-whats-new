@@ -89,7 +89,7 @@
      {
       "t": "Consult",
       "d": "A secure video consult inside the same app, free within the facility.",
-      "img": "neurogen/p-13-incall.jpg"
+      "img": "neurogen/mock-incall-patient.jpg"
      },
      {
       "t": "Follow up",
@@ -108,12 +108,12 @@
      "neurogen/p-09-booking-confirmed.jpg",
      "neurogen/p-10-appointments.jpg",
      "neurogen/p-11-appt-detail.jpg",
-     "neurogen/p-12-ringing.jpg",
-     "neurogen/p-13-incall.jpg",
+     "neurogen/mock-incoming-patient.jpg",
+     "neurogen/mock-incall-patient.jpg",
      "neurogen/d-01-appointments.jpg",
      "neurogen/d-04-medtalk-list.jpg",
      "neurogen/d-06-callsheet.jpg",
-     "neurogen/d-08-incall.jpg"
+     "neurogen/mock-incall-provider.jpg"
     ]
    }
   },
@@ -153,7 +153,7 @@
      {
       "t": "They meet",
       "d": "A secure video consult inside the same app.",
-      "a": "neurogen/p-13-incall.jpg"
+      "a": "neurogen/mock-incall-patient.jpg"
      }
     ]
    }
@@ -189,12 +189,12 @@
      {
       "t": "The call comes through",
       "d": "Same app, different country.",
-      "a": "neurogen/p-12-ringing.jpg"
+      "a": "neurogen/mock-incoming-patient.jpg"
      },
      {
       "t": "Seen from home",
       "d": "The transition home changes nothing the patient has to learn.",
-      "a": "neurogen/p-13-incall.jpg"
+      "a": "neurogen/mock-incall-patient.jpg"
      }
     ]
    }
@@ -225,7 +225,7 @@
      {
       "t": "Meets the specialist",
       "d": "A real consult before the flight is booked.",
-      "a": "neurogen/p-13-incall.jpg"
+      "a": "neurogen/mock-incall-patient.jpg"
      },
      {
       "t": "Travels and is treated",
@@ -245,9 +245,9 @@
    "type": "live",
    "label": "Live call",
    "data": {
-    "eyebrow": "Not a mock-up",
+    "eyebrow": "The consult",
     "title": "Two real phones. One live consult.",
-    "sub": "Captured between two Android phones on 6 Oct 2026. The clinician dials, it rings in about three seconds, and both sides reach Connected. Camera imagery is represented — the call, signalling, controls and pricing are real.",
+    "sub": "Captured between two Android phones on 6 Oct 2026. The clinician dials, it rings in about three seconds, and both sides reach Connected. The call, signalling, controls and pricing are real; these two screens are redrawn to the same layout, with illustrated people, because both cameras were facing a dark desk.",
     "points": [
      "The clinician dials, so the patient is never asked to pay to be seen",
      "Priced at $0.000/min inside the facility",
@@ -256,12 +256,12 @@
     ],
     "phones": [
      {
-      "src": "neurogen/d-08-incall.jpg",
-      "who": "NeuroGen clinician"
+      "src": "neurogen/mock-incall-provider.jpg",
+      "who": "On the clinician's phone"
      },
      {
-      "src": "neurogen/p-13-incall.jpg",
-      "who": "Patient, at home"
+      "src": "neurogen/mock-incall-patient.jpg",
+      "who": "On the patient's phone"
      }
     ],
     "badge": "● LIVE"
@@ -417,7 +417,7 @@
     },
     {
      "t": "They meet",
-     "a": "neurogen/p-13-incall.jpg"
+     "a": "neurogen/mock-incall-patient.jpg"
     }
    ]
   },
@@ -442,11 +442,11 @@
     },
     {
      "t": "The call comes through",
-     "a": "neurogen/p-12-ringing.jpg"
+     "a": "neurogen/mock-incoming-patient.jpg"
     },
     {
      "t": "Seen from home",
-     "a": "neurogen/p-13-incall.jpg"
+     "a": "neurogen/mock-incall-patient.jpg"
     }
    ]
   },
@@ -467,7 +467,7 @@
     },
     {
      "t": "Meets the specialist",
-     "a": "neurogen/p-13-incall.jpg"
+     "a": "neurogen/mock-incall-patient.jpg"
     },
     {
      "t": "Travels and is treated",
@@ -480,5 +480,5 @@
    ]
   }
  ],
- "savedAt": "2026-10-06T20:53:26Z"
+ "savedAt": "2026-10-07T02:23:43Z"
 }
