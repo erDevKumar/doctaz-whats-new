@@ -28,7 +28,7 @@ function Shell() {
 
   useEffect(() => { document.documentElement.classList.toggle('dark', dark); store.set('theme', dark ? 'dark' : 'light') }, [dark])
   const st: any = (c as any).settings ?? {}
-  const ui = { present: '▶ Present as slides', exit: '✕ Exit', pdf: 'PDF', journeysGroup: 'User journeys', journeyKicker: 'Clickable prototype', journeyHint: '', ...(st.ui ?? {}) }
+  const ui = { present: 'Present', exit: 'Exit presentation', pdf: 'PDF', journeysGroup: 'User journeys', journeyKicker: 'Clickable prototype', journeyHint: '', ...(st.ui ?? {}) }
   useEffect(() => { if (st.title) document.title = st.title }, [st.title])
   const themeCss = useThemeCss(st)
   useEffect(() => { if (view >= 0) history.replaceState(null, '', `#journey-${view}`); else if (location.hash.startsWith('#journey')) history.replaceState(null, '', location.pathname + location.search) }, [view])
@@ -248,7 +248,7 @@ function PagesPanel({ onClose }: { onClose: () => void }) {
   }
   return (
     <aside data-chrome className="fixed right-3 top-16 z-[56] max-h-[80vh] w-[min(92vw,360px)] overflow-y-auto rounded-3xl bg-bg p-5 shadow-2xl ring-1 ring-line">
-      <div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-bold">Pages</h2><button onClick={onClose} aria-label="Close" className="px-2">✕</button></div>
+      <div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-bold">Pages</h2><button onClick={onClose} aria-label="Close" className="px-2 text-muted">Close</button></div>
       <ol className="space-y-2">
         {c.slides.map((s: any, i: number) => (
           <li key={s.id} className="relative flex items-center gap-2 rounded-xl border border-line p-2 pr-24 text-sm">
@@ -278,7 +278,7 @@ function PagesPanel({ onClose }: { onClose: () => void }) {
           {Object.entries(layouts).map(([k, l]) => <option key={k} value={k}>{l.name}</option>)}
         </select>
         <button className="mt-3 w-full rounded-full bg-primary py-2 text-sm font-semibold text-white" onClick={() => insert(c.slides.length)}>＋ Add at the end</button>
-        <p className="mt-2 text-xs text-muted">Use ↑ ↓ to reorder, ● to hide a page without deleting it, ✕ to delete.</p>
+        <p className="mt-2 text-xs text-muted">Use ↑ ↓ to reorder, ● to hide a page without deleting it, Remove to delete.</p>
       </div>
     </aside>
   )
@@ -305,7 +305,7 @@ function SettingsPanel({ onClose }: { onClose: () => void }) {
   const fonts = FONTS.map((x) => [x, x] as [string, string])
   return (
     <aside data-chrome className="fixed right-3 top-16 z-[56] max-h-[80vh] w-[min(92vw,380px)] overflow-y-auto rounded-3xl bg-bg p-5 shadow-2xl ring-1 ring-line">
-      <div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-bold">Site settings</h2><button onClick={onClose} aria-label="Close" className="px-2">✕</button></div>
+      <div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-bold">Site settings</h2><button onClick={onClose} aria-label="Close" className="px-2 text-muted">Close</button></div>
       <div className="grid gap-3">
         <Field p="settings.title" label="Browser tab title" />
         <Field p="deckName" label="Deck name (in the top dropdown)" />

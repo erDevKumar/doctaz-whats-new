@@ -46,7 +46,7 @@ export function Waves({ flip }: { flip?: boolean }) {
 export function Phone({ src, url, className = '', tilt = true, alt = '' }: { src: string; url?: string; className?: string; tilt?: boolean; alt?: string }) {
   const u = url ?? `../img/${src}`
   const body = (
-    <div className={`rounded-[2.2rem] border-[6px] border-neutral-900 bg-neutral-900 shadow-2xl shadow-[color-mix(in_srgb,var(--primary)_35%,transparent)] overflow-hidden ${className}`}>
+    <div className={`clay-phone border-[6px] border-[color-mix(in_srgb,var(--text)_82%,transparent)] bg-[color-mix(in_srgb,var(--text)_82%,transparent)] overflow-hidden ${className}`}>
       {src.endsWith('.mp4')
         ? <video src={u} aria-label={alt} autoPlay muted loop playsInline preload="metadata" className="block h-full w-full object-cover object-top" />
         : <img src={u} alt={alt} loading="lazy" className="block h-full w-full object-cover object-top" />}
@@ -79,5 +79,13 @@ export function Section({ id, children, className = '', bg }: { id: string; chil
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-primary">{children}</p>
+  // Sentence case with a short rule, not all-caps at wide tracking: that treatment is one of
+  // the commonest tells of a generated page, and the rule carries the same "section starts
+  // here" signal with less shouting.
+  return (
+    <p className="mb-3 flex items-center gap-2.5 text-[0.8rem] font-semibold text-primary">
+      <span aria-hidden className="h-px w-6 bg-primary/55" />
+      {children}
+    </p>
+  )
 }

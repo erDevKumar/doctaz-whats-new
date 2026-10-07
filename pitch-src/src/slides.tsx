@@ -46,7 +46,7 @@ function Hero({ id, b }: P) {
           <Reveal delay={0.6}><T p={`${b}.sub`} as="p" className="mt-6 block max-w-xl text-lg text-muted sm:text-xl" /></Reveal>
           <Reveal delay={0.9}>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
-              {chips.map((_, k) => <Li key={k} p={`${b}.chips`} i={k}><T p={`${b}.chips.${k}`} className="glass inline-block rounded-full px-4 py-2" /></Li>)}
+              {chips.map((_, k) => <Li key={k} p={`${b}.chips`} i={k}><T p={`${b}.chips.${k}`} className="clay inline-block rounded-full px-4 py-2" /></Li>)}
             </div>
             {edit && <AddItem p={`${b}.chips`} label="Add chip" />}
             <Links p={`${b}.links`} />
@@ -72,7 +72,7 @@ function StatCards({ id, b, d, cols = 3 }: P & { cols?: number }) {
       <H2 b={b} className="max-w-4xl text-4xl font-bold sm:text-6xl" />
       <AnimatedGroup preset="blur-slide" className={`mt-14 grid gap-5 ${cols === 3 ? 'md:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
         {d.items.map((w: any, k: number) => (
-          <Li key={k} p={`${b}.items`} i={k} className="glass overflow-hidden rounded-3xl p-7">
+          <Li key={k} p={`${b}.items`} i={k} className="clay overflow-hidden p-7">
             <div className="absolute -right-4 -top-8 font-display text-[9rem] font-extrabold leading-none opacity-[0.06]">{k + 1}</div>
             {'t' in w && <T p={`${b}.items.${k}.t`} as="h3" className="block text-xl font-semibold" />}
             {'d' in w && <T p={`${b}.items.${k}.d`} as="p" className="mt-3 block text-muted" />}
@@ -95,9 +95,9 @@ function Solution({ id, b, d }: P) {
       <Reveal><T p={`${b}.sub`} as="p" className="mt-4 block max-w-2xl text-lg text-muted" /></Reveal>
       <AnimatedGroup preset="scale" className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-5">
         {d.items.map((_: any, k: number) => (
-          <Li key={k} p={`${b}.items`} i={k} className="glass group overflow-hidden rounded-3xl p-6 text-center">
+          <Li key={k} p={`${b}.items`} i={k} className="clay clay-lift group overflow-hidden p-6 text-center">
             <Spotlight size={180} className="from-primary/40 via-primary/10 to-transparent" />
-            <M p={`${b}.items.${k}.icon`} accept="image/*" render={(url) => <img src={url} alt="" className="mx-auto h-16 w-16 object-contain transition group-hover:scale-110" />} />
+            <M p={`${b}.items.${k}.icon`} accept="image/*" render={(url) => <img src={url} alt="" className="mx-auto h-16 w-16 object-contain" />} />
             <T p={`${b}.items.${k}.name`} as="h3" className="mt-4 block text-lg font-semibold" />
             <T p={`${b}.items.${k}.line`} as="p" className="mt-1 block text-sm text-muted" />
           </Li>
@@ -123,7 +123,7 @@ function Journey({ id, b, d }: P) {
             <li key={k} className="relative">
               <ItemTools p={`${b}.steps`} i={k} />
               <div role="button" tabIndex={0} onClick={() => setI(k)} onMouseEnter={() => !edit && setI(k)} onKeyDown={(e) => e.key === 'Enter' && setI(k)}
-                className={`flex w-full cursor-pointer items-start gap-4 rounded-2xl p-3 text-left transition ${k === at ? 'glass' : 'opacity-60 hover:opacity-100'}`}>
+                className={`flex w-full cursor-pointer items-start gap-4 rounded-2xl p-3 text-left transition ${k === at ? 'clay-in' : 'opacity-55 hover:opacity-100'}`}>
                 <span className={`mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-bold ${k === at ? 'bg-primary text-white' : 'border border-line'}`}>{k + 1}</span>
                 <span>
                   <T p={`${b}.steps.${k}.t`} className="block font-display font-semibold" />
@@ -207,7 +207,7 @@ function Features({ id, b, d }: P) {
       <H2 b={b} />
       <AnimatedGroup preset="blur-slide" className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {d.items.map((_: any, k: number) => (
-          <Li key={k} p={`${b}.items`} i={k} className="glass group flex gap-4 overflow-hidden rounded-3xl p-5">
+          <Li key={k} p={`${b}.items`} i={k} className="clay clay-lift group flex gap-4 overflow-hidden p-5">
             <Spotlight size={220} className="from-primary/30 via-primary/5 to-transparent" />
             <div className="h-40 w-20 shrink-0 overflow-hidden rounded-xl border border-line">
               <M p={`${b}.items.${k}.img`} render={(url, raw) => raw.endsWith('.mp4')
@@ -243,7 +243,7 @@ function Tech({ id, b, d }: P) {
     <Section id={id} bg={<Blob className="left-1/3 top-1/4 h-[30rem] w-[30rem] opacity-15" seeds={[43, 8, 27]} />}>
       <Eb b={b} />
       <H2 b={b} />
-      <Reveal><div className="glass mt-10 rounded-3xl p-4 sm:p-8"><Arch labels={d.nodes} /></div></Reveal>
+      <Reveal><div className="clay mt-10 p-4 sm:p-8"><Arch labels={d.nodes} /></div></Reveal>
       <EditNodes b={b} n={d.nodes.length} />
       <AnimatedGroup preset="fade" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {d.items.map((_: any, k: number) => (
@@ -264,7 +264,7 @@ function EditNodes({ b, n }: { b: string; n: number }) {
   return (
     <div className="mt-4 grid gap-2 text-xs sm:grid-cols-4">
       <p className="text-muted sm:col-span-4">Diagram boxes:</p>
-      {Array.from({ length: n }, (_, k) => <div key={k} className="glass rounded-lg p-2"><T p={`${b}.nodes.${k}.t`} className="block font-semibold" /><T p={`${b}.nodes.${k}.s`} className="block text-muted" /></div>)}
+      {Array.from({ length: n }, (_, k) => <div key={k} className="clay p-2"><T p={`${b}.nodes.${k}.t`} className="block font-semibold" /><T p={`${b}.nodes.${k}.s`} className="block text-muted" /></div>)}
     </div>
   )
 }
@@ -276,7 +276,7 @@ function Model({ id, b, d }: P) {
       <H2 b={b} />
       <AnimatedGroup preset="slide" className="mt-12 grid gap-5 md:grid-cols-3">
         {d.items.map((_: any, k: number) => (
-          <Li key={k} p={`${b}.items`} i={k} className="glass overflow-hidden rounded-3xl p-7">
+          <Li key={k} p={`${b}.items`} i={k} className="clay overflow-hidden p-7">
             <div className="absolute -right-6 -top-6 font-display text-[8rem] font-extrabold leading-none opacity-5">{k + 1}</div>
             <div className="text-3xl font-bold"><T p={`${b}.items.${k}.v`} /></div>
             <T p={`${b}.items.${k}.t`} as="h3" className="mt-4 block text-xl font-semibold" />
@@ -290,7 +290,7 @@ function Model({ id, b, d }: P) {
           {d.flow.map((_: string, k: number) => (
             <span key={k} className="flex items-center gap-3">
               {k > 0 && '→'}
-              <Li p={`${b}.flow`} i={k}><T p={`${b}.flow.${k}`} className={`inline-block rounded-full px-4 py-2 ${k === d.flow.length - 1 ? 'bg-primary text-white' : 'glass'}`} /></Li>
+              <Li p={`${b}.flow`} i={k}><T p={`${b}.flow.${k}`} className={`inline-block rounded-full px-4 py-2 ${k === d.flow.length - 1 ? 'bg-primary text-white' : 'clay'}`} /></Li>
             </span>
           ))}
         </div>
@@ -310,7 +310,7 @@ function Market({ id, b, d }: P) {
         <div className="relative mx-auto w-full max-w-lg">
           <AfricaMap names={d.cities} />
           <T p={`${b}.mapCaption`} as="p" className="mt-2 block text-center text-xs text-muted" />
-          {edit && <div className="mt-3 flex flex-wrap gap-1 text-xs"><span className="text-muted">City labels:</span>{d.cities.map((_: string, k: number) => <T key={k} p={`${b}.cities.${k}`} className="glass rounded px-2" />)}</div>}
+          {edit && <div className="mt-3 flex flex-wrap gap-1 text-xs"><span className="text-muted">City labels:</span>{d.cities.map((_: string, k: number) => <T key={k} p={`${b}.cities.${k}`} className="clay rounded px-2" />)}</div>}
         </div>
         <div>
           <T p={`${b}.expansionTitle`} as="h3" className="mb-6 block text-xl font-semibold" />
@@ -327,7 +327,7 @@ function Market({ id, b, d }: P) {
           <div className="mb-8 mt-4 grid grid-cols-3 gap-3">
             {d.sizes.map((_: any, k: number) => (
               <motion.div key={k} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: k * 0.15 }}
-                className="glass rounded-2xl p-4" style={{ background: `color-mix(in srgb, var(--primary) ${8 + k * 10}%, var(--card))` }}>
+                className="clay p-4" style={{ background: `color-mix(in srgb, var(--primary) ${8 + k * 10}%, var(--card))` }}>
                 <T p={`${b}.sizes.${k}.k`} className="block font-display text-sm font-bold text-primary" />
                 <div className="mt-1 text-xl font-bold"><T p={`${b}.sizes.${k}.v`} /></div>
                 <T p={`${b}.sizes.${k}.d`} className="mt-1 block text-xs text-muted" />
@@ -352,7 +352,7 @@ function Traction({ id, b, d }: P) {
         {d.items.map((t: any, k: number) => {
           const n = Number(String(t.v).replace(/[^0-9.]/g, ''))
           return (
-            <Li key={k} p={`${b}.items`} i={k} className="glass rounded-3xl p-7">
+            <Li key={k} p={`${b}.items`} i={k} className="clay p-7">
               <div className="font-display text-4xl font-bold sm:text-5xl">
                 {edit ? <><T p={`${b}.items.${k}.v`} /><T p={`${b}.items.${k}.suffix`} className="text-2xl text-muted" /></>
                   : t.v === '' || Number.isNaN(n) ? <Ph>{t.v || '[__]'}</Ph>
@@ -379,7 +379,7 @@ function Competition({ id, b, d }: P) {
       <Eb b={b} />
       <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <Reveal>
-        <div className="glass mt-10 overflow-x-auto rounded-3xl">
+        <div className="clay mt-10 overflow-hidden">
           <table className="w-full min-w-[560px] text-left text-sm">
             <thead><tr><th className="p-4" />{d.competitors.map((_: string, k: number) => <th key={k} className={`p-4 font-display ${k === 0 ? 'text-primary' : ''}`}><T p={`${b}.competitors.${k}`} /></th>)}</tr></thead>
             <tbody>
@@ -409,7 +409,7 @@ function Roadmap({ id, b, d }: P) {
       <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <AnimatedGroup preset="blur-slide" className="mt-12 grid gap-5 md:grid-cols-3">
         {d.cols.map((col: any, k: number) => (
-          <Li key={k} p={`${b}.cols`} i={k} className={`rounded-3xl p-7 ${k === 0 ? 'bg-primary text-white' : 'glass'}`}>
+          <Li key={k} p={`${b}.cols`} i={k} className={`rounded-3xl p-7 ${k === 0 ? 'bg-primary text-white' : 'clay'}`}>
             <T p={`${b}.cols.${k}.q`} as="h3" className="block text-xl font-bold" />
             <ul className="mt-4 space-y-2">
               {col.items.map((_: string, j: number) => <li key={j} className="relative pr-20"><ItemTools p={`${b}.cols.${k}.items`} i={j} />• <T p={`${b}.cols.${k}.items.${j}`} /></li>)}
@@ -430,7 +430,7 @@ function Team({ id, b, d }: P) {
       <H2 b={b} className="text-4xl font-bold sm:text-5xl" />
       <AnimatedGroup preset="zoom" className="mt-12 grid gap-5 sm:grid-cols-3">
         {d.items.map((_: any, k: number) => (
-          <Li key={k} p={`${b}.items`} i={k} className="glass rounded-3xl p-7 text-center">
+          <Li key={k} p={`${b}.items`} i={k} className="clay p-7 text-center">
             <M optional p={`${b}.items.${k}.photo`} accept="image/*" render={(url, raw) => raw
               ? <img src={url} alt="" className="mx-auto mb-4 h-24 w-24 rounded-full object-cover" />
               : <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-primary to-accent" />} />

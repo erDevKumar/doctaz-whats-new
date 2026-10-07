@@ -414,27 +414,27 @@
     "items": [
      {
       "name": "Free consults",
-      "icon": "./roles/hospital.png",
+      "icon": "./icons/fac-free.png",
       "line": "Provider-to-patient calls inside NeuroGen are $0.000/min"
      },
      {
       "name": "Clinician dials",
-      "icon": "./roles/doctor.png",
+      "icon": "./icons/fac-dials.png",
       "line": "Inside a facility the clinician initiates, not the patient"
      },
      {
       "name": "One switch",
-      "icon": "./roles/patient.png",
+      "icon": "./icons/fac-switch.png",
       "line": "Patients move between Solo and NeuroGen from the drawer"
      },
      {
       "name": "Bring a colleague",
-      "icon": "./roles/aprn.png",
+      "icon": "./icons/fac-colleague.png",
       "line": "Add a second clinician or an outside guest mid-consult"
      },
      {
       "name": "Consent-gated chart",
-      "icon": "./roles/nurse.png",
+      "icon": "./icons/fac-consent.png",
       "line": "The patient allows access, and every view is logged"
      }
     ]
@@ -730,5 +730,5 @@
    ]
   }
  ],
- "savedAt": "2026-10-07T15:27:10Z"
+ "savedAt": "2026-10-07T15:32:09Z"
 }

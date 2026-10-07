@@ -40,6 +40,64 @@ html { scroll-behavior: smooth; }
 body { background: var(--background); color: var(--text); font-family: var(--fb, 'Lato'), sans-serif; overflow-x: hidden; transition: background .4s, color .4s; }
 h1,h2,h3 { font-family: var(--fd, 'Rubik'), sans-serif; letter-spacing: -0.02em; }
 .glass { background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); }
+
+/* Clay: a material, not a colour scheme.
+   Depth comes from a soft cast shadow plus a paired inner highlight and shade, so a surface
+   reads as moulded rather than drawn. Every value derives from --primary, because the brand
+   owns the palette (DoctazTokens.kt, #0D9488) — a warm-clay/terracotta accent is both off-brand
+   and one of the commonest tells of a generated page. */
+:root {
+  --clay-r: 26px;
+  --clay-face: color-mix(in srgb, var(--primary) 4%, #fff);
+  --clay-cast: 0 18px 36px -18px color-mix(in srgb, var(--primary) 42%, transparent),
+               0 2px 6px -2px color-mix(in srgb, var(--text) 10%, transparent);
+  --clay-lip:  inset 0 2px 0 color-mix(in srgb, #fff 85%, transparent),
+               inset 0 -2px 0 color-mix(in srgb, var(--primary) 14%, transparent);
+  --clay-edge: color-mix(in srgb, var(--primary) 14%, transparent);
+}
+.dark {
+  --clay-face: color-mix(in srgb, var(--primary) 10%, #0d1a24);
+  --clay-cast: 0 20px 40px -20px rgba(0,0,0,.72),
+               0 2px 6px -2px rgba(0,0,0,.4);
+  --clay-lip:  inset 0 1px 0 color-mix(in srgb, #fff 14%, transparent),
+               inset 0 -2px 0 rgba(0,0,0,.3);
+  --clay-edge: color-mix(in srgb, #fff 8%, transparent);
+}
+.clay {
+  background: var(--clay-face);
+  border: 1px solid var(--clay-edge);
+  border-radius: var(--clay-r);
+  box-shadow: var(--clay-cast), var(--clay-lip);
+}
+/* Pressed: the same material, pushed in. For the active step of a sequence. */
+.clay-in {
+  background: color-mix(in srgb, var(--primary) 8%, var(--clay-face));
+  border: 1px solid var(--clay-edge);
+  border-radius: var(--clay-r);
+  box-shadow: inset 0 2px 8px color-mix(in srgb, var(--primary) 20%, transparent),
+              inset 0 -1px 0 color-mix(in srgb, #fff 60%, transparent);
+}
+/* A raised brand-coloured pill: buttons, badges, numbered markers. */
+.clay-brand {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, #fff 16%, var(--primary)), var(--primary));
+  color: #fff;
+  border-radius: 999px;
+  box-shadow: 0 10px 20px -10px color-mix(in srgb, var(--primary) 70%, transparent),
+              inset 0 1px 0 color-mix(in srgb, #fff 45%, transparent),
+              inset 0 -2px 0 color-mix(in srgb, var(--text) 18%, transparent);
+}
+/* Phone bezel, so screenshots sit in the same material as everything else. */
+.clay-phone {
+  border-radius: 34px;
+  background: var(--clay-face);
+  border: 1px solid var(--clay-edge);
+  box-shadow: var(--clay-cast), inset 0 1px 0 color-mix(in srgb, #fff 70%, transparent);
+}
+/* Motion is one orchestrated moment per slide, so transitions are opt-in, not ambient.
+   A hover transition on every card is itself a generated-page tell. */
+.clay-lift { transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s; }
+.clay-lift:hover { transform: translateY(-3px); box-shadow: var(--clay-cast), var(--clay-lip), 0 28px 50px -24px color-mix(in srgb, var(--primary) 46%, transparent); }
 .grad { background: linear-gradient(120deg, var(--primary), var(--accent) 50%, #7ee0c3); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .ph { font-family: var(--font-display); padding: 0 .35em; border-radius: .35em; border: 1px dashed var(--primary); color: var(--primary); background: color-mix(in srgb, var(--primary) 10%, transparent); }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation: none !important; transition: none !important; } }
