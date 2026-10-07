@@ -344,6 +344,256 @@
    }
   },
   {
+   "id": "photo",
+   "type": "journey",
+   "label": "A photo, reviewed",
+   "data": {
+    "eyebrow": "Between appointments",
+    "title": "A wound photo, redacted and reviewed — without a trip back.",
+    "steps": [
+     {
+      "t": "Share from anywhere",
+      "d": "The patient sends a photo straight into Doctaz from the phone's own share sheet.",
+      "a": "neurogen/img-01-sharesheet.png"
+     },
+     {
+      "t": "Pick the clinician",
+      "d": "It goes to their NeuroGen clinician, not an inbox nobody owns.",
+      "a": "neurogen/img-02-compose.png"
+     },
+     {
+      "t": "Edit before it is sent",
+      "d": "Crop, draw, add text — or blur.",
+      "a": "neurogen/img-03-editor.png"
+     },
+     {
+      "t": "Redact what should not travel",
+      "d": "The blur tool removes identifying detail before the image leaves the phone.",
+      "a": "neurogen/img-05-blurred.png"
+     },
+     {
+      "t": "Add the clinical note",
+      "d": "A caption carries what the photo cannot.",
+      "a": "neurogen/img-06-caption.png"
+     },
+     {
+      "t": "The clinician has it",
+      "d": "Delivered with the redaction baked in and the note attached.",
+      "a": "neurogen/img-07-received.png"
+     }
+    ]
+   }
+  },
+  {
+   "id": "thread",
+   "type": "textMedia",
+   "label": "The record",
+   "data": {
+    "eyebrow": "Continuity",
+    "title": "The thread is the record.",
+    "sub": "The same site at day 0, day 10 and day 28, each under its own date, in one place the clinician can scroll. No new channel, no email attachments, nothing to reconcile afterwards.",
+    "points": [
+     "Photos, notes, voice notes and PDFs in one conversation",
+     "Up to 25 MB per attachment, fetched with the patient's own credentials",
+     "Dated automatically — the history is a by-product of using it",
+     "Rendered here from the real thread component with a seeded series"
+    ],
+    "media": "neurogen/thread-04-healing-series.png",
+    "flip": "yes",
+    "links": []
+   }
+  },
+  {
+   "id": "facility",
+   "type": "solution",
+   "label": "What a facility gets",
+   "data": {
+    "eyebrow": "Inside NeuroGen",
+    "title": "What changes once NeuroGen is the environment.",
+    "sub": "The same two accounts behave differently inside a facility than they do alone.",
+    "items": [
+     {
+      "name": "Free consults",
+      "icon": "./roles/hospital.png",
+      "line": "Provider-to-patient calls inside NeuroGen are $0.000/min"
+     },
+     {
+      "name": "Clinician dials",
+      "icon": "./roles/doctor.png",
+      "line": "Inside a facility the clinician initiates, not the patient"
+     },
+     {
+      "name": "One switch",
+      "icon": "./roles/patient.png",
+      "line": "Patients move between Solo and NeuroGen from the drawer"
+     },
+     {
+      "name": "Bring a colleague",
+      "icon": "./roles/aprn.png",
+      "line": "Add a second clinician or an outside guest mid-consult"
+     },
+     {
+      "name": "Consent-gated chart",
+      "icon": "./roles/nurse.png",
+      "line": "The patient allows access, and every view is logged"
+     }
+    ]
+   }
+  },
+  {
+   "id": "aboardweb",
+   "type": "features",
+   "label": "Coming aboard",
+   "data": {
+    "eyebrow": "Onboarding",
+    "title": "NeuroGen is set up in one flow.",
+    "items": [
+     {
+      "t": "Map the building",
+      "d": "Buildings, floors, rooms and beds — the facility as it actually is.",
+      "img": "neurogen/web-04-carespace.png"
+     },
+     {
+      "t": "Declare the staffing",
+      "d": "How many of each kind of provider, and their specialties.",
+      "img": "neurogen/web-05-staffing.png"
+     },
+     {
+      "t": "Pick a plan",
+      "d": "Priced per country, starting with a free trial.",
+      "img": "neurogen/web-07-subscription.png"
+     },
+     {
+      "t": "Name a representative",
+      "d": "One accountable contact for the facility on Doctaz.",
+      "img": "neurogen/web-06-representative.png"
+     }
+    ],
+    "strip": [
+     "neurogen/web-01-register.png",
+     "neurogen/web-02-account.png",
+     "neurogen/web-03-location.png",
+     "neurogen/web-04-carespace.png",
+     "neurogen/web-05-staffing.png",
+     "neurogen/web-06-representative.png",
+     "neurogen/web-07-subscription.png",
+     "neurogen/fac-02-env-picker.png",
+     "neurogen/fac-03-addperson.png",
+     "neurogen/fac-01-drawer.png"
+    ]
+   }
+  },
+  {
+   "id": "compare",
+   "type": "competition",
+   "label": "Before and after",
+   "data": {
+    "eyebrow": "The difference",
+    "title": "The same international patient, before and after.",
+    "competitors": [
+     "Today",
+     "With Doctaz"
+    ],
+    "rows": [
+     {
+      "r": "Patient can reach NeuroGen from abroad",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "Appointment visible to both sides",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "Times shown in the patient's own zone",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "Consult without a flight",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "Condition photos reviewed between visits",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "Redaction before an image is sent",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "One dated record of the relationship",
+      "v": [
+       "no",
+       "yes"
+      ]
+     },
+     {
+      "r": "Coordination handled by reception",
+      "v": [
+       "yes",
+       "no"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "state",
+   "type": "roadmap",
+   "label": "Where it stands",
+   "data": {
+    "eyebrow": "Honest status",
+    "title": "What is live, what is configuration, what is next.",
+    "cols": [
+     {
+      "q": "Live today",
+      "items": [
+       "Find Care and scheduling",
+       "Free consults inside a facility",
+       "Photo sharing with redaction",
+       "Conference up to 4",
+       "eHospital Book on the web"
+      ]
+     },
+     {
+      "q": "Configuration for NeuroGen",
+      "items": [
+       "Facility created and approved",
+       "Clinicians added and approved",
+       "Appointments facility-covered",
+       "Patients connected to their clinician"
+      ]
+     },
+     {
+      "q": "Being built",
+      "items": [
+       "Chart access inside the call",
+       "A facility page in the app",
+       "A richer provider profile"
+      ]
+     }
+    ],
+    "note": "Nothing in the first column is a promise — every item was captured on two phones for this deck."
+   }
+  },
+  {
    "id": "close",
    "type": "statement",
    "label": "Closing",
@@ -480,5 +730,5 @@
    ]
   }
  ],
- "savedAt": "2026-10-07T02:23:43Z"
+ "savedAt": "2026-10-07T15:27:10Z"
 }
