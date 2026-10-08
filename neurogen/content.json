@@ -404,6 +404,37 @@
    }
   },
   {
+   "id": "records",
+   "type": "journey",
+   "label": "Records, mid-consult",
+   "data": {
+    "eyebrow": "Inside the consult",
+    "title": "The clinician asks for the chart. The patient decides, on their own phone.",
+    "steps": [
+     {
+      "t": "NeuroGen clinician dials",
+      "d": "Inside the facility the clinician initiates, and the call is free.",
+      "a": "neurogen/rec-02-patient-ring.png"
+     },
+     {
+      "t": "One tap for records",
+      "d": "Mid-call, the Records control sits beside the video.",
+      "a": "neurogen/rec-01-clinician-records-button.png"
+     },
+     {
+      "t": "The request goes out",
+      "d": "Nothing leaves until the patient answers; the button waits.",
+      "a": "neurogen/rec-03-clinician-requested.png"
+     },
+     {
+      "t": "Consent on the patient's phone",
+      "d": "Allow or decline — the call continues either way, and every grant is logged.",
+      "a": "neurogen/rec-04-patient-consent-sheet.png"
+     }
+    ]
+   }
+  },
+  {
    "id": "facility",
    "type": "solution",
    "label": "What a facility gets",
